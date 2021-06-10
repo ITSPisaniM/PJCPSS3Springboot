@@ -4,12 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-@Builder
-@Data
-@AllArgsConstructor
+//@Builder
+//@Data
+//@AllArgsConstructor
 public class UtentiDto {
 
-	private Integer UserID;
-	private String Username;
-	private String Password;
+	public Integer UserID;
+	public String Username;
+	public String Password;
 }
