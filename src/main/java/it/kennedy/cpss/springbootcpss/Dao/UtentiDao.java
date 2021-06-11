@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-@Table (name = "TUsers")
+@Table (name = "tusers")
 @Entity
 @Data
 public class UtentiDao {
@@ -19,10 +19,10 @@ public class UtentiDao {
 	@Column (name = "UserID")
 	private int UserID;
 	
-	@Column (name = "Username")
+	@Column (name = "username")
 	private String Username;
 	
-	@Column (name = "Password")
+	@Column (name = "password")
 	private String Password;
 	
 }

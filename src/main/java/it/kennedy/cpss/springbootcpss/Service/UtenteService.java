@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import javax.xml.crypto.Data;
+import java.util.ArrayList;
 import java.util.Date;
 
 @Service
@@ -39,6 +40,7 @@ public class UtenteService implements IUtenteService {
         dto.Username = dao.getUsername();
         dto.UserID = dao.getUserID();
 
+        res.data = new ArrayList<>();
         res.data.add(dto);
         res.date = new Date();
         res.success = true;
