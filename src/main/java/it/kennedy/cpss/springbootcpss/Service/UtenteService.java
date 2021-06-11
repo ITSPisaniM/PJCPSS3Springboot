@@ -9,13 +9,15 @@ import it.kennedy.cpss.springbootcpss.Repository.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import javax.xml.crypto.Data;
 import java.util.Date;
 
 @Service
+@Transactional
 public class UtenteService implements IUtenteService {
     @Autowired
-    private UtenteRepository utenteRepository;
+    UtenteRepository utenteRepository;
 
     @Override
     public SOBase<UtentiDto> GetUtente(SIUserInput userInput) {
