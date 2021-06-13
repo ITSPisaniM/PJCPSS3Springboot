@@ -16,12 +16,12 @@ public class JwtProvider {
     @Value("${security.prefix}")
     private String prefix;
 
-    public String createJwt() {
+    public String createJwt(String username) {
         return JWT.create()
                 .withSubject("subject")
                 .withIssuer("issuer")
                 .withIssuedAt(DateTime.now().toDate())
-                .withClaim("someClaim", "someClaimDesc")
+                .withClaim("user", username)
                 .withExpiresAt(DateTime.now().plusMonths(1).toDate())
                 .sign(Algorithm.HMAC256(secret));
     }
