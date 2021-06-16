@@ -31,6 +31,7 @@ public class OrdiniController {
 	
 	// --------------------------- GET ALL PAGINATION ORDINI
 	//@SuppressWarnings("unused")
+	@SuppressWarnings("unused")
 	@GetMapping(produces = "application/json", path = "/page/{pagina}/{elPerPage}")
 	public SOBase<List<OrdiniDto>> getAllOrdini(@PathVariable int pagina, @PathVariable int elPerPage) {
 		SOBase<List<OrdiniDto>> response = new SOBase<>();
@@ -43,7 +44,7 @@ public class OrdiniController {
 			elPerPage = 10;
 		}
 
-		listDto = ordiniService.getAll(pagina, elPerPage);
+		listDto = ordiniService.getAllPagination(pagina, elPerPage);
 
 		response.setData(listDto);
 		response.setDate(new Date());
@@ -55,7 +56,22 @@ public class OrdiniController {
 	}
 		
 	
-	
+	// --------------------------- GET ALL ORDINI
+		@GetMapping(produces = "application/json", path = "/list")
+		public SOBase<List<OrdiniDto>> list() {
+			
+			List<OrdiniDto> listDto = ordiniService.getAll();
+			SOBase<List<OrdiniDto>> response = new SOBase<List<OrdiniDto>>();
+
+			listDto = ordiniService.getAll();
+
+			response.setData(listDto);
+			response.setDate(new Date());
+			response.setErrors(new Errors());
+			response.setSuccess(HttpStatus.OK.value());
+
+			return response;
+		}
 	
 	
 			

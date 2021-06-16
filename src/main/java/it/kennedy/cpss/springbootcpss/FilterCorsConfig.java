@@ -24,7 +24,7 @@ public class FilterCorsConfig implements WebMvcConfigurer {
 						.allowedHeaders("*")
 						.exposedHeaders("header1", "header2")
 						.allowCredentials(false)
-						.maxAge(3600);
+						.maxAge(3600); //3600 secondi --> 1h
 			}
 		};
 	}

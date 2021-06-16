@@ -24,7 +24,7 @@ public class OrdiniService implements IOrdiniService{
 	
 	//GET ALL PAGINATION ORDINI
 	@Override
-	public List<OrdiniDto> getAll(int pagina, int elPerPage) {
+	public List<OrdiniDto> getAllPagination(int pagina, int elPerPage) {
 		List<OrdiniDto> listDto = new ArrayList<OrdiniDto>();
 		PageRequest pageable = PageRequest.of(pagina, elPerPage);
 		for (OrdiniDao dao : ordiniRepository.findAll(pageable)) {
@@ -36,71 +36,89 @@ public class OrdiniService implements IOrdiniService{
 	}
 	
 	
+	@Override
+	public List<OrdiniDto> getAll() {
+		List<OrdiniDao> listaDao = ordiniRepository.findAll();
+		List<OrdiniDto> listaDto = new ArrayList<OrdiniDto>();
+		for (OrdiniDao dao : listaDao) {
+			OrdiniDto dto = new OrdiniDto();
+			daoToDto(dao, dto);
+			listaDto.add(dto);
+		}
+		return listaDto;
+	}
+	
+	
 	// GET BY ID SERVICE
 	@Override
 	public OrdiniDto getById(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	//--------------------------------------------------------------------------------------------------------------------------------
+	// METHODS
+	
 	//DAO TO DTO METHOD
 	private void daoToDto(OrdiniDao dao, OrdiniDto dto) {
 
-		dto.setCompanyLegalName(dao.getCompanyLegalName());
-		dto.setEarliestShipDate(dao.getEarliestShipDate());
-		dto.setFulfillmentChannel(dao.getFulfillmentChannel());
-		dto.setIsBusinessOrder(dao.isIsBusinessOrder());
-		dto.setIsGlobalExpressEnabled(dao.isIsGlobalExpressEnabled());
-		dto.setIsPremiumOrder(dao.isIsPremiumOrder());
-		dto.setIsPrime(dao.isIsPrime());
-		dto.setIsSoldByAB(dao.isIsSoldByAB());
-		dto.setLastUpdateDate(dao.getLastUpdateDate());
-		dto.setLatestShipDate(dao.getLatestShipDate());
-		dto.setMarketplaceId(dao.getMarketplaceId());
-		dto.setNumberOfItemsShipped(dao.getNumberOfItemsShipped());
-		dto.setNumberOfItemsUnshipped(dao.getNumberOfItemsUnshipped());
-		dto.setOrderStatus(dao.getOrderStatus());
-		dto.setOrderType(dao.getOrderType());
-		dto.setPaymentMethod(dao.getPaymentMethod());
-		dto.setPaymentMethodDetails(dao.getPaymentMethodDetails());
-		dto.setPurchaseDate(dao.getPurchaseDate());
-		dto.setPurchaseOrderNumber(dao.getPurchaseOrderNumber());
-		dto.setShipmentServiceLevelCategory(dao.getShipmentServiceLevelCategory());
-		dto.setShippingAddressCity(dao.getShippingAddressCity());
-		dto.setShippingAddressLine1(dao.getShippingAddressLine1());
-		dto.setShippingAddressName(dao.getShippingAddressName());
-		dto.setShippingCityStateOrRegion(dao.getShippingCityStateOrRegion());
-		dto.setShippingStateOrRegionPostalCode(dao.getShippingStateOrRegionPostalCode());
+		dto.setCompanylegalname(dao.getCompanylegalname());
+		dto.setEarliestshipdate(dao.getEarliestshipdate());
+		dto.setFulfillmentchannel(dao.getFulfillmentchannel());
+		dto.setIsbusinessorder(dao.isIsbusinessorder());
+		dto.setIsglobalexpressenabled(dao.isIsglobalexpressenabled());
+		dto.setIspremiumorder(dao.isIspremiumorder());
+		dto.setIsprime(dao.isIsprime());
+		dto.setIssoldbyab(dao.isIssoldbyab());
+		dto.setLastupdatedate(dao.getLastupdatedate());
+		dto.setLatestshipdate(dao.getEarliestshipdate());
+		dto.setMarketplaceid(dao.getMarketplaceid());
+		dto.setNumberofitemsshipped(dao.getNumberofitemsshipped());
+		dto.setNumberofitemsunshipped(dao.getNumberofitemsshipped());
+		dto.setOrderstatus(dao.getOrderstatus());
+		dto.setOrdertype(dao.getOrderstatus());
+		dto.setPaymentmethod(dao.getPaymentmethod());
+		dto.setPaymentmethoddetails(dao.getPaymentmethod());
+		dto.setPurchasedate(dao.getPurchasedate());
+		dto.setPurchaseordernumber(dao.getPurchaseordernumber());
+		dto.setShipmentservicelevelcategory(dao.getShipmentservicelevelcategory());
+		dto.setShippingaddresscity(dao.getShippingaddresscity());
+		dto.setShippingaddressline1(dao.getShippingaddresscity());
+		dto.setShippingaddressname(dao.getShippingaddresscity());
+		dto.setShippingcitystateorregion(dao.getShippingcitystateorregion());
+		dto.setShippingstateorregionpostalcode(dao.getShippingstateorregionpostalcode());
 	}
 	
+	//DTO TO DAO METHOD
 	@SuppressWarnings("unused")
 	private void dtoToDao(OrdiniDto dto, OrdiniDao dao) {
 
-		dao.setCompanyLegalName(dto.getCompanyLegalName());
-		dao.setEarliestShipDate(dto.getEarliestShipDate());
-		dao.setFulfillmentChannel(dto.getFulfillmentChannel());
-		dao.setIsBusinessOrder(dto.getIsBusinessOrder());
-		dao.setIsGlobalExpressEnabled(dto.getIsGlobalExpressEnabled());
-		dao.setIsPremiumOrder(dto.getIsPremiumOrder());
-		dao.setIsPrime(dto.getIsPrime());
-		dao.setIsSoldByAB(dto.getIsSoldByAB());
-		dao.setLastUpdateDate(dto.getLastUpdateDate());
-		dao.setLatestShipDate(dto.getLatestShipDate());
-		dao.setMarketplaceId(dto.getMarketplaceId());
-		dao.setNumberOfItemsShipped(dto.getNumberOfItemsShipped());
-		dao.setNumberOfItemsUnshipped(dto.getNumberOfItemsUnshipped());
-		dao.setOrderStatus(dto.getOrderStatus());
-		dao.setOrderType(dto.getOrderType());
-		dao.setPaymentMethod(dto.getPaymentMethod());
-		dao.setPaymentMethodDetails(dto.getPaymentMethodDetails());
-		dao.setPurchaseDate(dto.getPurchaseDate());
-		dao.setPurchaseOrderNumber(dto.getPurchaseOrderNumber());
-		dao.setShipmentServiceLevelCategory(dto.getShipmentServiceLevelCategory());
-		dao.setShippingAddressCity(dto.getShippingAddressCity());
-		dao.setShippingAddressLine1(dto.getShippingAddressLine1());
-		dao.setShippingAddressName(dto.getShippingAddressName());
-		dao.setShippingCityStateOrRegion(dto.getShippingCityStateOrRegion());
-		dao.setShippingStateOrRegionPostalCode(dto.getShippingStateOrRegionPostalCode());
+		dao.setCompanylegalname(dto.getCompanylegalname());
+		dao.setEarliestshipdate(dto.getEarliestshipdate());
+		dao.setFulfillmentchannel(dto.getFulfillmentchannel());
+		dao.setIsbusinessorder(dto.getIsbusinessorder());
+		dao.setIsglobalexpressenabled(dto.getIsglobalexpressenabled());
+		dao.setIspremiumorder(dto.getIspremiumorder());
+		dao.setIsprime(dto.getIsprime());
+		dao.setIssoldbyab(dto.getIssoldbyab());
+		dao.setLastupdatedate(dto.getLastupdatedate());
+		dao.setEarliestshipdate(dto.getLatestshipdate());
+		dao.setMarketplaceid(dto.getMarketplaceid());
+		dao.setNumberofitemsshipped(dto.getNumberofitemsshipped());
+		dao.setNumberofitemsunshipped(dto.getNumberofitemsunshipped());
+		dao.setOrderstatus(dto.getOrderstatus());
+		dao.setOrdertype(dto.getOrdertype());
+		dao.setPaymentmethod(dto.getPaymentmethod());
+		dao.setPaymentmethoddetails(dto.getPaymentmethoddetails());
+		dao.setPurchasedate(dto.getPurchasedate());
+		dao.setPurchaseordernumber(dto.getPurchaseordernumber());
+		dao.setShipmentservicelevelcategory(dto.getShipmentservicelevelcategory());
+		dao.setShippingaddresscity(dto.getShippingaddresscity());
+		dao.setShippingaddressline1(dto.getShippingaddressline1());
+		dao.setShippingaddressname(dto.getShippingaddressname());
+		dao.setShippingcitystateorregion(dto.getShippingcitystateorregion());
+		dao.setShippingstateorregionpostalcode(dto.getShippingstateorregionpostalcode());
 	}
+
 
 }

@@ -15,88 +15,88 @@ import lombok.Data;
 public class OrdiniDao {
 	
 	@Id
-	@Column(name = "AmazonOrderId")
-	private int AmazonOrderId;
+	@Column(name = "amazonorderid")
+	private int amazonorderid;
 
-	@Column(name = "BuyerEmail")
-	private String BuyerEmail;
+	@Column(name = "buyeremail")
+	private String buyeremail;
 
-	@Column(name = "BuyerName")
-	private String BuyerName;
+	@Column(name = "buyername")
+	private String buyername;
 
-	@Column(name = "CompanyLegalName")
-	private String CompanyLegalName;
+	@Column(name = "companylegalname")
+	private String companylegalname;
 
-	@Column(name = "EarliestShipDate")
-	private Date EarliestShipDate;
+	@Column(name = "earliestshipdate")
+	private Date earliestshipdate;
 
-	@Column(name = "FulfillmentChannel")
-	private int FulfillmentChannel;
+	@Column(name = "fulfillmentchannel")
+	private int fulfillmentchannel;
 
-	@Column(name = "IsBusinessOrder")
-	private boolean IsBusinessOrder;
+	@Column(name = "isbusinessorder")
+	private boolean isbusinessorder;
 
-	@Column(name = "IsGlobalExpressEnabled")
-	private boolean IsGlobalExpressEnabled;
+	@Column(name = "isglobalexpressenabled")
+	private boolean isglobalexpressenabled;
 
-	@Column(name = "IsPremiumOrder")
-	private boolean IsPremiumOrder;
+	@Column(name = "ispremiumorder")
+	private boolean ispremiumorder;
 
-	@Column(name = "IsPrime")
-	private boolean IsPrime;
+	@Column(name = "isprime")
+	private boolean isprime;
 
-	@Column(name = "IsSoldByAB")
-	private boolean IsSoldByAB;
+	@Column(name = "issoldbyab")
+	private boolean issoldbyab;
 
-	@Column(name = "LastUpdateDate")
-	private Date LastUpdateDate;
+	@Column(name = "lastupdatedate")
+	private Date lastupdatedate;
 	
-	@Column(name = "LatestShipDate")
-	private Date LatestShipDate;
+	@Column(name = "latestshipdate")
+	private Date latestshipdate;
 	
-	@Column(name = "MarketplaceId")
-	private String MarketplaceId;
+	@Column(name = "marketplaceid")
+	private String marketplaceid;
 	
-	@Column(name = "NumberOfItemsShipped")
-	private int NumberOfItemsShipped;
+	@Column(name = "numberofitemsshipped")
+	private int numberofitemsshipped;
 	
-	@Column(name = "NumberOfItemsUnshipped")
-	private int NumberOfItemsUnshipped;
+	@Column(name = "numberofitemsunshipped")
+	private int numberofitemsunshipped;
 	
-	@Column(name = "OrderStatus")
-	private String OrderStatus;
+	@Column(name = "orderstatus")
+	private String orderstatus;
 	
-	@Column(name = "OrderType")
-	private String OrderType;
+	@Column(name = "ordertype")
+	private String ordertype;
 	
-	@Column(name = "PaymentMethod")
-	private String PaymentMethod;
+	@Column(name = "paymentmethod")
+	private String paymentmethod;
 	
-	@Column(name = "PaymentMethodDetails")
-	private String PaymentMethodDetails;
-	//rrrrr
-	@Column(name = "PurchaseDate")
-	private Date PurchaseDate;
+	@Column(name = "paymentmethoddetails")
+	private String paymentmethoddetails;
 	
-	@Column(name = "PurchaseOrderNumber")
-	private int PurchaseOrderNumber;
+	@Column(name = "purchasedate")
+	private Date purchasedate;
 	
-	@Column(name = "ShipmentServiceLevelCategory")
-	private int ShipmentServiceLevelCategory;
+	@Column(name = "purchaseordernumber")
+	private int purchaseordernumber;
 	
-	@Column(name = "ShippingAddressCity")
-	private String ShippingAddressCity;
+	@Column(name = "shipmentservicelevelcategory")
+	private int shipmentservicelevelcategory;
 	
-	@Column(name = "ShippingAddressLine1")
-	private String ShippingAddressLine1;
+	@Column(name = "shippingaddresscity")
+	private String shippingaddresscity;
 	
-	@Column(name = "ShippingAddressName")
-	private String ShippingAddressName;
+	@Column(name = "shippingaddressline1")
+	private String shippingaddressline1;
 	
-	@Column(name = "ShippingCityStateOrRegion")
-	private String ShippingCityStateOrRegion;
+	@Column(name = "shippingaddressname")
+	private String shippingaddressname;
 	
-	@Column(name = "ShippingStateOrRegionPostalCode")
-	private String ShippingStateOrRegionPostalCode;
+	@Column(name = "shippingcitystateorregion")
+	private String shippingcitystateorregion;
+	
+	@Column(name = "shippingstateorregionpostalcode")
+	private String shippingstateorregionpostalcode;
 
 }

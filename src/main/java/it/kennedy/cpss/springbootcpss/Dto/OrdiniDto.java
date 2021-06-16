@@ -13,30 +13,30 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OrdiniDto {
 
-	public String CompanyLegalName;
-	public Date EarliestShipDate;
-	public Integer FulfillmentChannel;
-	public Boolean IsBusinessOrder;
-	public Boolean IsGlobalExpressEnabled;
-	public Boolean IsPremiumOrder;
-	public Boolean IsPrime;
-	public Boolean IsSoldByAB;
-	public Date LastUpdateDate;
-	public Date LatestShipDate;
-	public String MarketplaceId;
-	public Integer NumberOfItemsShipped;
-	public Integer NumberOfItemsUnshipped;
-	public String OrderStatus;
-	public String OrderType;
-	public String PaymentMethod;
-	public String PaymentMethodDetails;
-	public Date PurchaseDate;
-	public Integer PurchaseOrderNumber;
-	public Integer ShipmentServiceLevelCategory;
-	public String ShippingAddressCity;
-	public String ShippingAddressLine1;
-	public String ShippingAddressName;
-	public String ShippingCityStateOrRegion;
-	public String ShippingStateOrRegionPostalCode;
+	public String companylegalname;
+	public Date earliestshipdate;
+	public Integer fulfillmentchannel;
+	public Boolean isbusinessorder;
+	public Boolean isglobalexpressenabled;
+	public Boolean ispremiumorder;
+	public Boolean isprime;
+	public Boolean issoldbyab;
+	public Date lastupdatedate;
+	public Date latestshipdate;
+	public String marketplaceid;
+	public Integer numberofitemsshipped;
+	public Integer numberofitemsunshipped;
+	public String orderstatus;
+	public String ordertype;
+	public String paymentmethod;
+	public String paymentmethoddetails;
+	public Date purchasedate;
+	public Integer purchaseordernumber;
+	public Integer shipmentservicelevelcategory;
+	public String shippingaddresscity;
+	public String shippingaddressline1;
+	public String shippingaddressname;
+	public String shippingcitystateorregion;
+	public String shippingstateorregionpostalcode;
 	
 }
