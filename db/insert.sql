@@ -1,3 +1,4 @@
+
 /*items*/
 insert into "titems" ("asin", "titolo", "categoria", "prezzo", "giacenza", "brand")
 values ('b07d9sb7XW', 'minecraft', 'gioco', 25.9, 300, 'mojang'),
