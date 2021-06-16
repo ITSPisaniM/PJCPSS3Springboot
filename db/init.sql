@@ -1,134 +1,136 @@
 /***********************************************************************************************************************
-                                                                    TABLE
+                                                                    tabLe
 ***********************************************************************************************************************/
 
 
--- Create a new database called 'gestioneordini;'
-CREATE DATABASE gestioneordini;
+-- create a new database called 'gestioneordini;'
+cReate database gestioneordini;
 \connect gestioneordini;
 
 /*items*/
-create table "TItems"
+create table "titems"
 (
-	"ItemID" serial not null
+	"itemid" serial not null
 		constraint titems_pk
 			primary key,
-	"ASIN" varchar,
-	"Titolo" varchar,
-	"Categoria" varchar,
-	"Prezzo" decimal,
-	"Giacenza" int,
-	"Brand" varchar
+	"asin" varchar,
+	"titolo" varchar,
+	"categoria" varchar,
+	"prezzo" decimal,
+	"giacenza" int,
+	"brand" varchar
 );
 
 /*fornitori*/
-create table "TFornitori"
+create table "tfornitori"
 (
-	"FornitoreID" serial not null
+	"fornitoreid" serial not null
 		constraint tfornitori_pk
 			primary key,
-	"Nome" varchar not null
+	"nome" varchar not null
 );
 
 
 
 /*users*/
-create table "TUsers"
+create table "tusers"
 (
-	"UserID" serial not null
+	"userid" serial not null
 		constraint tusers_pk
 			primary key,
-	"Username" varchar not null,
-	"Password" varchar not null
+	"username" varchar not null,
+	"password" varchar not null
 );
 
-/*Articoli Ordinati*/
-create table "TArticoliOrdinati"
+/*articoli ordinati*/
+create table "tarticoliordinati"
 (
-	"ArticoloOrdinatoID" serial not null
+	"articoloordinatoid" serial not null
 		constraint tarticoliscquistati_pk
 			primary key,
-	"ASIN" varchar,
-	"AmazonOrderId" int,
-"ItemPriceAmount" decimal,
-"ItemPriceCurrencyCode" decimal,
-"OrderItemId" int,
-"PointsGrantedPointsMonetaryValueAmount" decimal,
-"PointsGrantedPointsMonetaryValueCurrencyCode" decimal,
-"PointsGrantedPointsNumber" decimal,
-"PromotionIds" int,
-"QuantityOrdered" int,
-"QuantityShipped" int,
-"ShippingPriceAmount" decimal,
-"ShippingPriceCurrencyCode" decimal,
-"Title" varchar
+	"asin" varchar,
+	"amazonorderid" int,
+"itempriceamount" decimal,
+"itempricecurrencycode" decimal,
+"orderitemid" int,
+"pointsgrantedpointsMonetaryValueamount" decimal,
+"pointsgrantedpointsMonetaryValuecurrencycode" decimal,
+"pointsgrantedpointsnumber" decimal,
+"promotionids" int,
+"quantityordered" int,
+"quantityshipped" int,
+"shippingpriceamount" decimal,
+"shippingpricecurrencycode" decimal,
+"title" varchar
 );
 
-/*Acquisti*/
-create table "TAcquisti"
+/*acquisti*/
+create table "tacquisti"
 (
-    "AcquistoID"       serial not null
+    "acquistoid"       serial not null
         constraint tacquisti_pk
             primary key,
-    "FornitoreID"      integer,
-    "DataFattura"      date,
-    "NumeroFattura"    integer,
-    "CaricoEffettuato" integer
+    "fornitoreid"      integer,
+    "datafattura"      date,
+    "numerofattura"    integer,
+    "caricoeffettuato" integer
 );
 
-/*Articoli Acquistati*/
-create table "TArticoliAcquistati"
+/*articoli acquistati*/
+create table "tarticoliacquistati"
 (
-    "ArticoloAcquistoID"     serial not null
+    "articoloacquistoid"     serial not null
         constraint tsrticoliscquistati_pk
             primary key,
-    "AcquistoID"             integer,
-    "ITemID"                 integer,
-    "QuantitaAcquistata"     integer,
-    "PrezzoUnitarioAcquisto" decimal
+    "acquistoid"             integer,
+    "itemid"                 integer,
+    "quantitaacquistata"     integer,
+    "prezzounitarioacquisto" decimal
 );
 /*ordini*/
-create table "TOrders"
+create table "torders"
 (
-    "AmazonOrderId"                   serial not null
+    "amazonorderid"                   serial not null
         constraint torders_pk
             primary key,
-    "BuyerEmail"                      varchar,
-    "BuyerName"                       varchar,
-    "CompanyLegalName"                varchar,
-    "EarliestShipDate"                date,
-    "FulfillmentChannel"              integer,
-    "IsBusinessOrder"                 boolean,
-    "IsGlobalExpressEnabled"          boolean,
-    "IsPremiumOrder"                  boolean,
-    "IsPrime"                         boolean,
-    "IsSoldByAB"                      boolean,
-    "LastUpdateDate"                  date,
-    "LatestShipDate"                  date,
-    "MarketplaceId"                   varchar,
-    "NumberOfItemsShipped"            integer,
-    "NumberOfItemsUnshipped"          integer,
-    "OrderStatus"                     varchar,
-    "OrderType"                       varchar,
-    "PaymentMethod"                   varchar,
-    "PaymentMethodDetails"            varchar,
-    "PurchaseDate"                    date,
-    "PurchaseOrderNumber"             integer,
-    "ShipmentServiceLevelCategory"    integer,
-    "ShippingAddressCity"             varchar,
-    "ShippingAddressLine1"            varchar,
-    "ShippingAddressName"             varchar,
-    "ShippingCityStateOrRegion"       varchar,
-    "ShippingStateOrRegionPostalCode" varchar
+    "buyeremail"                      varchar,
+    "buyername"                       varchar,
+    "companyLegalname"                varchar,
+    "earliestshipdate"                date,
+    "fulfillmentchannel"              integer,
+    "isbusinessorder"                 boolean,
+    "isglobalexpressenabled"          boolean,
+    "ispremiumorder"                  boolean,
+    "isprime"                         boolean,
+    "issoldbyab"                      boolean,
+    "Lastupdatedate"                  date,
+    "Latestshipdate"                  date,
+    "Marketplaceid"                   varchar,
+    "numberofitemsshipped"            integer,
+    "numberofitemsunshipped"          integer,
+    "orderstatus"                     varchar,
+    "ordertype"                       varchar,
+    "paymentMethod"                   varchar,
+    "paymentMethoddetails"            varchar,
+    "purchasedate"                    date,
+    "purchaseordernumber"             integer,
+    "shipmentserviceLevelcategory"    integer,
+    "shippingaddresscity"             varchar,
+    "shippingaddressLine1"            varchar,
+    "shippingaddressname"             varchar,
+    "shippingcitystateorRegion"       varchar,
+    "shippingstateorRegionpostalcode" varchar
 );
 
 
 /***********************************************************************************************************************
-                                                                    INSERT
+                                                                    inseRt
+
 ***********************************************************************************************************************/
 
+
 /*items*/
-insert into "TItems" ("asin", "Titolo", "Categoria", "Prezzo", "Giacenza", "Brand")
+insert into "titems" ("asin", "titolo", "categoria", "prezzo", "giacenza", "brand")
 values ('B07D9SB7XW', 'Minecraft', 'Gioco', 25.9, 300, 'Mojang'),
 ('B07VK4QKBP', 'Manubrio', 'Sport', 199.9, 10, 'Homcom'),
 ('B08KSS6CLT', 'The alla pesca', 'Cibo', 1.8, 25, 'Lipton'),
@@ -137,31 +139,31 @@ values ('B07D9SB7XW', 'Minecraft', 'Gioco', 25.9, 300, 'Mojang'),
 
 
 /*users*/
-insert into "TUsers" ("Username","Password")
+insert into "tusers" ("username","password")
 values ('admin','admin');
 
 /*fornitori*/
-insert into  "TFornitori" ("Nome") values ('Lorenzo'), ('Matteo'), ('MArco');
+insert into  "tfornitori" ("nome") values ('Lorenzo'), ('Matteo'), ('MArco');
 
 /*TArticoliOrdinati*/
-insert into "TArticoliOrdinati"("ASIN", "AmazonOrderId", "ItemPriceAmount", "ItemPriceCurrencyCode", "OrderItemId", "PointsGrantedPointsMonetaryValueAmount", "PointsGrantedPointsMonetaryValueCurrencyCode", "PointsGrantedPointsNumber", "PromotionIds", "QuantityOrdered", "QuantityShipped", "ShippingPriceAmount", "ShippingPriceCurrencyCode", "Title")
+insert into "tarticoliordinati"("asin", "amazonorderid", "itempriceamount", "itempricecurrencycode", "orderitemid", "pointsgrantedpointsmonetaryvalueamount", "pointsgrantedpointsmonetaryvaluecurrencycode", "pointsgrantedpointsnumber", "promotionids", "quantityordered", "quantityshipped", "shippingpriceamount", "shippingpricecurrencycode", "title")
 values ('B07D9SB7XW', 1, 25.9, 1, 1, 0, 0,0, 0, 1, 1, 25.9, 1, 'Minecraft');
 
 /*TAcquisti*/
-insert into "TAcquisti" ("FornitoreID", "DataFattura", "NumeroFattura", "CaricoEffettuato")
+insert into "tacquisti" ("fornitoreid", "datafattura", "numerofattura", "caricoeffettuato")
 values (1, '09-06-2021', 1, 1);
 
 /*TArticoliAcquistati*/
-insert into "TArticoliAcquistati" ("AcquistoID", "ITemID", "QuantitaAcquistata", "PrezzoUnitarioAcquisto")
+insert into "tarticoliacquistati" ("acquistoid", "itemid", "quantitaacquistata", "prezzounitarioacquisto")
 values (1, 1, 1, 25.9);
 
 /*TOrders*/
-insert into "TOrders" ("BuyerEmail", "BuyerName", "CompanyLegalName", "EarliestShipDate", "FulfillmentChannel",
-                       "IsBusinessOrder", "IsGlobalExpressEnabled", "IsPremiumOrder", "IsPrime", "IsSoldByAB", "LastUpdateDate",
-                       "LatestShipDate", "MarketplaceId", "NumberOfItemsShipped", "NumberOfItemsUnshipped", "OrderStatus",
-                       "OrderType", "PaymentMethod", "PaymentMethodDetails", "PurchaseDate", "PurchaseOrderNumber",
-                       "ShipmentServiceLevelCategory", "ShippingAddressCity", "ShippingAddressLine1", "ShippingAddressName",
-                       "ShippingCityStateOrRegion", "ShippingStateOrRegionPostalCode")
+insert into "torders" ("buyeremail", "buyername", "companylegalname", "earliestshipdate", "fulfillmentchannel",
+                       "isbusinessorder", "isglobalexpressenabled", "ispremiumorder", "isprime", "issoldbyab", "lastupdatedate",
+                       "latestshipdate", "marketplaceid", "numberofitemsshipped", "numberofitemsunshipped", "orderstatus",
+                       "ordertype", "paymentmethod", "paymentmethoddetails", "purchasedate", "purchaseordernumber",
+                       "shipmentservicelevelcategory", "shippingaddresscity", "shippingaddressline1", "shippingaddressname",
+                       "shippingcitystateorRegion", "shippingstateorRegionpostalcode")
 values ('buyer@gmail.com', 'buyername', 'company', '09-06-2021', 0, false, false, false, true, false, '09-06-2021', '09-06-2021', 'marketplaceID1', 1, 1, 1, 'type',
         'credit card', 'number: 345216055451213 cvv:123', '09-06-2021', 0, 1, 'address city', 'address line1', 'address name',
         'italy', '30016');
