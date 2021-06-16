@@ -1,11 +1,12 @@
-package it.kennedy.cpss.springbootcpss.Service;
+package it.kennedy.cpss.springbootcpss.ServiceImpl;
 
 import it.kennedy.cpss.springbootcpss.Dao.UtentiDao;
 import it.kennedy.cpss.springbootcpss.Dto.Errors;
 import it.kennedy.cpss.springbootcpss.Dto.Input.SIUserInput;
+import it.kennedy.cpss.springbootcpss.IService.IUtentiService;
 import it.kennedy.cpss.springbootcpss.Dto.SOBase;
 import it.kennedy.cpss.springbootcpss.Dto.UtentiDto;
-import it.kennedy.cpss.springbootcpss.Repository.UtenteRepository;
+import it.kennedy.cpss.springbootcpss.Repository.IUtentiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +17,9 @@ import java.util.Date;
 
 @Service
 @Transactional
-public class UtenteService implements IUtenteService {
+public class UtentiService implements IUtentiService {
     @Autowired
-    UtenteRepository utenteRepository;
+    IUtentiRepository utenteRepository;
 
     @Override
     public SOBase<UtentiDto> GetUtente(SIUserInput userInput) {
