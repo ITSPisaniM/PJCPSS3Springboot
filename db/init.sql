@@ -167,6 +167,3 @@ insert into "torders" ("buyeremail", "buyername", "companylegalname", "earliests
 values ('buyer@gmail.com', 'buyername', 'company', '09-06-2021', 0, false, false, false, true, false, '09-06-2021', '09-06-2021', 'marketplaceID1', 1, 1, 1, 'type',
         'credit card', 'number: 345216055451213 cvv:123', '09-06-2021', 0, 1, 'address city', 'address line1', 'address name',
         'italy', '30016');
-
-
-
