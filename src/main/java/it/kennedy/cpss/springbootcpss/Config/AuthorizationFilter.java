@@ -6,6 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 
-public class AuthorizationFilter extends BasicAuthenticationFilter {
+public class AuthorizationFilter extends OncePerRequestFilter {
 
     private JwtProvider jwtProvider;
     private String prefix;
@@ -22,7 +23,6 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 
     @Autowired
     public AuthorizationFilter(AuthenticationManager authenticationManager, JwtProvider jwtProvider, String prefix, String param) {
-        super(authenticationManager);
         this.jwtProvider = jwtProvider;
         this.prefix = prefix;
         this.param = param;
