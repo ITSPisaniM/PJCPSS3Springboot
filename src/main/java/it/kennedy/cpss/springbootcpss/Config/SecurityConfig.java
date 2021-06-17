@@ -1,7 +1,6 @@
 package it.kennedy.cpss.springbootcpss.Config;
 
 import it.kennedy.cpss.springbootcpss.Repository.UtenteRepository;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +13,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static java.lang.String.format;
 
@@ -32,8 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UtenteRepository userRepo;
     private final JwtTokenFilter jwtTokenFilter;
 
-    public SecurityConfig(Logger logger,
-                          UtenteRepository userRepo,
+    public SecurityConfig(UtenteRepository userRepo,
                           JwtTokenFilter jwtTokenFilter) {
         super();
 
@@ -55,17 +56,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/utente/login").permitAll()
                 .anyRequest().authenticated();
+
+        http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(username -> (UserDetails) userRepo
+        auth.userDetailsService(username -> userRepo
                 .findByUsername(username)
                 .orElseThrow(
                         () -> new UsernameNotFoundException(
                                 format("User: %s, not found", username)
                         )
                 ));
+
+
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return null;
     }
 
     @Override @Bean

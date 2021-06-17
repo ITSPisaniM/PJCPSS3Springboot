@@ -8,11 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
 
 @Table (name = "tusers")
 @Entity
 @Data
-public class UtentiDao {
+public class UtentiDao implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,5 +28,24 @@ public class UtentiDao {
 	
 	@Column (name = "password")
 	private String Password;
-	
+
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return null;
+	}
+
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	public boolean isEnabled() {
+		return true;
+	}
 }

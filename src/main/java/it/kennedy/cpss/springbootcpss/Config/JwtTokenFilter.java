@@ -1,11 +1,13 @@
 package it.kennedy.cpss.springbootcpss.Config;
 
 import it.kennedy.cpss.springbootcpss.Repository.UtenteRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -18,6 +20,8 @@ import static java.util.List.of;
 import static java.util.Optional.ofNullable;
 import static org.springframework.util.StringUtils.isEmpty;
 
+@Component
+@RequiredArgsConstructor
 public class JwtTokenFilter extends OncePerRequestFilter {
     private final JwtTokenUtil jwtTokenUtil;
     private final UtenteRepository userRepo;
@@ -29,7 +33,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         // Get authorization header and validate
         final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (isEmpty(header) || !header.startsWith("Bearer ")) {
-            chain.doFilter(request, response);
+                chain.doFilter(request, response);
             return;
         }
 
