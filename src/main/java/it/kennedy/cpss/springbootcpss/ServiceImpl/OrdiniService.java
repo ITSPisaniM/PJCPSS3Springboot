@@ -36,7 +36,6 @@ public class OrdiniService implements IOrdiniService{
 	}
 	
 	
-	//GET ALL ORDINI
 	@Override
 	public List<OrdiniDto> getAll() {
 		List<OrdiniDao> listaDao = ordiniRepository.findAll();
@@ -53,14 +52,8 @@ public class OrdiniService implements IOrdiniService{
 	// GET BY ID SERVICE
 	@Override
 	public OrdiniDto getById(int id) {
-		try {
-		OrdiniDto dto = new OrdiniDto();
-		daoToDto(ordiniRepository.getById(id), dto);
-		return dto;
-		}
-		catch (Exception exc) {
-			return null;
-		}
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	//--------------------------------------------------------------------------------------------------------------------------------
