@@ -21,7 +21,7 @@ services:
     volumes:
       - ./:/usr/src/mymaven
     ports:
-      - 8080:8080
+      - 8080:8090
     networks:
       - rete-dev
     entrypoint: ["mvn", "spring-boot:run"]

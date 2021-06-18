@@ -2,10 +2,11 @@ package it.kennedy.cpss.springbootcpss.dao;
 
 import javax.persistence.*;
 
-import it.kennedy.cpss.springbootcpss.Config.UserDetailCustoms;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import it.kennedy.cpss.springbootcpss.config.UserDetailCustoms;
 
 import java.util.Collection;
 
@@ -16,7 +17,7 @@ public class UtentiDao implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column (name = "UserID")
+	@Column(name = "UserID")
 	private int userId;
 
 	@Column(name = "username")
@@ -28,8 +29,13 @@ public class UtentiDao implements UserDetails {
 	@Transient
 	private String newToken;
 
-	public String getNewToken() {return newToken; }
-	public void setNewToken(String newToken) {this.newToken = newToken; }
+	public String getNewToken() {
+		return newToken;
+	}
+
+	public void setNewToken(String newToken) {
+		this.newToken = newToken;
+	}
 
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return null;

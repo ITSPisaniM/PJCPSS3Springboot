@@ -1,6 +1,5 @@
-package it.kennedy.cpss.springbootcpss.Config;
+package it.kennedy.cpss.springbootcpss.config;
 
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class NoPasswordEncoder implements PasswordEncoder {

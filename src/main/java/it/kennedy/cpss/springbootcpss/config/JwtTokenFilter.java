@@ -1,6 +1,5 @@
-package it.kennedy.cpss.springbootcpss.Config;
+package it.kennedy.cpss.springbootcpss.config;
 
-import it.kennedy.cpss.springbootcpss.Repository.IUtentiRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import it.kennedy.cpss.springbootcpss.repository.IUtentiRepository;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -27,16 +28,15 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private final IUtentiRepository userRepo;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain chain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+            throws ServletException, IOException {
 
         String test = "lello";
 
         // Get authorization header and validate
         final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (isEmpty(header) || !header.startsWith("Bearer ")) {
-                chain.doFilter(request, response);
+            chain.doFilter(request, response);
             return;
         }
 
@@ -50,23 +50,16 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         String newToken = jwtTokenUtil.renew(token);
 
         // Get user identity and set it on the spring security context
-        UserDetails userDetails = userRepo
-                .findByUsername(jwtTokenUtil.getUsername(token))
-                .orElse(null);
+        UserDetails userDetails = userRepo.findByUsername(jwtTokenUtil.getUsername(token)).orElse(null);
 
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                userDetails, null,
-                ofNullable(userDetails).map(UserDetails::getAuthorities).orElse(of())
-        );
-
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
+                ofNullable(userDetails).map(UserDetails::getAuthorities).orElse(of()));
 
         ServletTokenSource source = new ServletTokenSource();
         source.request = request;
         source.token = newToken;
 
-        authentication
-                .setDetails(new ServletTokenDetailsSource().buildDetails(source));
-
+        authentication.setDetails(new ServletTokenDetailsSource().buildDetails(source));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(request, response);

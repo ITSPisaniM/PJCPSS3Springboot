@@ -1,6 +1,5 @@
-package it.kennedy.cpss.springbootcpss.Config;
+package it.kennedy.cpss.springbootcpss.config;
 
-import it.kennedy.cpss.springbootcpss.Repository.IUtentiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +15,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import it.kennedy.cpss.springbootcpss.repository.IUtentiRepository;
 
 import static java.lang.String.format;
 
@@ -34,8 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final IUtentiRepository userRepo;
     private final JwtTokenFilter jwtTokenFilter;
 
-    public SecurityConfig(IUtentiRepository userRepo,
-                          JwtTokenFilter jwtTokenFilter) {
+    public SecurityConfig(IUtentiRepository userRepo, JwtTokenFilter jwtTokenFilter) {
         super();
 
         this.userRepo = userRepo;
@@ -47,28 +47,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .cors().and().csrf().disable();
-        http
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/api/utente/login").permitAll()
-                .anyRequest().authenticated();
+        http.cors().and().csrf().disable();
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
+                .antMatchers("/api/utente/login").permitAll().anyRequest().authenticated();
 
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(username -> userRepo
-                .findByUsername(username)
-                .orElseThrow(
-                        () -> new UsernameNotFoundException(
-                                format("User: %s, not found", username)
-                        )
-                ));
+        auth.userDetailsService(username -> userRepo.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(format("User: %s, not found", username))));
     }
 
     @Bean
@@ -76,7 +65,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new NoPasswordEncoder();
     }
 
-    @Override @Bean
+    @Override
+    @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }

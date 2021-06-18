@@ -1,5 +1,4 @@
-package it.kennedy.cpss.springbootcpss.IService;
-
+package it.kennedy.cpss.springbootcpss.iservice;
 
 import it.kennedy.cpss.springbootcpss.dto.BaseResponse;
 import it.kennedy.cpss.springbootcpss.dto.UtentiDto;

@@ -1,4 +1,4 @@
-package it.kennedy.cpss.springbootcpss.Config;
+package it.kennedy.cpss.springbootcpss.config;
 
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 

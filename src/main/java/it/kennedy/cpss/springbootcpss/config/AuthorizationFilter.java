@@ -1,4 +1,4 @@
-package it.kennedy.cpss.springbootcpss.Config;
+package it.kennedy.cpss.springbootcpss.config;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +22,16 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     private String param;
 
     @Autowired
-    public AuthorizationFilter(AuthenticationManager authenticationManager, JwtProvider jwtProvider, String prefix, String param) {
+    public AuthorizationFilter(AuthenticationManager authenticationManager, JwtProvider jwtProvider, String prefix,
+            String param) {
         this.jwtProvider = jwtProvider;
         this.prefix = prefix;
         this.param = param;
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
+            throws ServletException, IOException {
         String header = req.getHeader(param);
         if (header == null || !header.startsWith(prefix)) {
             chain.doFilter(req, res);
