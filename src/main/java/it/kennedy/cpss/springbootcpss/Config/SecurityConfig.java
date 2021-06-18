@@ -69,13 +69,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                 format("User: %s, not found", username)
                         )
                 ));
-
-
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return null;
+        return new NoPasswordEncoder();
     }
 
     @Override @Bean

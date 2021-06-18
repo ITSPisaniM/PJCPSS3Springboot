@@ -19,7 +19,7 @@ public class JwtTokenUtil {
         return Jwts.builder()
                 .setSubject(format("%s,%s", user.getUserID(), user.getUsername()))
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000)) // 1 week
+                .setExpiration(new Date(System.currentTimeMillis() + 3600000)) // 1 ora
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }

@@ -37,7 +37,9 @@ public class UtenteController {
         UtentiDao dao = (UtentiDao) authenticate.getPrincipal();
         UtentiDto dto = new UtentiDto();
         dto.Username = dao.getUsername();
-        dto.newToken = jwtTokenUtil.generateAccessToken(dao);;
+        dto.newToken = jwtTokenUtil.generateAccessToken(dao);
+
+        res.data.add(dto);
 
         return res;
     }
