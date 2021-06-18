@@ -11,5 +11,5 @@ public class UtentiDto {
 
 	public int UserID;
 	public String Username;
-	public String Password;
+	public String newToken;
 }
