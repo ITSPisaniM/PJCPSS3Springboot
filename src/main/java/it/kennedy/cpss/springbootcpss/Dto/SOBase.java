@@ -8,5 +8,5 @@ public class SOBase <T>{
     public Date date;
     public List<Errors> errors;
     public boolean success;
-    public Object token;
+    public String token;
 }

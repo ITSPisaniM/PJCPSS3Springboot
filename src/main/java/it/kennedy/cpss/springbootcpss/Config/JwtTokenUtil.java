@@ -19,7 +19,7 @@ public class JwtTokenUtil {
         return Jwts.builder()
                 .setSubject(format("%s,%s", user.getUserID(), user.getUsername()))
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 3600000)) // 1 ora
+                .setExpiration(new Date(System.currentTimeMillis() + 60000)) // 1 ora
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
@@ -55,8 +55,22 @@ public class JwtTokenUtil {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
             return true;
-        } catch (SignatureException ex) {
+        } catch (SignatureException | ExpiredJwtException ex) {
             return false;
         }
+    }
+
+    public String renew(String token){
+        UtentiDao user = new UtentiDao();
+        user.setUsername(this.getUsername(token));
+        user.setUserID(Integer.parseInt(this.getUserId(token)));
+
+        Date exp = this.getExpirationDate(token);
+
+        if((System.currentTimeMillis() - exp.getTime() < 60000)){
+            return this.generateAccessToken(user);
+        }
+
+        return null;
     }
 }

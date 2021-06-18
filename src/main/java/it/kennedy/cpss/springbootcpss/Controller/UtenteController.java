@@ -1,6 +1,7 @@
 package it.kennedy.cpss.springbootcpss.Controller;
 
 import it.kennedy.cpss.springbootcpss.Config.JwtTokenUtil;
+import it.kennedy.cpss.springbootcpss.Config.ServletTokenDetails;
 import it.kennedy.cpss.springbootcpss.Dao.UtentiDao;
 import it.kennedy.cpss.springbootcpss.Dto.Input.SIUserInput;
 import it.kennedy.cpss.springbootcpss.Dto.SOBase;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,10 +44,5 @@ public class UtenteController {
         res.data.add(dto);
 
         return res;
-    }
-
-    @GetMapping("/test")
-    public String test(){
-        return "ok";
     }
 }
