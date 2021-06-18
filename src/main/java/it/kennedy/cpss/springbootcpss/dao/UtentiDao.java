@@ -1,4 +1,4 @@
-package it.kennedy.cpss.springbootcpss.Dao;
+package it.kennedy.cpss.springbootcpss.dao;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,20 +9,20 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-@Table (name = "tusers")
+@Table(name = "tusers")
 @Entity
 @Data
 public class UtentiDao {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column (name = "UserID")
-	private int UserID;
-	
-	@Column (name = "username")
-	private String Username;
-	
-	@Column (name = "password")
-	private String Password;
-	
+	@Column(name = "user_id")
+	private int userId;
+
+	@Column(name = "username")
+	private String username;
+
+	@Column(name = "password")
+	private String password;
+
 }

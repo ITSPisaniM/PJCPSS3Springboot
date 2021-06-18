@@ -1,12 +1,13 @@
 package it.kennedy.cpss.springbootcpss.ServiceImpl;
 
-import it.kennedy.cpss.springbootcpss.Dao.UtentiDao;
-import it.kennedy.cpss.springbootcpss.Dto.Errors;
-import it.kennedy.cpss.springbootcpss.Dto.Input.SIUserInput;
 import it.kennedy.cpss.springbootcpss.IService.IUtentiService;
-import it.kennedy.cpss.springbootcpss.Dto.SOBase;
-import it.kennedy.cpss.springbootcpss.Dto.UtentiDto;
 import it.kennedy.cpss.springbootcpss.Repository.IUtentiRepository;
+import it.kennedy.cpss.springbootcpss.dao.UtentiDao;
+import it.kennedy.cpss.springbootcpss.dto.Errors;
+import it.kennedy.cpss.springbootcpss.dto.SOBase;
+import it.kennedy.cpss.springbootcpss.dto.UtentiDto;
+import it.kennedy.cpss.springbootcpss.dto.input.SIUserInput;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class UtentiService implements IUtentiService {
     public SOBase<UtentiDto> GetUtente(SIUserInput userInput) {
         SOBase<UtentiDto> res = new SOBase<>();
 
-        if(userInput.username == null || userInput.password == null) {
+        if (userInput.username == null || userInput.password == null) {
             res.success = false;
             Errors e = new Errors();
             e.description = "password o utente nullo";

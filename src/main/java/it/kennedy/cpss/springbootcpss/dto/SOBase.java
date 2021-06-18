@@ -1,4 +1,4 @@
-package it.kennedy.cpss.springbootcpss.Dto;
+package it.kennedy.cpss.springbootcpss.dto;
 
 import java.util.Date;
 
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class SOBase <T> {
+public class SOBase<T> {
     public Object data;
     public Date date;
     public Errors errors;

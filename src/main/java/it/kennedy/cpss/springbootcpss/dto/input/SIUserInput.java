@@ -1,4 +1,4 @@
-package it.kennedy.cpss.springbootcpss.Dto.Input;
+package it.kennedy.cpss.springbootcpss.dto.input;
 
 public class SIUserInput {
     public String username;

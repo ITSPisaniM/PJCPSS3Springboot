@@ -1,4 +1,4 @@
-package it.kennedy.cpss.springbootcpss.Controller;
+package it.kennedy.cpss.springbootcpss.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.kennedy.cpss.springbootcpss.Dto.Errors;
-import it.kennedy.cpss.springbootcpss.Dto.OrdiniDto;
-import it.kennedy.cpss.springbootcpss.Dto.SOBase;
 import it.kennedy.cpss.springbootcpss.ServiceImpl.OrdiniService;
+import it.kennedy.cpss.springbootcpss.dto.Errors;
+import it.kennedy.cpss.springbootcpss.dto.OrdiniDto;
+import it.kennedy.cpss.springbootcpss.dto.SOBase;
 
 @RestController
 @RequestMapping(value = "api/ordini")
@@ -22,21 +22,21 @@ public class OrdiniController {
 
 	@Autowired
 	OrdiniService ordiniService;
-	
+
 	// --------------------------- PING
 	@GetMapping("/ping")
 	public String save() {
 		return "PROVA DI PING...AVVENUTA CON SUCCESSO --- ORDINI";
 	}
-	
+
 	// --------------------------- GET ALL PAGINATION ORDINI
-	//@SuppressWarnings("unused")
+	// @SuppressWarnings("unused")
 	@SuppressWarnings("unused")
 	@GetMapping(produces = "application/json", path = "/page/{pagina}/{elPerPage}")
 	public SOBase<List<OrdiniDto>> getAllOrdini(@PathVariable int pagina, @PathVariable int elPerPage) {
 		SOBase<List<OrdiniDto>> response = new SOBase<>();
 
-		List<OrdiniDto> listDto = new ArrayList<OrdiniDto>();
+		List<OrdiniDto> listDto = new ArrayList<>();
 
 		String elPerPageS = null;
 		elPerPageS = elPerPage + "";
@@ -50,30 +50,25 @@ public class OrdiniController {
 		response.setDate(new Date());
 		response.setErrors(new Errors());
 		response.setSuccess(HttpStatus.OK.value());
-		//response.setToken();
+		// response.setToken();
 
 		return response;
 	}
-		
-	
+
 	// --------------------------- GET ALL ORDINI
-		@GetMapping(produces = "application/json", path = "/list")
-		public SOBase<List<OrdiniDto>> list() {
-			
-			List<OrdiniDto> listDto = ordiniService.getAll();
-			SOBase<List<OrdiniDto>> response = new SOBase<List<OrdiniDto>>();
+	@GetMapping(produces = "application/json", path = "/list")
+	public SOBase<List<OrdiniDto>> list() {
 
-			listDto = ordiniService.getAll();
+		List<OrdiniDto> listDto = ordiniService.getAll();
 
-			response.setData(listDto);
-			response.setDate(new Date());
-			response.setErrors(new Errors());
-			response.setSuccess(HttpStatus.OK.value());
+		SOBase<List<OrdiniDto>> response = new SOBase<>();
 
-			return response;
-		}
-	
-	
-			
-	
+		response.setData(listDto);
+		response.setDate(new Date());
+		response.setErrors(new Errors());
+		response.setSuccess(HttpStatus.OK.value());
+
+		return response;
+	}
+
 }
