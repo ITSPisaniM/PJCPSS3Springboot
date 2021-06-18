@@ -37,7 +37,7 @@ public class OrdiniDao {
 	private int numebrOfItemsUnshipped;
 
 	@Column(name = "payment_method")
-	private String patmentMethod;
+	private String paymentMethod;
 
 	@Column(name = "payment_method_details")
 	private String paymentMethodDetails;
@@ -88,14 +88,14 @@ public class OrdiniDao {
 	private String shippingAddressName;
 
 	@Column(name = "shipping_address_line1")
-	private Date shippingAddressLine1;
+	private String shippingAddressLine1;
 
 	@Column(name = "shipping_address_city")
-	private Date shippingAddressCity;
+	private String shippingAddressCity;
 
 	@Column(name = "shipping_city_state_or_region")
-	private Date shippingCityStateOrRegion;
+	private String shippingCityStateOrRegion;
 
 	@Column(name = "shipping_state_or_region_postal_code")
-	private Date shippingStateOrRegionPostalCode;
+	private String shippingStateOrRegionPostalCode;
 }

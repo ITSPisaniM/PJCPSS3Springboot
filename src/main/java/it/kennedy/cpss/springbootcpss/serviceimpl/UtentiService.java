@@ -1,12 +1,12 @@
-package it.kennedy.cpss.springbootcpss.ServiceImpl;
+package it.kennedy.cpss.springbootcpss.serviceimpl;
 
-import it.kennedy.cpss.springbootcpss.IService.IUtentiService;
-import it.kennedy.cpss.springbootcpss.Repository.IUtentiRepository;
 import it.kennedy.cpss.springbootcpss.dao.UtentiDao;
 import it.kennedy.cpss.springbootcpss.dto.Errors;
 import it.kennedy.cpss.springbootcpss.dto.SOBase;
 import it.kennedy.cpss.springbootcpss.dto.UtentiDto;
 import it.kennedy.cpss.springbootcpss.dto.input.SIUserInput;
+import it.kennedy.cpss.springbootcpss.iservice.IUtentiService;
+import it.kennedy.cpss.springbootcpss.repository.IUtentiRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class UtentiService implements IUtentiService {
     IUtentiRepository utenteRepository;
 
     @Override
-    public SOBase<UtentiDto> GetUtente(SIUserInput userInput) {
+    public SOBase<UtentiDto> getUtente(SIUserInput userInput) {
         SOBase<UtentiDto> res = new SOBase<>();
 
         if (userInput.username == null || userInput.password == null) {

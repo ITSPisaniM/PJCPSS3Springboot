@@ -9,7 +9,7 @@ import lombok.Data;
 //@AllArgsConstructor
 public class UtentiDto {
 
-	public Integer UserID;
+	public int UserID;
 	public String Username;
 	public String Password;
 }
