@@ -8,10 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "torders")
 @Data
+@Getter
+@Setter
 public class OrdiniDao {
 
 	@Id

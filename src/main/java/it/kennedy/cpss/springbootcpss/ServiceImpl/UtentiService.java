@@ -1,21 +1,16 @@
 package it.kennedy.cpss.springbootcpss.ServiceImpl;
 
 import it.kennedy.cpss.springbootcpss.Config.JwtProvider;
-import it.kennedy.cpss.springbootcpss.Dao.UtentiDao;
-import it.kennedy.cpss.springbootcpss.Dto.Errors;
-import it.kennedy.cpss.springbootcpss.Dto.Input.SIUserInput;
-import it.kennedy.cpss.springbootcpss.Dto.SOBase;
-import it.kennedy.cpss.springbootcpss.Dto.UtentiDto;
-import it.kennedy.cpss.springbootcpss.Repository.UtenteRepository;
 import it.kennedy.cpss.springbootcpss.IService.IUtentiService;
 import it.kennedy.cpss.springbootcpss.Repository.IUtentiRepository;
 import it.kennedy.cpss.springbootcpss.dao.UtentiDao;
 import it.kennedy.cpss.springbootcpss.dto.Errors;
-import it.kennedy.cpss.springbootcpss.dto.SOBase;
+import it.kennedy.cpss.springbootcpss.dto.BaseResponse;
 import it.kennedy.cpss.springbootcpss.dto.UtentiDto;
 import it.kennedy.cpss.springbootcpss.dto.input.SIUserInput;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -33,23 +28,23 @@ public class UtentiService implements IUtentiService {
     JwtProvider jwtProvider;
 
     @Override
-    public SOBase<UtentiDto> GetUtente(SIUserInput userInput) {
-        SOBase<UtentiDto> res = new SOBase<>();
+    public BaseResponse<UtentiDto> GetUtente(SIUserInput userInput) {
+        BaseResponse<UtentiDto> res = new BaseResponse<>();
 
         if (userInput.username == null || userInput.password == null) {
-            res.success = false;
-            Errors e = new Errors();
-            e.description = "password o utente nullo";
-            e.classe = "UtenteService";
-            res.errors.add(e);
-        if(userInput.username == null || userInput.password == null) {
+            res = errorHandler(res, "nome utente o password non valorizzati", "UtenteService:GetUtente");
+
+            return res;
+        }
+
+        if (userInput.username == null || userInput.password == null) {
             res = errorHandler(res, "nome utente o password non valorizzati", "UtenteService:GetUtente");
 
             return res;
         }
 
         UtentiDao dao = utenteRepository.getByUsernameAndPassword(userInput.username, userInput.password);
-        if(dao == null) {
+        if (dao == null) {
             res = errorHandler(res, "utente non trovato", "UtenteService:GetUtente");
 
             return res;
@@ -57,19 +52,19 @@ public class UtentiService implements IUtentiService {
 
         UtentiDto dto = new UtentiDto();
         dto.Username = dao.getUsername();
-        dto.UserID = dao.getUserID();
+        dto.UserID = dao.getUserId();
         dto.newToken = jwtProvider.createJwt(dao.getUsername());
 
         res.data = new ArrayList<>();
         res.data.add(dto);
         res.date = new Date();
-        res.success = true;
+        res.success = HttpStatus.OK.value();
 
         return res;
     }
 
-    public SOBase errorHandler(SOBase res, String errorMessage, String classe){
-        res.success = false;
+    public BaseResponse errorHandler (BaseResponse res, String errorMessage, String classe){
+        res.success = HttpStatus.FAILED_DEPENDENCY.value();
         Errors e = new Errors();
         e.description = errorMessage;
         e.classe = classe;

@@ -1,6 +1,6 @@
 package it.kennedy.cpss.springbootcpss.Config;
 
-import it.kennedy.cpss.springbootcpss.Repository.UtenteRepository;
+import it.kennedy.cpss.springbootcpss.Repository.IUtentiRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,7 +24,7 @@ import static org.springframework.util.StringUtils.isEmpty;
 @RequiredArgsConstructor
 public class JwtTokenFilter extends OncePerRequestFilter {
     private final JwtTokenUtil jwtTokenUtil;
-    private final UtenteRepository userRepo;
+    private final IUtentiRepository userRepo;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,

@@ -1,9 +1,10 @@
 package it.kennedy.cpss.springbootcpss.IService;
 
-import it.kennedy.cpss.springbootcpss.Dto.Input.SIUserInput;
-import it.kennedy.cpss.springbootcpss.Dto.SOBase;
-import it.kennedy.cpss.springbootcpss.Dto.UtentiDto;
+
+import it.kennedy.cpss.springbootcpss.dto.BaseResponse;
+import it.kennedy.cpss.springbootcpss.dto.UtentiDto;
+import it.kennedy.cpss.springbootcpss.dto.input.SIUserInput;
 
 public interface IUtentiService {
-    public SOBase<UtentiDto> GetUtente(SIUserInput userInput);
+    public BaseResponse<UtentiDto> GetUtente(SIUserInput userInput);
 }

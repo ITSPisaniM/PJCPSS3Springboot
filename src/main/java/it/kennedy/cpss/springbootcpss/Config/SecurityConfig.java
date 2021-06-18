@@ -1,6 +1,6 @@
 package it.kennedy.cpss.springbootcpss.Config;
 
-import it.kennedy.cpss.springbootcpss.Repository.UtenteRepository;
+import it.kennedy.cpss.springbootcpss.Repository.IUtentiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -31,10 +31,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${security.param}")
     private String param;
 
-    private final UtenteRepository userRepo;
+    private final IUtentiRepository userRepo;
     private final JwtTokenFilter jwtTokenFilter;
 
-    public SecurityConfig(UtenteRepository userRepo,
+    public SecurityConfig(IUtentiRepository userRepo,
                           JwtTokenFilter jwtTokenFilter) {
         super();
 

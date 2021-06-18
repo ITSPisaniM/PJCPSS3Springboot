@@ -1,7 +1,7 @@
 package it.kennedy.cpss.springbootcpss.Config;
 
 import io.jsonwebtoken.*;
-import it.kennedy.cpss.springbootcpss.Dao.UtentiDao;
+import it.kennedy.cpss.springbootcpss.dao.UtentiDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +17,7 @@ public class JwtTokenUtil {
 
     public String generateAccessToken(UtentiDao user) {
         return Jwts.builder()
-                .setSubject(format("%s,%s", user.getUserID(), user.getUsername()))
+                .setSubject(format("%s,%s", user.getUserId(), user.getUsername()))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 60000)) // 1 ora
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
@@ -63,7 +63,7 @@ public class JwtTokenUtil {
     public String renew(String token){
         UtentiDao user = new UtentiDao();
         user.setUsername(this.getUsername(token));
-        user.setUserID(Integer.parseInt(this.getUserId(token)));
+        user.setUserId(Integer.parseInt(this.getUserId(token)));
 
         Date exp = this.getExpirationDate(token);
 

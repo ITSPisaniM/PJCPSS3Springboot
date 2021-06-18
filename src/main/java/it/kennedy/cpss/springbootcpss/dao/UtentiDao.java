@@ -17,13 +17,13 @@ public class UtentiDao implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column (name = "UserID")
-	private int UserID;
-	
-	@Column (name = "username")
-	private String Username;
-	
-	@Column (name = "password")
-	private String Password;
+	private int userId;
+
+	@Column(name = "username")
+	private String username;
+
+	@Column(name = "password")
+	private String password;
 
 	@Transient
 	private String newToken;
@@ -50,13 +50,4 @@ public class UtentiDao implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
-	@Column(name = "user_id")
-	private int userId;
-
-	@Column(name = "username")
-	private String username;
-
-	@Column(name = "password")
-	private String password;
-
 }

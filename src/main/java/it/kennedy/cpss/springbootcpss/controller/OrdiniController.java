@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import it.kennedy.cpss.springbootcpss.ServiceImpl.OrdiniService;
 import it.kennedy.cpss.springbootcpss.dto.Errors;
 import it.kennedy.cpss.springbootcpss.dto.OrdiniDto;
-import it.kennedy.cpss.springbootcpss.dto.SOBase;
+import it.kennedy.cpss.springbootcpss.dto.BaseResponse;
 
 @RestController
 @RequestMapping(value = "api/ordini")
@@ -33,8 +33,8 @@ public class OrdiniController {
 	// @SuppressWarnings("unused")
 	@SuppressWarnings("unused")
 	@GetMapping(produces = "application/json", path = "/page/{pagina}/{elPerPage}")
-	public SOBase<List<OrdiniDto>> getAllOrdini(@PathVariable int pagina, @PathVariable int elPerPage) {
-		SOBase<List<OrdiniDto>> response = new SOBase<>();
+	public BaseResponse<OrdiniDto> getAllOrdini(@PathVariable int pagina, @PathVariable int elPerPage) {
+		BaseResponse<OrdiniDto> response = new BaseResponse<>();
 
 		List<OrdiniDto> listDto = new ArrayList<>();
 
@@ -48,7 +48,7 @@ public class OrdiniController {
 
 		response.setData(listDto);
 		response.setDate(new Date());
-		response.setErrors(new Errors());
+		response.setErrors(new ArrayList<Errors>());
 		response.setSuccess(HttpStatus.OK.value());
 		// response.setToken();
 
@@ -57,15 +57,15 @@ public class OrdiniController {
 
 	// --------------------------- GET ALL ORDINI
 	@GetMapping(produces = "application/json", path = "/list")
-	public SOBase<List<OrdiniDto>> list() {
+	public BaseResponse<OrdiniDto> list() {
 
 		List<OrdiniDto> listDto = ordiniService.getAll();
 
-		SOBase<List<OrdiniDto>> response = new SOBase<>();
+		BaseResponse<OrdiniDto> response = new BaseResponse<>();
 
 		response.setData(listDto);
 		response.setDate(new Date());
-		response.setErrors(new Errors());
+		response.setErrors(new ArrayList<Errors>());
 		response.setSuccess(HttpStatus.OK.value());
 
 		return response;
