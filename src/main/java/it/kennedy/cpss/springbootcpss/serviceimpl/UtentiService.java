@@ -1,6 +1,5 @@
 package it.kennedy.cpss.springbootcpss.serviceimpl;
 
-import it.kennedy.cpss.springbootcpss.config.JwtProvider;
 import it.kennedy.cpss.springbootcpss.dao.UtentiDao;
 import it.kennedy.cpss.springbootcpss.dto.Errors;
 import it.kennedy.cpss.springbootcpss.dto.BaseResponse;
@@ -14,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.Date;
 

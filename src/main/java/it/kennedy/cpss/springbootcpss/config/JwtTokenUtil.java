@@ -54,7 +54,7 @@ public class JwtTokenUtil {
 
         Date exp = this.getExpirationDate(token);
 
-        if ((System.currentTimeMillis() - exp.getTime() < 60000)) {
+        if ((System.currentTimeMillis() - exp.getTime()) < 60000) {
             return this.generateAccessToken(user);
         }
 
