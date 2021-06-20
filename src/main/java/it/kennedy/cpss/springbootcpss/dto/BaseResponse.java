@@ -1,4 +1,4 @@
-package it.kennedy.cpss.springbootcpss.dto;
+package it.kennedy.cpss.springbootcpss.Dto;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package it.kennedy.cpss.springbootcpss.controller;
+package it.kennedy.cpss.springbootcpss.Controller;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.kennedy.cpss.springbootcpss.dto.Errors;
-import it.kennedy.cpss.springbootcpss.dto.OrdiniDto;
+import it.kennedy.cpss.springbootcpss.Dto.BaseResponse;
+import it.kennedy.cpss.springbootcpss.Dto.OrdiniDto;
 import it.kennedy.cpss.springbootcpss.serviceimpl.OrdiniService;
-import it.kennedy.cpss.springbootcpss.dto.BaseResponse;
 
 @RestController
 @RequestMapping(value = "api/ordini")
@@ -65,7 +64,7 @@ public class OrdiniController {
 
 		response.setData(listDto);
 		response.setDate(new Date());
-		response.setErrors(new ArrayList<Errors>());
+		//response.setErrors(new ArrayList<Errors>());
 		response.setSuccess(HttpStatus.OK.value());
 
 		return response;

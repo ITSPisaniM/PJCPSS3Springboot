@@ -1,4 +1,4 @@
-package it.kennedy.cpss.springbootcpss.dto;
+package it.kennedy.cpss.springbootcpss.Dto;
 
 public class Errors {
     public String description;

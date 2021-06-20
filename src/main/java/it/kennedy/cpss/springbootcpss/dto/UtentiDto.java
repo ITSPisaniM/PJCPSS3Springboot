@@ -1,11 +1,9 @@
-package it.kennedy.cpss.springbootcpss.dto;
+package it.kennedy.cpss.springbootcpss.Dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 
 //@Builder
-//@Data
+@Data
 //@AllArgsConstructor
 public class UtentiDto {
 

@@ -1,20 +1,20 @@
 package it.kennedy.cpss.springbootcpss.serviceimpl;
 
-import it.kennedy.cpss.springbootcpss.dao.UtentiDao;
-import it.kennedy.cpss.springbootcpss.dto.Errors;
-import it.kennedy.cpss.springbootcpss.dto.BaseResponse;
-import it.kennedy.cpss.springbootcpss.dto.UtentiDto;
-import it.kennedy.cpss.springbootcpss.dto.input.SIUserInput;
-import it.kennedy.cpss.springbootcpss.iservice.IUtentiService;
-import it.kennedy.cpss.springbootcpss.repository.IUtentiRepository;
+import java.util.ArrayList;
+import java.util.Date;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
+import it.kennedy.cpss.springbootcpss.Dto.BaseResponse;
+import it.kennedy.cpss.springbootcpss.Dto.UtentiDto;
+import it.kennedy.cpss.springbootcpss.Dto.input.SIUserInput;
+import it.kennedy.cpss.springbootcpss.dao.UtentiDao;
+import it.kennedy.cpss.springbootcpss.iservice.IUtentiService;
+import it.kennedy.cpss.springbootcpss.repository.IUtentiRepository;
 
 @Service
 @Transactional
@@ -70,4 +70,25 @@ public class UtentiService implements IUtentiService {
 
         return res;
     }
+
+	@Override
+	public it.kennedy.cpss.springbootcpss.iservice.BaseResponse<it.kennedy.cpss.springbootcpss.iservice.UtentiDto> GetUtente(
+			it.kennedy.cpss.springbootcpss.iservice.SIUserInput userInput) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public it.kennedy.cpss.springbootcpss.iservice.BaseResponse<it.kennedy.cpss.springbootcpss.iservice.UtentiDto> GetUtente(
+			it.kennedy.cpss.springbootcpss.iservice.SIUserInput userInput) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public it.kennedy.cpss.springbootcpss.iservice.BaseResponse<it.kennedy.cpss.springbootcpss.iservice.UtentiDto> GetUtente(
+			it.kennedy.cpss.springbootcpss.iservice.SIUserInput userInput) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
