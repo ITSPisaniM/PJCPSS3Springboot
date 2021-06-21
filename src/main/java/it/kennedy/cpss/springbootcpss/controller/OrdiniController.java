@@ -36,6 +36,10 @@ public class OrdiniController {
 	@SuppressWarnings("unused")
 	@GetMapping(produces = "application/json", path = "/page/{pagina}/{elPerPage}")
 	public BaseResponse<OrdiniDto> getAllOrdini(@PathVariable int pagina, @PathVariable int elPerPage) {
+
+		ServletTokenDetails details = (ServletTokenDetails) SecurityContextHolder.getContext().getAuthentication().getDetails();
+		String token = details.token;
+
 		BaseResponse<OrdiniDto> response = new BaseResponse<>();
 
 		String elPerPageS = elPerPage + "";
@@ -50,6 +54,7 @@ public class OrdiniController {
 		response.setDate(new Date());
 		response.setErrors(new ArrayList<>());
 		response.setSuccess(HttpStatus.OK.value());
+		response.token = token;
 
 		return response;
 	}
