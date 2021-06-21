@@ -1,14 +1,19 @@
 package it.kennedy.cpss.springbootcpss.dao;
 
-import javax.persistence.*;
+import java.util.Collection;
 
-import lombok.Data;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import it.kennedy.cpss.springbootcpss.config.UserDetailCustoms;
-
-import java.util.Collection;
+import lombok.Data;
 
 @Table(name = "tusers")
 @Entity
@@ -17,7 +22,7 @@ public class UtentiDao implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "UserID")
+	@Column(name = "user_id")
 	private int userId;
 
 	@Column(name = "username")

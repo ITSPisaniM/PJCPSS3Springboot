@@ -1,13 +1,12 @@
 package it.kennedy.cpss.springbootcpss.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import it.kennedy.cpss.springbootcpss.dao.UtentiDao;
-
-import javax.swing.text.html.Option;
-import java.util.Optional;
 
 @Repository
 public interface IUtentiRepository extends JpaRepository<UtentiDao, Integer> {

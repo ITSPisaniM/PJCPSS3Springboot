@@ -12,7 +12,7 @@ import lombok.*;
 @Setter
 public class OrdiniDto {
 
-	public int amazonOrderId;
+	public String amazonOrderId;
 
 	public Date purchaseDate;
 
@@ -60,12 +60,12 @@ public class OrdiniDto {
 
 	public String shippingAddressName;
 
-	public Date shippingAddressLine1;
+	public String shippingAddressLine1;
 
-	public Date shippingAddressCity;
+	public String shippingAddressCity;
 
-	public Date shippingCityStateOrRegion;
+	public String shippingCityStateOrRegion;
 
-	public Date shippingStateOrRegionPostalCode;
+	public String shippingStateOrRegionPostalCode;
 
 }

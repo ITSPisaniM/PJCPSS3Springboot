@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -24,11 +25,10 @@ public class OrdiniService implements IOrdiniService {
 	// GET ALL PAGINATION ORDINI
 	@Override
 	public List<OrdiniDto> getAllPagination(int pagina, int elPerPage) {
-		List<OrdiniDto> listDto = new ArrayList<OrdiniDto>();
-		PageRequest pageable = PageRequest.of(pagina, elPerPage);
+		List<OrdiniDto> listDto = new ArrayList<>();
+		var pageable = PageRequest.of(pagina, elPerPage);
 		for (OrdiniDao dao : ordiniRepository.findAll(pageable)) {
-			OrdiniDto dto = new OrdiniDto();
-			daoToDto(dao, dto);
+			var dto = daoToDto(dao);
 			listDto.add(dto);
 		}
 		return listDto;
@@ -37,10 +37,9 @@ public class OrdiniService implements IOrdiniService {
 	@Override
 	public List<OrdiniDto> getAll() {
 		List<OrdiniDao> listaDao = ordiniRepository.findAll();
-		List<OrdiniDto> listaDto = new ArrayList<OrdiniDto>();
+		List<OrdiniDto> listaDto = new ArrayList<>();
 		for (OrdiniDao dao : listaDao) {
-			OrdiniDto dto = new OrdiniDto();
-			daoToDto(dao, dto);
+			var dto = daoToDto(dao);
 			listaDto.add(dto);
 		}
 		return listaDto;
@@ -57,13 +56,15 @@ public class OrdiniService implements IOrdiniService {
 	// METHODS
 
 	// DAO TO DTO METHOD
-	private void daoToDto(OrdiniDao dao, OrdiniDto dto) {
-
+	private OrdiniDto daoToDto(OrdiniDao dao) {
+		var mapper = new ModelMapper();
+		return mapper.map(dao, OrdiniDto.class);
 	}
 
 	// DTO TO DAO METHOD
-	@SuppressWarnings("unused")
-	private void dtoToDao(OrdiniDto dto, OrdiniDao dao) {
+	private OrdiniDao dtoToDao(OrdiniDto dto) {
+		var mapper = new ModelMapper();
+		return mapper.map(dto, OrdiniDao.class);
 
 	}
 

@@ -1,10 +1,9 @@
 package it.kennedy.cpss.springbootcpss.config;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import java.io.Serializable;
 import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
 
 public interface UserDetailCustoms extends Serializable {
     Collection<? extends GrantedAuthority> getAuthorities();

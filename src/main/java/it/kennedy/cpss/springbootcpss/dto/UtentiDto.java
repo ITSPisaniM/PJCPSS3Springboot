@@ -4,7 +4,7 @@ import lombok.Data;
 
 //@Builder
 @Data
-//@AllArgsConstructor
+// @AllArgsConstructor
 public class UtentiDto {
 
 	public Integer UserID;

@@ -1,9 +1,8 @@
 package it.kennedy.cpss.springbootcpss.config;
 
-import org.apache.catalina.Server;
+import java.io.Serializable;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.Serializable;
 
 public class ServletTokenDetails implements Serializable {
 

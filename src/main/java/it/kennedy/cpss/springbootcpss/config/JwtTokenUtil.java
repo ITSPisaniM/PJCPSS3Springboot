@@ -12,35 +12,35 @@ import static java.lang.String.format;
 @RequiredArgsConstructor
 public class JwtTokenUtil {
 
-    private final String jwtSecret = "zdtlD3JK56m6wTTgsNFhqzjqP";
+    private static final String JWT_SECRET = "zdtlD3JK56m6wTTgsNFhqzjqP";
 
     public String generateAccessToken(UtentiDao user) {
         return Jwts.builder().setSubject(format("%s,%s", user.getUserId(), user.getUsername())).setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 60000)) // 1 ora
-                .signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
+                .signWith(SignatureAlgorithm.HS512, JWT_SECRET).compact();
     }
 
     public String getUserId(String token) {
-        Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
+        var claims = Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token).getBody();
 
         return claims.getSubject().split(",")[0];
     }
 
     public String getUsername(String token) {
-        Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
+        var claims = Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token).getBody();
 
         return claims.getSubject().split(",")[1];
     }
 
     public Date getExpirationDate(String token) {
-        Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
+        var claims = Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token).getBody();
 
         return claims.getExpiration();
     }
 
     public boolean validate(String token) {
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+            Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token);
             return true;
         } catch (SignatureException | ExpiredJwtException ex) {
             return false;
@@ -48,11 +48,11 @@ public class JwtTokenUtil {
     }
 
     public String renew(String token) {
-        UtentiDao user = new UtentiDao();
+        var user = new UtentiDao();
         user.setUsername(this.getUsername(token));
         user.setUserId(Integer.parseInt(this.getUserId(token)));
 
-        Date exp = this.getExpirationDate(token);
+        var exp = this.getExpirationDate(token);
 
         if ((System.currentTimeMillis() - exp.getTime()) < 60000) {
             return this.generateAccessToken(user);
