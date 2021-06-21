@@ -23,9 +23,6 @@ import static java.lang.String.format;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private JwtProvider jwtProvider;
-
     @Value("${security.prefix}")
     private String prefix;
 

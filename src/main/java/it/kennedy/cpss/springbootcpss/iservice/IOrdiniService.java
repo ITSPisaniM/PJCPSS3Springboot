@@ -2,7 +2,7 @@ package it.kennedy.cpss.springbootcpss.iservice;
 
 import java.util.List;
 
-import it.kennedy.cpss.springbootcpss.Dto.OrdiniDto;
+import it.kennedy.cpss.springbootcpss.dto.OrdiniDto;
 
 public interface IOrdiniService {
 

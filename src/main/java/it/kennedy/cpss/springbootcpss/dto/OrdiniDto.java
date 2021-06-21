@@ -1,4 +1,4 @@
-package it.kennedy.cpss.springbootcpss.Dto;
+package it.kennedy.cpss.springbootcpss.dto;
 
 import java.sql.Date;
 
