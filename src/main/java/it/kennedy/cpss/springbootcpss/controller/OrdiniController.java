@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import it.kennedy.cpss.springbootcpss.config.ServletTokenDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,6 +60,10 @@ public class OrdiniController {
 	@GetMapping(produces = "application/json", path = "/list")
 	public BaseResponse<OrdiniDto> list() {
 
+		ServletTokenDetails details = (ServletTokenDetails) SecurityContextHolder.getContext().getAuthentication().getDetails();
+
+		String token = details.token;
+
 		List<OrdiniDto> listDto = ordiniService.getAll();
 
 		BaseResponse<OrdiniDto> response = new BaseResponse<>();
@@ -64,6 +71,7 @@ public class OrdiniController {
 		response.setData(listDto);
 		response.setDate(new Date());
 		response.setSuccess(HttpStatus.OK.value());
+		response.token = token;
 
 		return response;
 	}
