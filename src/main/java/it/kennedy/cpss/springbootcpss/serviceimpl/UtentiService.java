@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import it.kennedy.cpss.springbootcpss.Dto.BaseResponse;
+import it.kennedy.cpss.springbootcpss.Dto.Errors;
 import it.kennedy.cpss.springbootcpss.Dto.UtentiDto;
 import it.kennedy.cpss.springbootcpss.Dto.input.SIUserInput;
 import it.kennedy.cpss.springbootcpss.dao.UtentiDao;
@@ -72,22 +73,22 @@ public class UtentiService implements IUtentiService {
     }
 
 	@Override
-	public it.kennedy.cpss.springbootcpss.iservice.BaseResponse<it.kennedy.cpss.springbootcpss.iservice.UtentiDto> GetUtente(
-			it.kennedy.cpss.springbootcpss.iservice.SIUserInput userInput) {
+	public BaseResponse<UtentiDto> GetUtente(
+			SIUserInput userInput) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public it.kennedy.cpss.springbootcpss.iservice.BaseResponse<it.kennedy.cpss.springbootcpss.iservice.UtentiDto> GetUtente(
-			it.kennedy.cpss.springbootcpss.iservice.SIUserInput userInput) {
+	public BaseResponse<UtentiDto> GetUtente(
+			SIUserInput userInput) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public it.kennedy.cpss.springbootcpss.iservice.BaseResponse<it.kennedy.cpss.springbootcpss.iservice.UtentiDto> GetUtente(
-			it.kennedy.cpss.springbootcpss.iservice.SIUserInput userInput) {
+	public BaseResponse<UtentiDto> GetUtente(
+			SIUserInput userInput) {
 		// TODO Auto-generated method stub
 		return null;
 	}
