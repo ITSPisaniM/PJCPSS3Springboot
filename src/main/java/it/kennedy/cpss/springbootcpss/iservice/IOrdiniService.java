@@ -10,6 +10,6 @@ public interface IOrdiniService {
 
 	public List<OrdiniDto> getAll();
 
-	public OrdiniDto getById(int id);
+	public OrdiniDto findByAmazonOrderId(String id);
 
 }

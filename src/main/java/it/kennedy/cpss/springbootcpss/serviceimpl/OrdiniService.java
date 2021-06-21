@@ -16,7 +16,6 @@ import it.kennedy.cpss.springbootcpss.iservice.IOrdiniService;
 import it.kennedy.cpss.springbootcpss.repository.IOrdiniRepository;
 
 @Service
-@Transactional
 public class OrdiniService implements IOrdiniService {
 
 	@Autowired
@@ -47,9 +46,16 @@ public class OrdiniService implements IOrdiniService {
 
 	// GET BY ID SERVICE
 	@Override
-	public OrdiniDto getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public OrdiniDto findByAmazonOrderId(String id) {
+		try {
+			OrdiniDto dto = new OrdiniDto();
+			String idString = id + "";
+			OrdiniDao dao = ordiniRepository.findByAmazonOrderId(idString);
+			dto = daoToDto(dao);
+			return dto;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	// --------------------------------------------------------------------------------------------------------------------------------
