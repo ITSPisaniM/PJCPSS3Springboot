@@ -17,13 +17,12 @@ public class JwtTokenUtil {
     public String generateAccessToken(UtentiDao user) {
         long expiration = 60000;
 
-        if(user.getUsername().equals("admin")) {
-            return Jwts.builder().setSubject(format("%s,%s", user.getUserId(), user.getUsername())).setIssuedAt(new Date())
-                    .signWith(SignatureAlgorithm.HS512, JWT_SECRET).compact();
-        }
-        else {
-            return Jwts.builder().setSubject(format("%s,%s", user.getUserId(), user.getUsername())).setIssuedAt(new Date())
-                    .setExpiration(new Date(System.currentTimeMillis() + expiration)) // 1 ora
+        if (user.getUsername().equals("admin")) {
+            return Jwts.builder().setSubject(format("%s,%s", user.getUserId(), user.getUsername()))
+                    .setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS512, JWT_SECRET).compact();
+        } else {
+            return Jwts.builder().setSubject(format("%s,%s", user.getUserId(), user.getUsername()))
+                    .setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis() + expiration)) // 1 ora
                     .signWith(SignatureAlgorithm.HS512, JWT_SECRET).compact();
         }
     }
@@ -56,6 +55,10 @@ public class JwtTokenUtil {
     }
 
     public String renew(String token) {
+
+        if (this.getUsername(token).equals("admin")) {
+            return null;
+        }
         var user = new UtentiDao();
         user.setUsername(this.getUsername(token));
         user.setUserId(Integer.parseInt(this.getUserId(token)));
