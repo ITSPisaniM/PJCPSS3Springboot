@@ -15,9 +15,17 @@ public class JwtTokenUtil {
     private static final String JWT_SECRET = "zdtlD3JK56m6wTTgsNFhqzjqP";
 
     public String generateAccessToken(UtentiDao user) {
-        return Jwts.builder().setSubject(format("%s,%s", user.getUserId(), user.getUsername())).setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 60000)) // 1 ora
-                .signWith(SignatureAlgorithm.HS512, JWT_SECRET).compact();
+        long expiration = 60000;
+
+        if(user.getUsername().equals("admin")) {
+            return Jwts.builder().setSubject(format("%s,%s", user.getUserId(), user.getUsername())).setIssuedAt(new Date())
+                    .signWith(SignatureAlgorithm.HS512, JWT_SECRET).compact();
+        }
+        else {
+            return Jwts.builder().setSubject(format("%s,%s", user.getUserId(), user.getUsername())).setIssuedAt(new Date())
+                    .setExpiration(new Date(System.currentTimeMillis() + expiration)) // 1 ora
+                    .signWith(SignatureAlgorithm.HS512, JWT_SECRET).compact();
+        }
     }
 
     public String getUserId(String token) {
