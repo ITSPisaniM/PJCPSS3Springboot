@@ -1,8 +1,8 @@
 package it.kennedy.cpss.springbootcpss.dto;
 
-import java.sql.Date;
-
 import lombok.*;
+
+import java.sql.Date;
 
 @Builder
 @Data

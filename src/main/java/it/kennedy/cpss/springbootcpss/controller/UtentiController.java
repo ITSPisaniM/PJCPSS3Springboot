@@ -1,4 +1,4 @@
-package it.kennedy.cpss.springbootcpss.controller;
+package it.kennedy.cpss.springbootcpss.Controller;
 
 import java.util.ArrayList;
 

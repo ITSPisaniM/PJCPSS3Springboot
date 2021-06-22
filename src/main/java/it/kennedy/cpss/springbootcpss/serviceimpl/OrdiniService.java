@@ -1,22 +1,19 @@
 package it.kennedy.cpss.springbootcpss.serviceimpl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.transaction.Transactional;
-
+import it.kennedy.cpss.springbootcpss.dao.OrdiniDao;
+import it.kennedy.cpss.springbootcpss.dto.OrderItems;
+import it.kennedy.cpss.springbootcpss.dto.OrdiniDto;
+import it.kennedy.cpss.springbootcpss.iservice.IOrdiniService;
+import it.kennedy.cpss.springbootcpss.repository.IOrdiniRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import it.kennedy.cpss.springbootcpss.dto.OrdiniDto;
-import it.kennedy.cpss.springbootcpss.dao.OrdiniDao;
-import it.kennedy.cpss.springbootcpss.iservice.IOrdiniService;
-import it.kennedy.cpss.springbootcpss.repository.IOrdiniRepository;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
-@Transactional
 public class OrdiniService implements IOrdiniService {
 
 	@Autowired
@@ -47,10 +44,19 @@ public class OrdiniService implements IOrdiniService {
 
 	// GET BY ID SERVICE
 	@Override
-	public OrdiniDto getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public OrdiniDto findByAmazonOrderId(String id) {
+		try {
+			OrdiniDto dto = new OrdiniDto();
+			String idString = id + "";
+			OrdiniDao dao = ordiniRepository.findByAmazonOrderId(idString);
+			dto = daoToDto(dao);
+			return dto;
+		} catch (Exception e) {
+			return null;
+		}
 	}
+
+
 
 	// --------------------------------------------------------------------------------------------------------------------------------
 	// METHODS
