@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IProdottiRepository extends JpaRepository<ProdottiDao, Integer> {
 
+    ProdottiDao findByAsin(String asin);
+
 }

@@ -31,7 +31,33 @@ public class ProdottiService implements IProdottiService {
         return listDto;
     }
 
+    @Override
+    public ProdottiDto getByIdProdotto(String asin) {
+        try {
+            ProdottiDto dto = new ProdottiDto();
+            String idString = asin + "";
+            ProdottiDao dao = prodottiRepository.findByAsin(asin);
+            dto = daoToDto(dao);
+            return dto;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
+    @Override
+    public Boolean insertProdotto(ProdottiDto dto) {
+        return null;
+    }
+
+    @Override
+    public Boolean updateProdotto(ProdottiDto dto, int id) {
+        return null;
+    }
+
+    @Override
+    public Boolean deleteProdotto(int id) {
+        return null;
+    }
 
 
     // --------------------------------------------------------------------------------------------------------------------------------
@@ -47,7 +73,6 @@ public class ProdottiService implements IProdottiService {
     private ProdottiDao dtoToDao(ProdottiDto dto) {
         var mapper = new ModelMapper();
         return mapper.map(dto, ProdottiDao.class);
-
     }
 
 }

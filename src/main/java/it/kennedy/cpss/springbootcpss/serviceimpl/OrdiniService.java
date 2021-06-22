@@ -42,7 +42,7 @@ public class OrdiniService implements IOrdiniService {
 		return listaDto;
 	}
 
-	// GET BY ID SERVICE
+	// GET BY ID ORDINE
 	@Override
 	public OrdiniDto findByAmazonOrderId(String id) {
 		try {
@@ -70,7 +70,6 @@ public class OrdiniService implements IOrdiniService {
 	private OrdiniDao dtoToDao(OrdiniDto dto) {
 		var mapper = new ModelMapper();
 		return mapper.map(dto, OrdiniDao.class);
-
 	}
 
 }
