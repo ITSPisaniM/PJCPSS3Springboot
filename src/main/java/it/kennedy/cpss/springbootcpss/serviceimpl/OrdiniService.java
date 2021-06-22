@@ -1,7 +1,6 @@
 package it.kennedy.cpss.springbootcpss.serviceimpl;
 
 import it.kennedy.cpss.springbootcpss.dao.OrdiniDao;
-import it.kennedy.cpss.springbootcpss.dto.OrderItems;
 import it.kennedy.cpss.springbootcpss.dto.OrdiniDto;
 import it.kennedy.cpss.springbootcpss.iservice.IOrdiniService;
 import it.kennedy.cpss.springbootcpss.repository.IOrdiniRepository;
@@ -31,6 +30,7 @@ public class OrdiniService implements IOrdiniService {
 		return listDto;
 	}
 
+	// GET ALL ORDINI
 	@Override
 	public List<OrdiniDto> getAll() {
 		List<OrdiniDao> listaDao = ordiniRepository.findAll();
@@ -55,7 +55,6 @@ public class OrdiniService implements IOrdiniService {
 			return null;
 		}
 	}
-
 
 
 	// --------------------------------------------------------------------------------------------------------------------------------

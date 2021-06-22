@@ -45,7 +45,7 @@ public class OrdiniController {
 
 			OrderItems orderItems = mapper.readValue(result, OrderItems.class);
 
-			boolean success = ordiniService.insert(); // da dichiarare il metodo
+			boolean success = true;//ordiniService.insert(); // da dichiarare il metodo
 			return "GETTING DATA: " + success;
 		}
 		catch (Exception exc) {
