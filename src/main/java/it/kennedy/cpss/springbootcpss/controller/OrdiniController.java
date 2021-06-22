@@ -1,4 +1,4 @@
-package it.kennedy.cpss.springbootcpss.Controller;
+package it.kennedy.cpss.springbootcpss.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.kennedy.cpss.springbootcpss.config.ServletTokenDetails;
@@ -47,12 +47,10 @@ public class OrdiniController {
 
 			boolean success = ordiniService.insert(); // da dichiarare il metodo
 			return "GETTING DATA: " + success;
-		}
-		catch (Exception exc) {
+		} catch (Exception exc) {
 			return "Exception raised: " + exc;
 		}
 	}
-
 
 	// --------------------------- GET ALL PAGINATION ORDINI
 	// @SuppressWarnings("unused")
@@ -60,13 +58,14 @@ public class OrdiniController {
 	@GetMapping(produces = "application/json", path = "/page/{pagina}/{elPerPage}")
 	public BaseResponse<OrdiniDto> getAllOrdini(@PathVariable int pagina, @PathVariable int elPerPage) {
 
-		ServletTokenDetails details = (ServletTokenDetails) SecurityContextHolder.getContext().getAuthentication().getDetails();
+		ServletTokenDetails details = (ServletTokenDetails) SecurityContextHolder.getContext().getAuthentication()
+				.getDetails();
 		String token = details.token;
 
 		BaseResponse<OrdiniDto> response = new BaseResponse<>();
 
 		String elPerPageS = elPerPage + "";
-		//noinspection ConstantConditions
+		// noinspection ConstantConditions
 		if (elPerPageS == null) {
 			elPerPage = 10;
 		}
@@ -82,12 +81,12 @@ public class OrdiniController {
 		return response;
 	}
 
-
 	// --------------------------- GET ALL ORDINI
 	@GetMapping(produces = "application/json", path = "/list")
 	public BaseResponse<OrdiniDto> list() {
 
-		ServletTokenDetails details = (ServletTokenDetails) SecurityContextHolder.getContext().getAuthentication().getDetails();
+		ServletTokenDetails details = (ServletTokenDetails) SecurityContextHolder.getContext().getAuthentication()
+				.getDetails();
 		String token = details.token;
 
 		List<OrdiniDto> listDto = ordiniService.getAll();
@@ -103,12 +102,12 @@ public class OrdiniController {
 		return response;
 	}
 
-
 	// --------------------------- GET BY ID ORDINI
 	@GetMapping(produces = "application/json", path = "/{id}")
 	public BaseResponse<OrdiniDto> getById(@PathVariable String id) {
 
-		ServletTokenDetails details = (ServletTokenDetails) SecurityContextHolder.getContext().getAuthentication().getDetails();
+		ServletTokenDetails details = (ServletTokenDetails) SecurityContextHolder.getContext().getAuthentication()
+				.getDetails();
 		String token = details.token;
 
 		BaseResponse<OrdiniDto> response = new BaseResponse<>();
