@@ -30,6 +30,7 @@ public class OrdiniService implements IOrdiniService {
 		return listDto;
 	}
 
+	// GET ALL ORDINI
 	@Override
 	public List<OrdiniDto> getAll() {
 		List<OrdiniDao> listaDao = ordiniRepository.findAll();
@@ -55,6 +56,7 @@ public class OrdiniService implements IOrdiniService {
 		}
 	}
 
+  
 	// --------------------------------------------------------------------------------------------------------------------------------
 	// METHODS
 
