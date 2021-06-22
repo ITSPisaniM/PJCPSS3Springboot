@@ -57,6 +57,30 @@ public class ProdottiController {
         return response;
     }
 
+    // --------------------------- GET BY ID PRODOTTI
+    @GetMapping(produces = "application/json", path = "/{id}")
+    public BaseResponse<ProdottiDto> getById(@PathVariable String id) {
+
+        ServletTokenDetails details = (ServletTokenDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getDetails();
+        String token = details.token;
+
+        BaseResponse<ProdottiDto> response = new BaseResponse<>();
+
+        List<ProdottiDto> listDto = new ArrayList<>();
+        ProdottiDto prodottoDto = prodottiService.getByIdProdotto(id);
+
+        listDto.add(prodottoDto);
+
+        response.setData(listDto);
+        response.setDate(new Date());
+        response.setErrors(new ArrayList<>());
+        response.setSuccess(HttpStatus.OK.value());
+        response.token = token;
+
+        return response;
+    }
+
 
 
 }
