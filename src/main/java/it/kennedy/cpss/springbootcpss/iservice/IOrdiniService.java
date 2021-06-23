@@ -1,15 +1,18 @@
 package it.kennedy.cpss.springbootcpss.iservice;
 
+import it.kennedy.cpss.springbootcpss.dto.Orders;
 import it.kennedy.cpss.springbootcpss.dto.OrdiniDto;
 
 import java.util.List;
 
 public interface IOrdiniService {
 
-	public List<OrdiniDto> getAllPagination(int pagina, int dimensionePagina);
+	List<OrdiniDto> getAllPagination(int pagina, int dimensionePagina);
 
-	public List<OrdiniDto> getAll();
+	List<OrdiniDto> getAll();
 
-	public OrdiniDto findByAmazonOrderId(String id);
+	OrdiniDto findByAmazonOrderId(String id);
+
+	Boolean insertOrders(Orders.OrdiniInternal[] orders);
 
 }

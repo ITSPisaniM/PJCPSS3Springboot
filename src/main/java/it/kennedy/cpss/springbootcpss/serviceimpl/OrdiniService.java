@@ -1,6 +1,7 @@
 package it.kennedy.cpss.springbootcpss.serviceimpl;
 
 import it.kennedy.cpss.springbootcpss.dao.OrdiniDao;
+import it.kennedy.cpss.springbootcpss.dto.Orders;
 import it.kennedy.cpss.springbootcpss.dto.OrdiniDto;
 import it.kennedy.cpss.springbootcpss.iservice.IOrdiniService;
 import it.kennedy.cpss.springbootcpss.repository.IOrdiniRepository;
@@ -56,7 +57,25 @@ public class OrdiniService implements IOrdiniService {
 		}
 	}
 
-  
+	// INSERT ORDINI API
+	@Override
+	public Boolean insertOrders(Orders.OrdiniInternal[] orders) {
+		OrdiniDao dao = new OrdiniDao();
+		try {
+			for (Orders.OrdiniInternal dtoInternal:orders) {
+				dtoInternalToDao(dtoInternal, dao);
+				ordiniRepository.save(dao);
+			}
+			return true;
+		} catch (Exception exc) {
+			System.err.println(exc);
+			return false;
+		}
+	}
+
+
+
+
 	// --------------------------------------------------------------------------------------------------------------------------------
 	// METHODS
 
@@ -72,4 +91,9 @@ public class OrdiniService implements IOrdiniService {
 		return mapper.map(dto, OrdiniDao.class);
 	}
 
+	// DTO INTERNAL TO DAO METHOD
+	private OrdiniDao dtoInternalToDao(Orders.OrdiniInternal dto, OrdiniDao dao) {
+		var mapper = new ModelMapper();
+		return mapper.map(dto, OrdiniDao.class);
+	}
 }
