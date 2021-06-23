@@ -1,4 +1,4 @@
-package it.kennedy.cpss.springbootcpss.Controller;
+package it.kennedy.cpss.springbootcpss.controller;
 
 import it.kennedy.cpss.springbootcpss.config.ServletTokenDetails;
 import it.kennedy.cpss.springbootcpss.dto.BaseResponse;

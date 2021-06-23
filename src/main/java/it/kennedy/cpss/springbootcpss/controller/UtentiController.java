@@ -18,6 +18,8 @@ import it.kennedy.cpss.springbootcpss.dto.input.SIUserInput;
 import it.kennedy.cpss.springbootcpss.iservice.IUtentiService;
 import lombok.RequiredArgsConstructor;
 
+import javax.servlet.http.HttpServletResponse;
+
 @RestController()
 @RequestMapping("api/utente")
 @RequiredArgsConstructor
@@ -29,7 +31,7 @@ public class UtentiController {
     private final JwtTokenUtil jwtTokenUtil;
 
     @PostMapping("/login")
-    public BaseResponse<UtentiDto> login(@RequestBody SIUserInput request) {
+    public BaseResponse<UtentiDto> login(@RequestBody SIUserInput request, HttpServletResponse response) {
         BaseResponse<UtentiDto> res = new BaseResponse<>();
         res.data = new ArrayList<>();
         var authenticate = authenticationManager
@@ -41,7 +43,7 @@ public class UtentiController {
         dto.newToken = jwtTokenUtil.generateAccessToken(dao);
 
         res.data.add(dto);
-
+        response.setHeader("newToken", dto.getNewToken());
         return res;
     }
 }
