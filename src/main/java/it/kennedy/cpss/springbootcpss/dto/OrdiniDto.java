@@ -1,8 +1,10 @@
 package it.kennedy.cpss.springbootcpss.dto;
 
+import it.kennedy.cpss.springbootcpss.dao.OrdersItemsDao;
 import lombok.*;
 
 import java.sql.Date;
+import java.util.List;
 
 @Builder
 @Data
@@ -68,4 +70,5 @@ public class OrdiniDto {
 
 	public String shippingStateOrRegionPostalCode;
 
+	public List<OrdersItemsDao> ordersItems;
 }
