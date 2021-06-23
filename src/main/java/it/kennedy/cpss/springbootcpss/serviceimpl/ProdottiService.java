@@ -32,6 +32,17 @@ public class ProdottiService implements IProdottiService {
     }
 
     @Override
+    public List<ProdottiDto> getAll() {
+        List<ProdottiDao> listaDao = prodottiRepository.findAll();
+        List<ProdottiDto> listaDto = new ArrayList<>();
+        for (ProdottiDao dao : listaDao) {
+            var dto = daoToDto(dao);
+            listaDto.add(dto);
+        }
+        return listaDto;
+    }
+
+    @Override
     public ProdottiDto getByIdProdotto(String asin) {
         try {
             ProdottiDto dto = new ProdottiDto();
@@ -46,7 +57,14 @@ public class ProdottiService implements IProdottiService {
 
     @Override
     public Boolean insertProdotto(ProdottiDto dto) {
-        return null;
+        ProdottiDao dao = new ProdottiDao();
+        try {
+            dao = dtoToDao(dto);
+            prodottiRepository.save(dao);
+            return true;
+        } catch (Exception exc) {
+            return false;
+        }
     }
 
     @Override

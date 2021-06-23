@@ -1,9 +1,9 @@
-package it.kennedy.cpss.springbootcpss.controller;
+package it.kennedy.cpss.springbootcpss.Controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.kennedy.cpss.springbootcpss.config.ServletTokenDetails;
 import it.kennedy.cpss.springbootcpss.dto.BaseResponse;
-import it.kennedy.cpss.springbootcpss.dto.OrderItems;
+import it.kennedy.cpss.springbootcpss.dto.Orders;
 import it.kennedy.cpss.springbootcpss.dto.OrdiniDto;
 import it.kennedy.cpss.springbootcpss.serviceimpl.OrdiniService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +43,11 @@ public class OrdiniController {
 
 			ObjectMapper mapper = new ObjectMapper();
 
-			OrderItems orderItems = mapper.readValue(result, OrderItems.class);
+			Orders orders = mapper.readValue(result, Orders.class);
 
-			boolean success = true;//ordiniService.insert(); // da dichiarare il metodo
+			System.err.println(orders.Orders);
+
+			boolean success = ordiniService.insertOrders(orders.Orders); // da dichiarare il metodo
 			return "GETTING DATA: " + success;
 		} catch (Exception exc) {
 			return "Exception raised: " + exc;

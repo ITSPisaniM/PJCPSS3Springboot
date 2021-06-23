@@ -6,15 +6,17 @@ import java.util.List;
 
 public interface IProdottiService {
 
-    public List<ProdottiDto> getAllPagination(int pagina, int dimensionePagina);
+    List<ProdottiDto> getAllPagination(int pagina, int dimensionePagina);
 
-    public ProdottiDto getByIdProdotto(String asin);
+    List<ProdottiDto> getAll();
 
-    public Boolean insertProdotto(ProdottiDto dto);
+    ProdottiDto getByIdProdotto(String asin);
 
-    public Boolean updateProdotto(ProdottiDto dto, int id);
+    Boolean insertProdotto(ProdottiDto dto);
 
-    public Boolean deleteProdotto(int id);
+    Boolean updateProdotto(ProdottiDto dto, int id);
+
+    Boolean deleteProdotto(int id);
 
 
 
