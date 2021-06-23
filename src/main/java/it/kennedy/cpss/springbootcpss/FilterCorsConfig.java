@@ -22,7 +22,7 @@ public class FilterCorsConfig implements WebMvcConfigurer {
 						.allowedOrigins("*")
 						.allowedMethods("PUT", "DELETE", "GET", "POST","PATCH")
 						.allowedHeaders("*")
-						.exposedHeaders("header1", "header2")
+						.exposedHeaders("newToken")
 						.allowCredentials(false)
 						.maxAge(3600); //3600 secondi --> 1h
 			}
