@@ -1,4 +1,4 @@
-package it.kennedy.cpss.springbootcpss.Controller;
+package it.kennedy.cpss.springbootcpss.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.kennedy.cpss.springbootcpss.config.ServletTokenDetails;
