@@ -87,9 +87,9 @@ public class OrdiniController {
 	@GetMapping(produces = "application/json", path = "/list")
 	public BaseResponse<OrdiniDto> list() {
 
-		ServletTokenDetails details = (ServletTokenDetails) SecurityContextHolder.getContext().getAuthentication()
-				.getDetails();
-		String token = details.token;
+		//ServletTokenDetails details = (ServletTokenDetails) SecurityContextHolder.getContext().getAuthentication()
+		//		.getDetails();
+		//String token = details.token;
 
 		List<OrdiniDto> listDto = ordiniService.getAll();
 
@@ -99,7 +99,7 @@ public class OrdiniController {
 		response.setDate(new Date());
 		response.setErrors(new ArrayList<>());
 		response.setSuccess(HttpStatus.OK.value());
-		response.token = token;
+		//response.token = token;
 
 		return response;
 	}
@@ -108,9 +108,9 @@ public class OrdiniController {
 	@GetMapping(produces = "application/json", path = "/{id}")
 	public BaseResponse<OrdiniDto> getById(@PathVariable String id) {
 
-		ServletTokenDetails details = (ServletTokenDetails) SecurityContextHolder.getContext().getAuthentication()
-				.getDetails();
-		String token = details.token;
+		//ServletTokenDetails details = (ServletTokenDetails) SecurityContextHolder.getContext().getAuthentication()
+				//.getDetails();
+		//String token = details.token;
 
 		BaseResponse<OrdiniDto> response = new BaseResponse<>();
 
@@ -123,7 +123,7 @@ public class OrdiniController {
 		response.setDate(new Date());
 		response.setErrors(new ArrayList<>());
 		response.setSuccess(HttpStatus.OK.value());
-		response.token = token;
+		//response.token = token;
 
 		return response;
 	}
