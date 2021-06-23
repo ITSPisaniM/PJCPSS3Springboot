@@ -1,9 +1,11 @@
 package it.kennedy.cpss.springbootcpss.serviceimpl;
 
+import it.kennedy.cpss.springbootcpss.dao.OrdersItemsDao;
 import it.kennedy.cpss.springbootcpss.dao.OrdiniDao;
 import it.kennedy.cpss.springbootcpss.dto.Orders;
 import it.kennedy.cpss.springbootcpss.dto.OrdiniDto;
 import it.kennedy.cpss.springbootcpss.iservice.IOrdiniService;
+import it.kennedy.cpss.springbootcpss.repository.IOrdersItemsRepository;
 import it.kennedy.cpss.springbootcpss.repository.IOrdiniRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class OrdiniService implements IOrdiniService {
 
 	@Autowired
 	IOrdiniRepository ordiniRepository;
+
+	@Autowired
+	IOrdersItemsRepository ordersItemsRepository;
 
 	// GET ALL PAGINATION ORDINI
 	@Override
@@ -82,7 +87,14 @@ public class OrdiniService implements IOrdiniService {
 	// DAO TO DTO METHOD
 	private OrdiniDto daoToDto(OrdiniDao dao) {
 		var mapper = new ModelMapper();
-		return mapper.map(dao, OrdiniDto.class);
+		OrdiniDto dto = mapper.map(dao, OrdiniDto.class);
+
+		String amazonOrderId = dao.getAmazonOrderId();
+
+		List<OrdersItemsDao> orderItemsDao = ordersItemsRepository.findByAmazonOrderId(amazonOrderId);
+
+		dto.setOrdersItems(orderItemsDao);
+		return dto;
 	}
 
 	// DTO TO DAO METHOD
