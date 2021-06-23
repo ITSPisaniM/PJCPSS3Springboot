@@ -16,7 +16,7 @@ public class ProdottiDto {
 
     public String category;
 
-    public Double prize;
+    public Double price;
 
     public int stock; //giacenza
 

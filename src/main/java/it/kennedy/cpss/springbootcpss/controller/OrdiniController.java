@@ -55,8 +55,6 @@ public class OrdiniController {
 	}
 
 	// --------------------------- GET ALL PAGINATION ORDINI
-	// @SuppressWarnings("unused")
-	@SuppressWarnings("unused")
 	@GetMapping(produces = "application/json", path = "/page/{pagina}/{elPerPage}")
 	public BaseResponse<OrdiniDto> getAllOrdini(@PathVariable int pagina, @PathVariable int elPerPage) {
 
