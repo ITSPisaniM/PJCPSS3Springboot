@@ -57,8 +57,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         source.request = request;
         source.token = newToken;
 
-        if(!request.getPathInfo().equals("/api/utente/login"))
-            response.setHeader("newToken", newToken);
+        String dioboia = request.getPathInfo();
+
+        response.setHeader("newToken", newToken);
 
         authentication.setDetails(new ServletTokenDetailsSource().buildDetails(source));
 
