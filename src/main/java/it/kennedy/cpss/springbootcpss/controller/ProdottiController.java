@@ -31,7 +31,7 @@ public class ProdottiController {
     public BaseResponse<ProdottiDto> getAllProdotti(@PathVariable int pagina, @PathVariable int elPerPage) {
 
         ServletTokenDetails details = (ServletTokenDetails) SecurityContextHolder.getContext().getAuthentication().getDetails();
-        String token = details.token;
+        String token = details.token;  // TOGLIERE IL TOKEN SUI CONTROLLI?
 
         BaseResponse<ProdottiDto> response = new BaseResponse<>();
 
@@ -118,6 +118,15 @@ public class ProdottiController {
         return response;
     }
 
+
+
+    // --------------------------------------------------------------- FILTERS
+
+    @GetMapping(produces = "application/json", path = "/page/{nomeCampo}/{valoreCampo}")
+    public BaseResponse<ProdottiDto> filter(@PathVariable int nomeCampo, @PathVariable int valoreCampo){
+
+        return null;
+    }
 
 
 }

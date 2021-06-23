@@ -10,4 +10,9 @@ public interface IOrdiniRepository extends JpaRepository<OrdiniDao, Integer> {
     //@Query(value = "select * from torders where amazon_order_id like \'%?1\'", nativeQuery = true)
     OrdiniDao findByAmazonOrderId(String id);
 
+
+    //------------------------------------- FILTERS
+
+
+
 }
