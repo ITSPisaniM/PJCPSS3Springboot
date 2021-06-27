@@ -7,6 +7,7 @@ import it.kennedy.cpss.springbootcpss.dto.Orders;
 import it.kennedy.cpss.springbootcpss.dto.OrdiniDto;
 import it.kennedy.cpss.springbootcpss.serviceimpl.OrdiniService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,8 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "api/ordini")
 public class OrdiniController {
+	@Value("${utils.ordiniUri}")
+	private String uri;
 
 	@Autowired
 	OrdiniService ordiniService;
@@ -36,8 +39,6 @@ public class OrdiniController {
 	@GetMapping(path = "/insertAPI")
 	private String insert() {
 		try {
-			final String uri = "https://projectwork.gomulgame.com/WebServiceOrders.asmx/orders?refresh_token=Atzr|IwEBIPGGbogA4gJ86OciHsp16r6gXmV&CreatedAfter=2021-06-01T16:09:52.000&CreatedBefore=2021-07-31T16:09:52.000";
-
 			RestTemplate restTemplate = new RestTemplate();
 			String result = restTemplate.getForObject(uri, String.class);
 

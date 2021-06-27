@@ -7,13 +7,16 @@ import it.kennedy.cpss.springbootcpss.dto.OrdiniDto;
 import it.kennedy.cpss.springbootcpss.iservice.IOrdiniService;
 import it.kennedy.cpss.springbootcpss.repository.IOrdersItemsRepository;
 import it.kennedy.cpss.springbootcpss.repository.IOrdiniRepository;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class OrdiniService implements IOrdiniService {
@@ -65,6 +68,29 @@ public class OrdiniService implements IOrdiniService {
 	// INSERT ORDINI API
 	@Override
 	public Boolean insertOrders(Orders.OrdiniInternal[] orders) {
+
+		/*
+		* 1. Prendo l' ultimo ordine inserito da db (tramite data -> purchase date)
+		* 2. Prendo dall' API tutti gli ordini con purchase dopo quella data
+		* 3. Ci sarebbe da capire il LastUpdateDate che minchia fa
+		* */
+
+		Optional<OrdiniDao> lastDao = this.ordiniRepository.getLastOrder();
+		ArrayList<OrdiniDao> defined = new ArrayList<>();
+		if(!lastDao.isEmpty()){
+			DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+
+			Date lastInsertedDate = lastDao.get().getPurchaseDate();
+			Arrays.stream(orders)
+					.forEach(k -> {
+						DateTime arrayDate = DateTime.parse(lastInsertedDate.toString(), formatter);
+						DateTime daoDate = DateTime.parse(k.getPurchaseDate(), formatter);
+
+						int compared = daoDate.compareTo(arrayDate);
+						if(compared == -1) defined.add(dtoInternalToDao(k, new OrdiniDao()));
+					});
+		}
+
 		OrdiniDao dao = new OrdiniDao();
 		try {
 			for (Orders.OrdiniInternal dtoInternal:orders) {
