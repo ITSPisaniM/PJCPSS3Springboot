@@ -1,15 +1,21 @@
 package it.kennedy.cpss.springbootcpss.iservice;
 
 import it.kennedy.cpss.springbootcpss.dto.AcquistiDto;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface IAcquistiService {
 
-    List<AcquistiDto> getAllPagination(int pagina, int dimensionePagina);
+    List<AcquistiDto> getAllPagination(Pageable papageable);
 
     List<AcquistiDto> getAll();
 
-    AcquistiDto findByPurchaseId(String id);
+    AcquistiDto findByPurchaseId(int id);
 
+    Boolean deleteAcquisto(int id);
+
+    Boolean modifyAcquisto(AcquistiDto dto, int id);
+
+    Boolean insertAcquisto(AcquistiDto dto);
 }

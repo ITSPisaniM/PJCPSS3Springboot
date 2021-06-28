@@ -4,8 +4,10 @@ import it.kennedy.cpss.springbootcpss.dto.BaseResponse;
 import it.kennedy.cpss.springbootcpss.dto.ProdottiDto;
 import it.kennedy.cpss.springbootcpss.serviceimpl.ProdottiService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,18 +27,12 @@ public class ProdottiController {
     }
 
     // --------------------------- GET ALL PAGINATION PRODOTTI
-    @GetMapping(produces = "application/json", path = "/page/{pagina}/{elPerPage}")
-    public BaseResponse<ProdottiDto> getAllProdotti(@PathVariable int pagina, @PathVariable int elPerPage) {
+    @GetMapping(produces = "application/json", path = "/page")
+    public BaseResponse<ProdottiDto> getAllProdotti(Pageable pageable) {
 
         BaseResponse<ProdottiDto> response = new BaseResponse<>();
 
-        String elPerPageS = elPerPage + "";
-        //noinspection ConstantConditions
-        if (elPerPageS == null) {
-            elPerPage = 10;
-        }
-
-        List<ProdottiDto> listDto = prodottiService.getAllPagination(pagina, elPerPage);
+        List<ProdottiDto> listDto = prodottiService.getAllPagination(pageable);
 
         response.setData(listDto);
         response.setDate(new Date());

@@ -8,27 +8,20 @@ import it.kennedy.cpss.springbootcpss.dto.input.OrdiniFilterDto;
 import it.kennedy.cpss.springbootcpss.iservice.IOrdiniService;
 import it.kennedy.cpss.springbootcpss.repository.IOrdersItemsRepository;
 import it.kennedy.cpss.springbootcpss.repository.IOrdiniRepository;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.modelmapper.*;
+import org.modelmapper.AbstractConverter;
+import org.modelmapper.Converter;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Service
 public class OrdiniService implements IOrdiniService {
@@ -41,9 +34,8 @@ public class OrdiniService implements IOrdiniService {
 
 	// GET ALL PAGINATION ORDINI
 	@Override
-	public List<OrdiniDto> getAllPagination(int pagina, int elPerPage) {
+	public List<OrdiniDto> getAllPagination(Pageable pageable) {
 		List<OrdiniDto> listDto = new ArrayList<>();
-		var pageable = PageRequest.of(pagina, elPerPage);
 		for (OrdiniDao dao : ordiniRepository.findAll(pageable)) {
 			var dto = daoToDto(dao);
 			listDto.add(dto);
@@ -68,8 +60,7 @@ public class OrdiniService implements IOrdiniService {
 	public OrdiniDto findByAmazonOrderId(String id) {
 		try {
 			OrdiniDto dto = new OrdiniDto();
-			String idString = id + "";
-			OrdiniDao dao = ordiniRepository.findByAmazonOrderId(idString);
+			OrdiniDao dao = ordiniRepository.findByAmazonOrderId(id);
 			dto = daoToDto(dao);
 			return dto;
 		} catch (Exception e) {

@@ -2,11 +2,9 @@ package it.kennedy.cpss.springbootcpss.dao;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "tpurchases")
@@ -25,5 +23,8 @@ public class AcquistiDao {
 
     @Column(name = "bill_number")
     private Integer billNumber;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "purchasesItemsId")
+    private List<AcquistiProdottiDao> purchasesItemsId;
 
 }
