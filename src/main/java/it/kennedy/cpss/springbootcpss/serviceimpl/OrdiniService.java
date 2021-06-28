@@ -9,13 +9,15 @@ import it.kennedy.cpss.springbootcpss.repository.IOrdersItemsRepository;
 import it.kennedy.cpss.springbootcpss.repository.IOrdiniRepository;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-import org.modelmapper.ModelMapper;
+import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -78,29 +80,31 @@ public class OrdiniService implements IOrdiniService {
 		Optional<OrdiniDao> lastDao = this.ordiniRepository.getLastOrder();
 		ArrayList<OrdiniDao> defined = new ArrayList<>();
 		if(!lastDao.isEmpty()){
-			DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+			DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SS");
+			LocalDateTime lastInsertedDate = lastDao.get().getPurchaseDate();
 
-			Date lastInsertedDate = lastDao.get().getPurchaseDate();
 			Arrays.stream(orders)
 					.forEach(k -> {
-						DateTime arrayDate = DateTime.parse(lastInsertedDate.toString(), formatter);
-						DateTime daoDate = DateTime.parse(k.getPurchaseDate(), formatter);
-
-						int compared = daoDate.compareTo(arrayDate);
-						if(compared == -1) defined.add(dtoInternalToDao(k, new OrdiniDao()));
+						LocalDateTime apiDate = LocalDateTime.parse(k.PurchaseDate, format);
+						if(apiDate.isAfter(lastInsertedDate)) defined.add(this.dtoInternalToDao(k));
 					});
-		}
 
-		OrdiniDao dao = new OrdiniDao();
-		try {
-			for (Orders.OrdiniInternal dtoInternal:orders) {
-				dtoInternalToDao(dtoInternal, dao);
-				ordiniRepository.save(dao);
-			}
+			for(OrdiniDao d : defined) this.ordiniRepository.save(d);
+
 			return true;
-		} catch (Exception exc) {
-			System.err.println(exc);
-			return false;
+		}
+		else {
+			OrdiniDao dao = new OrdiniDao();
+			try {
+				for (Orders.OrdiniInternal dtoInternal:orders) {
+					dao = dtoInternalToDao(dtoInternal);
+					ordiniRepository.save(dao);
+				}
+				return true;
+			} catch (Exception exc) {
+				System.err.println(exc);
+				return false;
+			}
 		}
 	}
 
@@ -130,8 +134,26 @@ public class OrdiniService implements IOrdiniService {
 	}
 
 	// DTO INTERNAL TO DAO METHOD
-	private OrdiniDao dtoInternalToDao(Orders.OrdiniInternal dto, OrdiniDao dao) {
+	private OrdiniDao dtoInternalToDao(Orders.OrdiniInternal dto) {
+
+		Converter<String, LocalDateTime> toStringDate = new AbstractConverter<String, LocalDateTime>() {
+			@Override
+			protected LocalDateTime convert(String source) {
+				DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SS");
+				LocalDateTime localDate = LocalDateTime.parse(source, format);
+				return localDate;
+			}
+		};
+
+
 		var mapper = new ModelMapper();
+
+		mapper.typeMap(Orders.OrdiniInternal.class, OrdiniDao.class)
+				.addMappings(mp -> mp.using(toStringDate).map(Orders.OrdiniInternal :: getPurchaseDate, OrdiniDao :: setPurchaseDate))
+				.addMappings(mp -> mp.using(toStringDate).map(Orders.OrdiniInternal :: getLastUpdateDate, OrdiniDao :: setLastUpdatedDate))
+				.addMappings(mp -> mp.using(toStringDate).map(Orders.OrdiniInternal :: getEarliestShipDate, OrdiniDao :: setEarliestsShipDate))
+				.addMappings(mp -> mp.using(toStringDate).map(Orders.OrdiniInternal :: getLatestShipDate, OrdiniDao :: setLatestShipDate));
+
 		return mapper.map(dto, OrdiniDao.class);
 	}
 }
