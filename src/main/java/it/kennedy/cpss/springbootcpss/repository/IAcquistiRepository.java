@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IAcquistiRepository extends JpaRepository<AcquistiDao, Integer> {
+
+    AcquistiDao findByPurchaseId(int id);
+
 }

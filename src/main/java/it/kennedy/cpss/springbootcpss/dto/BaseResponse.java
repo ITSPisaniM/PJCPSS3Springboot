@@ -13,4 +13,5 @@ public class BaseResponse<T> {
     public Date date;
     public List<Errors> errors;
     public int success;
+    public Boolean result;
 }

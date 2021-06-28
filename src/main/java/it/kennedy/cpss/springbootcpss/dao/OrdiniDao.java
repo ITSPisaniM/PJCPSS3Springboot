@@ -1,16 +1,10 @@
 package it.kennedy.cpss.springbootcpss.dao;
 
 
-import java.sql.Date;
-import java.time.LocalDateTime;
-
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import org.apache.tomcat.jni.Local;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "torders")

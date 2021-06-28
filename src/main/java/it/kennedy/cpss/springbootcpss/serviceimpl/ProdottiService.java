@@ -6,7 +6,8 @@ import it.kennedy.cpss.springbootcpss.iservice.IProdottiService;
 import it.kennedy.cpss.springbootcpss.repository.IProdottiRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,15 +16,13 @@ import java.util.List;
 @Service
 public class ProdottiService implements IProdottiService {
 
-
     @Autowired
     IProdottiRepository prodottiRepository;
 
     // GET ALL PAGINATION PRODOTTI
     @Override
-    public List<ProdottiDto> getAllPagination(int pagina, int elPerPage) {
+    public List<ProdottiDto> getAllPagination(Pageable pageable) {
         List<ProdottiDto> listDto = new ArrayList<>();
-        var pageable = PageRequest.of(pagina, elPerPage);
         for (ProdottiDao dao : prodottiRepository.findAll(pageable)) {
             var dto = daoToDto(dao);
             listDto.add(dto);

@@ -12,7 +12,6 @@ import org.modelmapper.AbstractConverter;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -35,9 +34,8 @@ public class OrdiniService implements IOrdiniService {
 
 	// GET ALL PAGINATION ORDINI
 	@Override
-	public List<OrdiniDto> getAllPagination(int pagina, int elPerPage) {
+	public List<OrdiniDto> getAllPagination(Pageable pageable) {
 		List<OrdiniDto> listDto = new ArrayList<>();
-		var pageable = PageRequest.of(pagina, elPerPage);
 		for (OrdiniDao dao : ordiniRepository.findAll(pageable)) {
 			var dto = daoToDto(dao);
 			listDto.add(dto);
@@ -62,8 +60,7 @@ public class OrdiniService implements IOrdiniService {
 	public OrdiniDto findByAmazonOrderId(String id) {
 		try {
 			OrdiniDto dto = new OrdiniDto();
-			String idString = id + "";
-			OrdiniDao dao = ordiniRepository.findByAmazonOrderId(idString);
+			OrdiniDao dao = ordiniRepository.findByAmazonOrderId(id);
 			dto = daoToDto(dao);
 			return dto;
 		} catch (Exception e) {

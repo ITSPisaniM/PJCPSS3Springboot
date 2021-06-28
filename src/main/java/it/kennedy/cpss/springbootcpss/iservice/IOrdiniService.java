@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface IOrdiniService {
 
-	List<OrdiniDto> getAllPagination(int pagina, int dimensionePagina);
+	List<OrdiniDto> getAllPagination(Pageable pageable);
 
 	List<OrdiniDto> getAll();
 

@@ -56,18 +56,13 @@ public class OrdiniController {
 	}
 
 	// --------------------------- GET ALL PAGINATION ORDINI
-	@GetMapping(produces = "application/json", path = "/page/{pagina}/{elPerPage}")
-	public BaseResponse<OrdiniDto> getAllOrdini(@PathVariable int pagina, @PathVariable int elPerPage) {
+	@GetMapping(produces = "application/json", path = "/page")
+	public BaseResponse<OrdiniDto> getAllOrdini(Pageable pageable) {
 
 		BaseResponse<OrdiniDto> response = new BaseResponse<>();
 
-		String elPerPageS = elPerPage + "";
-		// noinspection ConstantConditions
-		if (elPerPageS == null) {
-			elPerPage = 10;
-		}
 
-		List<OrdiniDto> listDto = ordiniService.getAllPagination(pagina, elPerPage);
+		List<OrdiniDto> listDto = ordiniService.getAllPagination(pageable);
 
 		response.setData(listDto);
 		response.setDate(new Date());
