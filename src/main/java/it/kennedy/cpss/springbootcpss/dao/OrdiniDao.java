@@ -1,12 +1,16 @@
 package it.kennedy.cpss.springbootcpss.dao;
 
+
+import java.sql.Date;
+import java.time.LocalDateTime;
+
 import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.sql.Date;
+import org.apache.tomcat.jni.Local;
 
 @Entity
 @Table(name = "torders")
@@ -18,10 +22,10 @@ public class OrdiniDao {
 	private String amazonOrderId;
 
 	@Column(name = "purchase_date")
-	private Date purchaseDate;
+	private LocalDateTime purchaseDate;
 
 	@Column(name = "last_update_date")
-	private Date lastUpdatedDate;
+	private LocalDateTime lastUpdatedDate;
 
 	@Column(name = "order_status")
 	private String orderSatus;
@@ -51,10 +55,10 @@ public class OrdiniDao {
 	private String orderType;
 
 	@Column(name = "earliest_ship_date")
-	private Date earliestsShipDate;
+	private LocalDateTime earliestsShipDate;
 
 	@Column(name = "latest_ship_date")
-	private Date latestShipDate;
+	private LocalDateTime latestShipDate;
 
 	@Column(name = "is_business_order")
 	private boolean isBusinessOrder;
