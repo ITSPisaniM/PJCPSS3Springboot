@@ -1,23 +1,20 @@
 package it.kennedy.cpss.springbootcpss.dao;
 
+
 import java.sql.Date;
 import java.time.LocalDateTime;
+
+import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.apache.tomcat.jni.Local;
 
 @Entity
 @Table(name = "torders")
 @Data
-@Getter
-@Setter
 public class OrdiniDao {
 
 	@Id
