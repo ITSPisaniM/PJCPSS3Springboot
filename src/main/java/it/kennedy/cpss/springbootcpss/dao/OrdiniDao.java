@@ -1,6 +1,5 @@
 package it.kennedy.cpss.springbootcpss.dao;
 
-
 import lombok.Data;
 
 import javax.persistence.*;
@@ -22,7 +21,7 @@ public class OrdiniDao {
 	private LocalDateTime lastUpdatedDate;
 
 	@Column(name = "order_status")
-	private String orderSatus;
+	private String orderStatus;
 
 	@Column(name = "fulfillment_channel")
 	private String fullfillmentChannel;
