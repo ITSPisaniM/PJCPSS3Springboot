@@ -4,6 +4,7 @@ import it.kennedy.cpss.springbootcpss.dao.OrdersItemsDao;
 import lombok.*;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
@@ -12,61 +13,61 @@ import java.util.List;
 @AllArgsConstructor
 public class OrdiniDto {
 
-	public String amazonOrderId;
+	private String amazonOrderId;
 
-	public Date purchaseDate;
+	private LocalDateTime purchaseDate;
 
-	public Date lastUpdatedDate;
+	private LocalDateTime lastUpdatedDate;
 
-	public String orderSatus;
+	private String orderStatus;
 
-	public String fullfillmentChannel;
+	private String fullfillmentChannel;
 
-	public int numberOfItemsShipped;
+	private int numberOfItemsShipped;
 
-	public int numebrOfItemsUnshipped;
+	private int numebrOfItemsUnshipped;
 
-	public String patmentMethod;
+	private String patmentMethod;
 
-	public String paymentMethodDetails;
+	private String paymentMethodDetails;
 
-	public String marketplaceId;
+	private String marketplaceId;
 
-	public String shipmentServiceLevelCategory;
+	private String shipmentServiceLevelCategory;
 
-	public String orderType;
+	private String orderType;
 
-	public Date earliestsShipDate;
+	private LocalDateTime earliestsShipDate;
 
-	public Date latestShipDate;
+	private LocalDateTime latestShipDate;
 
-	public boolean isBusinessOrder;
+	private boolean isBusinessOrder;
 
-	public boolean isPrime;
+	private boolean isPrime;
 
-	public boolean isGlobalExpressEnabled;
+	private boolean isGlobalExpressEnabled;
 
-	public boolean isPremiumOrder;
+	private boolean isPremiumOrder;
 
-	public boolean isSoldByAb;
+	private boolean isSoldByAb;
 
-	public String companyLegalName;
+	private String companyLegalName;
 
-	public String buyerEmail;
+	private String buyerEmail;
 
-	public String buyerName;
+	private String buyerName;
 
-	public String purchaseOrderNumber;
+	private String purchaseOrderNumber;
 
-	public String shippingAddressName;
+	private String shippingAddressName;
 
-	public String shippingAddressLine1;
+	private String shippingAddressLine1;
 
-	public String shippingAddressCity;
+	private String shippingAddressCity;
 
-	public String shippingCityStateOrRegion;
+	private String shippingCityStateOrRegion;
 
-	public String shippingStateOrRegionPostalCode;
+	private String shippingStateOrRegionPostalCode;
 
-	public List<OrdersItemsDao> ordersItems;
+	private List<OrdersItemsDao> ordersItems;
 }
