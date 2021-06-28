@@ -4,15 +4,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.kennedy.cpss.springbootcpss.dto.BaseResponse;
 import it.kennedy.cpss.springbootcpss.dto.Orders;
 import it.kennedy.cpss.springbootcpss.dto.OrdiniDto;
+import it.kennedy.cpss.springbootcpss.dto.input.OrdiniFilterDto;
 import it.kennedy.cpss.springbootcpss.serviceimpl.OrdiniService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -94,10 +95,6 @@ public class OrdiniController {
 	@GetMapping(produces = "application/json", path = "/{id}")
 	public BaseResponse<OrdiniDto> getById(@PathVariable String id) {
 
-		//ServletTokenDetails details = (ServletTokenDetails) SecurityContextHolder.getContext().getAuthentication()
-				//.getDetails();
-		//String token = details.token;
-
 		BaseResponse<OrdiniDto> response = new BaseResponse<>();
 
 		List<OrdiniDto> listDto = new ArrayList<>();
@@ -109,9 +106,43 @@ public class OrdiniController {
 		response.setDate(new Date());
 		response.setErrors(new ArrayList<>());
 		response.setSuccess(HttpStatus.OK.value());
-		//response.token = token;
+		return response;
+	}
+
+	// --------------------------- FILTERS API
+	@GetMapping(produces = "application/json")
+	public BaseResponse<OrdiniDto> getByFilters(
+			Pageable pageable, // localhost:8090/api/ordini?page=0&size=5
+			//required = false --> non è obbligatorio l'inserimento
+			//name = "name" --> quello che viene fuori nell'URL nel browser
+			@RequestParam(required = false, name="amazonOrderId") String amazonOrderId,
+			@RequestParam(required = false, name ="buyerEmail") String buyerEmail,
+			@RequestParam(required = false, name = "purchaseDate") String purchaseDate
+	) throws ParseException {
+
+		BaseResponse<OrdiniDto> response = new BaseResponse<>();
+
+		//creo una val di tipo OrdiniFilteDto per passarla come oggetto al Service
+		OrdiniFilterDto filters = new OrdiniFilterDto();
+		//StringUtils --> dependency per controllare che una stringa non sia: null, "", " ";
+		if (StringUtils.isNotBlank(amazonOrderId)) {
+			filters.setAmazonOrderId(amazonOrderId);
+		}
+		if (StringUtils.isNotBlank(buyerEmail)) {
+			filters.setBuyerEmail(buyerEmail);
+		}
+		if (StringUtils.isNotBlank(purchaseDate)) {
+			filters.setPurchaseDate(purchaseDate);
+		}
+
+		response.setData(ordiniService.findByFilters(filters, pageable));
+		response.setDate(new Date());
+		response.setErrors(new ArrayList<>());
+		response.setSuccess(HttpStatus.OK.value());
 
 		return response;
 	}
+
+
 
 }
