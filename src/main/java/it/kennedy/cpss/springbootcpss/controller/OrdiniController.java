@@ -1,14 +1,12 @@
 package it.kennedy.cpss.springbootcpss.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.kennedy.cpss.springbootcpss.config.ServletTokenDetails;
 import it.kennedy.cpss.springbootcpss.dto.BaseResponse;
 import it.kennedy.cpss.springbootcpss.dto.Orders;
 import it.kennedy.cpss.springbootcpss.dto.OrdiniDto;
 import it.kennedy.cpss.springbootcpss.serviceimpl.OrdiniService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,10 +56,6 @@ public class OrdiniController {
 	@GetMapping(produces = "application/json", path = "/page/{pagina}/{elPerPage}")
 	public BaseResponse<OrdiniDto> getAllOrdini(@PathVariable int pagina, @PathVariable int elPerPage) {
 
-		ServletTokenDetails details = (ServletTokenDetails) SecurityContextHolder.getContext().getAuthentication()
-				.getDetails();
-		String token = details.token;
-
 		BaseResponse<OrdiniDto> response = new BaseResponse<>();
 
 		String elPerPageS = elPerPage + "";
@@ -76,7 +70,6 @@ public class OrdiniController {
 		response.setDate(new Date());
 		response.setErrors(new ArrayList<>());
 		response.setSuccess(HttpStatus.OK.value());
-		response.token = token;
 
 		return response;
 	}
@@ -84,10 +77,6 @@ public class OrdiniController {
 	// --------------------------- GET ALL ORDINI
 	@GetMapping(produces = "application/json", path = "/list")
 	public BaseResponse<OrdiniDto> list() {
-
-		//ServletTokenDetails details = (ServletTokenDetails) SecurityContextHolder.getContext().getAuthentication()
-		//		.getDetails();
-		//String token = details.token;
 
 		List<OrdiniDto> listDto = ordiniService.getAll();
 
@@ -97,7 +86,6 @@ public class OrdiniController {
 		response.setDate(new Date());
 		response.setErrors(new ArrayList<>());
 		response.setSuccess(HttpStatus.OK.value());
-		//response.token = token;
 
 		return response;
 	}

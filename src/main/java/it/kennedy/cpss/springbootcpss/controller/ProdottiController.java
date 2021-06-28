@@ -1,12 +1,10 @@
 package it.kennedy.cpss.springbootcpss.controller;
 
-import it.kennedy.cpss.springbootcpss.config.ServletTokenDetails;
 import it.kennedy.cpss.springbootcpss.dto.BaseResponse;
 import it.kennedy.cpss.springbootcpss.dto.ProdottiDto;
 import it.kennedy.cpss.springbootcpss.serviceimpl.ProdottiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -30,9 +28,6 @@ public class ProdottiController {
     @GetMapping(produces = "application/json", path = "/page/{pagina}/{elPerPage}")
     public BaseResponse<ProdottiDto> getAllProdotti(@PathVariable int pagina, @PathVariable int elPerPage) {
 
-        ServletTokenDetails details = (ServletTokenDetails) SecurityContextHolder.getContext().getAuthentication().getDetails();
-        String token = details.token;  // TOGLIERE IL TOKEN SUI CONTROLLI?
-
         BaseResponse<ProdottiDto> response = new BaseResponse<>();
 
         String elPerPageS = elPerPage + "";
@@ -47,7 +42,6 @@ public class ProdottiController {
         response.setDate(new Date());
         response.setErrors(new ArrayList<>());
         response.setSuccess(HttpStatus.OK.value());
-        response.token = token;
 
         return response;
     }
@@ -55,10 +49,6 @@ public class ProdottiController {
     // --------------------------- GET ALL PRODOTTI
     @GetMapping(produces = "application/json", path = "/list")
     public BaseResponse<ProdottiDto> list() {
-
-        ServletTokenDetails details = (ServletTokenDetails) SecurityContextHolder.getContext().getAuthentication()
-                .getDetails();
-        String token = details.token;
 
         List<ProdottiDto> listDto = prodottiService.getAll();
 
@@ -68,7 +58,6 @@ public class ProdottiController {
         response.setDate(new Date());
         response.setErrors(new ArrayList<>());
         response.setSuccess(HttpStatus.OK.value());
-        response.token = token;
 
         return response;
     }
@@ -76,10 +65,6 @@ public class ProdottiController {
     // --------------------------- GET BY ID PRODOTTI
     @GetMapping(produces = "application/json", path = "/{id}")
     public BaseResponse<ProdottiDto> getById(@PathVariable String id) {
-
-        ServletTokenDetails details = (ServletTokenDetails) SecurityContextHolder.getContext().getAuthentication()
-                .getDetails();
-        String token = details.token;
 
         BaseResponse<ProdottiDto> response = new BaseResponse<>();
 
@@ -92,7 +77,6 @@ public class ProdottiController {
         response.setDate(new Date());
         response.setErrors(new ArrayList<>());
         response.setSuccess(HttpStatus.OK.value());
-        response.token = token;
 
         return response;
     }
@@ -100,9 +84,6 @@ public class ProdottiController {
     // --------------------------- INSERT PRODOTTI
     @PostMapping(consumes = "application/json", produces = "application/json", path = "/save")
     public BaseResponse<Boolean> inserisci(@RequestBody ProdottiDto dto) {
-        ServletTokenDetails details = (ServletTokenDetails) SecurityContextHolder.getContext().getAuthentication()
-                .getDetails();
-        String token = details.token;
 
         BaseResponse<Boolean> response = new BaseResponse<>();
 
@@ -113,8 +94,6 @@ public class ProdottiController {
         response.setDate(new Date());
         response.setErrors(new ArrayList<>());
         response.setSuccess(HttpStatus.OK.value());
-        response.token = token;
-
         return response;
     }
 
