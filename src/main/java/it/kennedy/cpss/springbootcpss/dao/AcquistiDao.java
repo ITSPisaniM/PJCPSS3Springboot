@@ -3,6 +3,8 @@ package it.kennedy.cpss.springbootcpss.dao;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class AcquistiDao {
     private Integer supplierId;
 
     @Column(name = "bill_date")
-    private Date billDate;
+    private LocalDate billDate;
 
     @Column(name = "bill_number")
     private Integer billNumber;

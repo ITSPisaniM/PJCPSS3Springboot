@@ -17,5 +17,4 @@ public class AcquistiDto {
     public int supplierId;
     public Date billDate;
     public int billNumber;
-
 }

@@ -1,6 +1,7 @@
 package it.kennedy.cpss.springbootcpss.iservice;
 
 import it.kennedy.cpss.springbootcpss.dto.AcquistiDto;
+import it.kennedy.cpss.springbootcpss.dto.input.AcquistiInsertDto;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -17,5 +18,5 @@ public interface IAcquistiService {
 
     Boolean modifyAcquisto(AcquistiDto dto, int id);
 
-    Boolean insertAcquisto(AcquistiDto dto);
+    Boolean insertAcquisto(AcquistiInsertDto dto);
 }

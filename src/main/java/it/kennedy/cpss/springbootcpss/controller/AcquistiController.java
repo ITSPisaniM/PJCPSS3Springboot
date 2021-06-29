@@ -2,6 +2,7 @@ package it.kennedy.cpss.springbootcpss.controller;
 
 import it.kennedy.cpss.springbootcpss.dto.AcquistiDto;
 import it.kennedy.cpss.springbootcpss.dto.BaseResponse;
+import it.kennedy.cpss.springbootcpss.dto.input.AcquistiInsertDto;
 import it.kennedy.cpss.springbootcpss.serviceimpl.AcquistiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -78,7 +79,7 @@ public class AcquistiController {
 
     // --------------------------- INSERT ACQUISTI
     @PostMapping(consumes = "application/json", produces = "application/json", path = "/save")
-    public BaseResponse<Boolean> inserisci(@RequestBody AcquistiDto dto) {
+    public BaseResponse<Boolean> inserisci(@RequestBody AcquistiInsertDto dto) {
 
         BaseResponse<Boolean> response = new BaseResponse<>();
 
