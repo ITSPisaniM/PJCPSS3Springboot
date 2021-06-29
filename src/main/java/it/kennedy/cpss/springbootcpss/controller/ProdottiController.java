@@ -97,5 +97,9 @@ public class ProdottiController {
 
     // --------------------------------------------------------------- FILTERS
 
+    @GetMapping(produces = "application/json", path = "/count")
+    public int count(){
+        return prodottiService.count();
+    }
 
 }
