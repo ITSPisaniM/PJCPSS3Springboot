@@ -16,12 +16,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrdiniService implements IOrdiniService {
@@ -168,15 +170,18 @@ public class OrdiniService implements IOrdiniService {
 			String purchaseDate1 = filters.getPurchaseDate();
 			String date = "1970-01-01";
 
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ITALIAN);
-		Date purchaseDate = format.parse(date);
+		//LocalDate date = LocalDate.parse(variabileStringa);
+		//LocalDateTime localDateTime1 = date.atStartOfDay();
+
+		LocalDate purchaseDate = LocalDate.parse(date);
 		if (purchaseDate1 != null) {
-			purchaseDate = format.parse(purchaseDate1);
+			purchaseDate = LocalDate.parse(purchaseDate1);
 		}
+		LocalDateTime purchaseDateFormat = purchaseDate.atStartOfDay();
 
 		Specification<OrdiniDao> specAmazonOrderId = ordiniRepository.amazonOrderId(amazonOrderId);
 		Specification<OrdiniDao> specBuyerEmail = ordiniRepository.buyerEmail(buyerEmail);
-		Specification<OrdiniDao> specPurchaseDate = ordiniRepository.purchaseDate(purchaseDate);
+		Specification<OrdiniDao> specPurchaseDate = ordiniRepository.purchaseDate(purchaseDateFormat);
 
 			List<OrdiniDao> ordiniDao = new ArrayList<>();
 

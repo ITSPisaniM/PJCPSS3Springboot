@@ -3,17 +3,11 @@ package it.kennedy.cpss.springbootcpss.repository;
 import it.kennedy.cpss.springbootcpss.dao.OrdiniDao;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import org.springframework.data.jpa.repository.Query;
-
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
-
-import javax.swing.text.html.Option;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Repository
@@ -34,7 +28,7 @@ public interface IOrdiniRepository extends JpaRepository<OrdiniDao, Integer>, Jp
         return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("buyerEmail"), buyerEmail);
     }
 
-    default Specification<OrdiniDao> purchaseDate(Date purchaseDate){
+    default Specification<OrdiniDao> purchaseDate(LocalDateTime purchaseDate){
         return (root, query, criteriaBuilder) -> criteriaBuilder.greaterThanOrEqualTo(root.get("purchaseDate"), purchaseDate);
     }
 
