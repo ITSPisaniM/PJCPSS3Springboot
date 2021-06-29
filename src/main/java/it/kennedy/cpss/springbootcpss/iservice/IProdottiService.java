@@ -20,7 +20,5 @@ public interface IProdottiService {
 
     Boolean deleteProdotto(int id);
 
-
-
-
+    int count();
 }

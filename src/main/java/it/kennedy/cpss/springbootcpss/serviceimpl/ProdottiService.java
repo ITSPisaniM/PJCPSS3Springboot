@@ -76,6 +76,12 @@ public class ProdottiService implements IProdottiService {
         return null;
     }
 
+    @Override
+    public int count() {
+        int count = prodottiRepository.countProdotti();
+        return count;
+    }
+
 
     // --------------------------------------------------------------------------------------------------------------------------------
     // METHODS
