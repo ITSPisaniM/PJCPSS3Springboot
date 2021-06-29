@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Entity
 @Table(name = "tordersitems")
@@ -57,6 +58,7 @@ public class OrdersItemsDao {
     private Double shippingPriceAmount;
 
     @Column(name = "promotion_ids")
-    private String promotionIds;
+    private Date promotionIds;
+
 
 }

@@ -97,11 +97,5 @@ public class ProdottiController {
 
     // --------------------------------------------------------------- FILTERS
 
-    @GetMapping(produces = "application/json", path = "/page/{nomeCampo}/{valoreCampo}")
-    public BaseResponse<ProdottiDto> filter(@PathVariable int nomeCampo, @PathVariable int valoreCampo){
-
-        return null;
-    }
-
 
 }
