@@ -12,10 +12,10 @@ public interface IOrdersItemsRepository extends JpaRepository<OrdersItemsDao, In
 
     List<OrdersItemsDao> findByAmazonOrderId(String amazonOrderId);
 
-    @Query(value="SELECT SUM(quantity_ordered) FROM tordersitems o", nativeQuery = true)
+    @Query(value="SELECT SUM(quantity_ordered) FROM tordersitems o WHERE promotion_ids = '2021-06-02'", nativeQuery = true)
     int totQuantita();
 
-    @Query(value="SELECT SUM(item_price_amount) FROM tordersitems o", nativeQuery = true)
+    @Query(value="SELECT SUM(item_price_amount) FROM tordersitems o WHERE promotion_ids = '2021-06-02'", nativeQuery = true)
     int totRicavi();
 
 }
