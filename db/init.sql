@@ -6,8 +6,8 @@ CREATE database gestioneordini;
 -- Orders: Oggetti acquistati da amazon  dai nostri clienti
 CREATE TABLE public.torders (
 	amazon_order_id varchar NOT NULL,
-	purchase_date date NULL,
-	last_update_date date NULL,
+	purchase_date timestamp without time zone NULL,
+	last_update_date timestamp without time zone NULL,
 	order_status varchar NULL,
 	fulfillment_channel varchar NULL,
 	number_of_items_shipped integer NULL,
@@ -17,8 +17,8 @@ CREATE TABLE public.torders (
 	marketplace_id varchar NULL,
 	shipment_service_level_category varchar NULL,
 	order_type varchar NULL,
-	earliest_ship_date date NULL,
-	latest_ship_date date NULL,
+	earliest_ship_date timestamp without time zone NULL,
+	latest_ship_date timestamp without time zone NULL,
 	is_business_order bool NULL,
 	is_prime bool NULL,
 	is_global_express_enabled bool NULL,
