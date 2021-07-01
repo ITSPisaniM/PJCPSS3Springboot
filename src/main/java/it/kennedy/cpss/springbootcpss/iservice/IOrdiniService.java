@@ -1,5 +1,6 @@
 package it.kennedy.cpss.springbootcpss.iservice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import it.kennedy.cpss.springbootcpss.dto.Orders;
 import it.kennedy.cpss.springbootcpss.dto.OrdiniDto;
 import it.kennedy.cpss.springbootcpss.dto.input.OrdiniFilterDto;
@@ -16,7 +17,7 @@ public interface IOrdiniService {
 
 	OrdiniDto findByAmazonOrderId(String id);
 
-	Boolean insertOrders(Orders.OrdiniInternal[] orders);
+	Boolean insertOrders(Orders.OrdiniInternal[] orders) throws JsonProcessingException;
 
 	List<OrdiniDto> findByFilters(OrdiniFilterDto filter, Pageable pageable) throws ParseException;
 

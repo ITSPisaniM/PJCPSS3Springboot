@@ -1,20 +1,27 @@
 package it.kennedy.cpss.springbootcpss.serviceimpl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import it.kennedy.cpss.springbootcpss.dao.OrdersItemsDao;
 import it.kennedy.cpss.springbootcpss.dao.OrdiniDao;
+import it.kennedy.cpss.springbootcpss.dao.ProdottiDao;
+import it.kennedy.cpss.springbootcpss.dto.OrderItems;
 import it.kennedy.cpss.springbootcpss.dto.Orders;
 import it.kennedy.cpss.springbootcpss.dto.OrdiniDto;
 import it.kennedy.cpss.springbootcpss.dto.input.OrdiniFilterDto;
 import it.kennedy.cpss.springbootcpss.iservice.IOrdiniService;
 import it.kennedy.cpss.springbootcpss.repository.IOrdersItemsRepository;
 import it.kennedy.cpss.springbootcpss.repository.IOrdiniRepository;
+import it.kennedy.cpss.springbootcpss.repository.IProdottiRepository;
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -25,6 +32,12 @@ import java.util.*;
 
 @Service
 public class OrdiniService implements IOrdiniService {
+
+	@Value("${utils.ordiniItems}")
+	private String uri;
+
+	@Autowired
+	IProdottiRepository prodottiRepository;
 
 	@Autowired
 	IOrdiniRepository ordiniRepository;
@@ -70,16 +83,16 @@ public class OrdiniService implements IOrdiniService {
 
 	// INSERT ORDINI API
 	@Override
-	public Boolean insertOrders(Orders.OrdiniInternal[] orders) {
+	public Boolean insertOrders(Orders.OrdiniInternal[] orders) throws JsonProcessingException {
 
 		/*
 		* 1. Prendo l' ultimo ordine inserito da db (tramite data -> purchase date)
 		* 2. Prendo dall' API tutti gli ordini con purchase dopo quella data
-		* 3. Ci sarebbe da capire il LastUpdateDate che minchia fa
 		* */
 
 		Optional<OrdiniDao> lastDao = this.ordiniRepository.getLastOrder();
 		ArrayList<OrdiniDao> defined = new ArrayList<>();
+
 		if(!lastDao.isEmpty()){
 			DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SS");
 			LocalDateTime lastInsertedDate = lastDao.get().getPurchaseDate();
@@ -90,23 +103,49 @@ public class OrdiniService implements IOrdiniService {
 						if(apiDate.isAfter(lastInsertedDate)) defined.add(this.dtoInternalToDao(k));
 					});
 
-			for(OrdiniDao d : defined) this.ordiniRepository.save(d);
+			//for(OrdiniDao d : defined) this.ordiniRepository.save(d);
 
-			return true;
+			//return true;
+		} else {
+			for(Orders.OrdiniInternal d : orders)
+				defined.add(dtoInternalToDao(d));
 		}
-		else {
-			OrdiniDao dao = new OrdiniDao();
-			try {
-				for (Orders.OrdiniInternal dtoInternal:orders) {
-					dao = dtoInternalToDao(dtoInternal);
-					ordiniRepository.save(dao);
+
+		/*
+		 * Prendo gli ordini:
+		 * 1. Per ogni ordine chiamo il servizio API per prendere gli items
+		 * 2. Controllo che ci siano abbastanza items in magazzino per completare l' ordine
+		 * 3. Creo l'oggetto orderItems e lo salvo a db
+		 * 4. salvo l'ordine a db
+		 **/
+
+		try{
+			ArrayList<ProdottiDao> prodottiList = new ArrayList<>();
+
+			for(OrdiniDao d : defined){
+				RestTemplate restTemplate = new RestTemplate();
+				String result = restTemplate.getForObject(uri + d.getAmazonOrderId(), String.class);
+
+				ObjectMapper mapper = new ObjectMapper();
+
+				OrderItems ordersItems = mapper.readValue(result, OrderItems.class);
+
+				for(OrderItems.OrdiniItemsInternal o : ordersItems.OrderItems){
+					ProdottiDao prodotto = this.prodottiRepository.findByAsin(o.getASIN());
+
+					if(!(prodotto.getStock() > o.getQuantityOrdered()))
+						return false;
+
+					prodotto.setStock(prodotto.getStock() - o.getQuantityOrdered());
+
+					prodottiList.add(prodotto);
 				}
-				return true;
-			} catch (Exception exc) {
-				System.err.println(exc);
-				return false;
 			}
+		}catch (Exception ex){
+			return false;
 		}
+
+		return false;
 	}
 
 

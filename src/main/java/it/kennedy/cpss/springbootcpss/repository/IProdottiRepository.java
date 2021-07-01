@@ -9,4 +9,5 @@ public interface IProdottiRepository extends JpaRepository<ProdottiDao, Integer>
 
     ProdottiDao findByAsin(String asin);
 
+    Integer getStockByAsin(String asin);
 }
