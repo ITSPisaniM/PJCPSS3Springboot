@@ -7,7 +7,6 @@ import it.kennedy.cpss.springbootcpss.dto.OrdiniDto;
 import it.kennedy.cpss.springbootcpss.dto.input.OrdiniFilterDto;
 import it.kennedy.cpss.springbootcpss.serviceimpl.OrdiniService;
 import org.apache.commons.lang3.StringUtils;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
@@ -109,7 +108,8 @@ public class OrdiniController {
 	// --------------------------- FILTERS API
 	@GetMapping(produces = "application/json")
 	public BaseResponse<OrdiniDto> getByFilters(
-			Pageable pageable, // localhost:8090/api/ordini?page=0&size=5
+			Pageable pageable,
+			// localhost:8090/api/ordini?page=0&size=5
 			//required = false --> non è obbligatorio l'inserimento
 			//name = "name" --> quello che viene fuori nell'URL nel browser
 			@RequestParam(required = false, name="amazonOrderId") String amazonOrderId,

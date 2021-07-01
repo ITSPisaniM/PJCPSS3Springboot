@@ -168,9 +168,9 @@ public class OrdiniService implements IOrdiniService {
 			String amazonOrderId = filters.getAmazonOrderId();
 			String buyerEmail = filters.getBuyerEmail();
 			String purchaseDate1 = filters.getPurchaseDate();
-			//String date = "1970-01-01";
+			String date = "1970-01-01";
 
-		LocalDate purchaseDate = LocalDate.parse(purchaseDate1);
+		LocalDate purchaseDate = LocalDate.parse(date);
 		if (purchaseDate1 != null) {
 			purchaseDate = LocalDate.parse(purchaseDate1);
 		}
