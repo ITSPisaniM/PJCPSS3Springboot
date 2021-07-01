@@ -14,11 +14,9 @@ import java.time.LocalDateTime;
 public class AnalisiFilterDto {
 
     public int quantitaTot; // quantità per settimana
-    public int ricaviTot; // ricavi per settimana
+    public double ricaviTot; // ricavi per settimana
     public LocalDateTime startDate;
-    public LocalDateTime endDate;
     public String startDateS;
-    public String endDateS;
     public String analiticsType;
 
 }

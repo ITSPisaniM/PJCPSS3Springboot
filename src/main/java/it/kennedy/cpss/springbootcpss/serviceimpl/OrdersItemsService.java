@@ -22,7 +22,6 @@ public class OrdersItemsService implements IOrdersItemsService {
     public List<AnalisiFilterDto> findByFilters(AnalisiFilterDto filter) throws ParseException {
 
         String startDate = filter.getStartDateS() + " 00:00:00";
-        String endDate = filter.getEndDateS() + " 00:00:00";
         String analiticsType = filter.getAnaliticsType();
         String defaultStartDate = "1970-01-01 00:00:00";
         String defaultEndDate = "2022-01-01 00:00:00";
@@ -35,9 +34,6 @@ public class OrdersItemsService implements IOrdersItemsService {
         }
 
         LocalDateTime endDateFormat = LocalDateTime.parse(defaultEndDate, formatter);
-        if (startDate != null) {
-            endDateFormat = LocalDateTime.parse(endDate, formatter);
-        }
 
         List<AnalisiFilterDto> analisiFilterDto = new ArrayList<>();
 
@@ -46,7 +42,7 @@ public class OrdersItemsService implements IOrdersItemsService {
         endDateFormat = startDateFormat.plusDays(1);
 
         int quantita = 0;
-        int ricavi = 0;
+        double ricavi = 0;
 
         if (analiticsType.equals("1")) {
             try {
@@ -68,7 +64,6 @@ public class OrdersItemsService implements IOrdersItemsService {
         filterDto.setQuantitaTot(quantita);
         filterDto.setRicaviTot(ricavi);
         filterDto.setStartDate(startDateFormat);
-        filterDto.setEndDate(endDateFormat);
         filterDto.setAnaliticsType(analiticsType);
         analisiFilterDto.add(filterDto);
 

@@ -26,7 +26,6 @@ public class OrdersItemsController {
     @GetMapping(produces = "application/json", path = "/analitics")
     public BaseResponse< AnalisiFilterDto> getByFilters(
             @RequestParam(required = false, name="StartDate") String startDate,
-            @RequestParam(required = false, name="EndDate") String endDate,
             @RequestParam(required = false, name="AnaliticsType") String analiticsType
             ){
 
@@ -34,9 +33,6 @@ public class OrdersItemsController {
 
         if (StringUtils.isNotBlank(startDate)) {
             filter.setStartDateS(startDate);
-        }
-        if (StringUtils.isNotBlank(endDate)) {
-            filter.setEndDateS(endDate);
         }
         if (StringUtils.isNotBlank(analiticsType)) {
             filter.setAnaliticsType(analiticsType);
