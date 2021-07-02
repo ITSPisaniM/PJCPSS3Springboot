@@ -27,9 +27,9 @@ public class AcquistiController {
 
     // --------------------------- GET ALL PAGINATION ACQUISTI
     @GetMapping(produces = "application/json", path = "/page")
-    public BaseResponse<AcquistiDto> getAllOrdini(Pageable pageable) {
+    public BaseResponse<List<AcquistiDto>> getAllOrdini(Pageable pageable) {
 
-        BaseResponse<AcquistiDto> response = new BaseResponse<>();
+        BaseResponse<List<AcquistiDto>> response = new BaseResponse<>();
 
 
         List<AcquistiDto> listDto = acquistiService.getAllPagination(pageable);
@@ -44,11 +44,11 @@ public class AcquistiController {
 
     // --------------------------- GET ALL ACQUISTI
     @GetMapping(produces = "application/json", path = "/list")
-    public BaseResponse<AcquistiDto> list() {
+    public BaseResponse<List<AcquistiDto>> list() {
 
         List<AcquistiDto> listDto = acquistiService.getAll();
 
-        BaseResponse<AcquistiDto> response = new BaseResponse<>();
+        BaseResponse<List<AcquistiDto>> response = new BaseResponse<>();
 
         response.setData(listDto);
         response.setDate(new Date());
@@ -60,9 +60,9 @@ public class AcquistiController {
 
     // --------------------------- GET BY ID ACQUISTI
     @GetMapping(produces = "application/json", path = "/{id}")
-    public BaseResponse<AcquistiDto> getById(@PathVariable int id) {
+    public BaseResponse<List<AcquistiDto>> getById(@PathVariable int id) {
 
-        BaseResponse<AcquistiDto> response = new BaseResponse<>();
+        BaseResponse<List<AcquistiDto>> response = new BaseResponse<>();
 
         List<AcquistiDto> listDto = new ArrayList<>();
         AcquistiDto ordineDto = acquistiService.findByPurchaseId(id);

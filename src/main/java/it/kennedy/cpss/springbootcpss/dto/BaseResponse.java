@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 public class BaseResponse<T> {
-    public List<T> data;
+    public T data;
     public Date date;
     public List<Errors> errors;
     public int success;
