@@ -25,9 +25,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @Service
 public class OrdiniService implements IOrdiniService {
+
+	private static final Logger LOGGER = Logger.getLogger(OrdiniService.class.getName());
 
 	@Autowired
 	IOrdiniRepository ordiniRepository;
@@ -58,10 +61,8 @@ public class OrdiniService implements IOrdiniService {
 	@Override
 	public OrdiniDto findByAmazonOrderId(String id) {
 		try {
-			OrdiniDto dto = new OrdiniDto();
 			OrdiniDao dao = ordiniRepository.findByAmazonOrderId(id);
-			dto = daoToDto(dao);
-			return dto;
+			return daoToDto(dao);
 		} catch (Exception e) {
 			return null;
 		}
@@ -72,42 +73,41 @@ public class OrdiniService implements IOrdiniService {
 	public Boolean insertOrders(Orders.OrdiniInternal[] orders) {
 
 		/*
-		* 1. Prendo l' ultimo ordine inserito da db (tramite data -> purchase date)
-		* 2. Prendo dall' API tutti gli ordini con purchase dopo quella data
-		* 3. Ci sarebbe da capire il LastUpdateDate che minchia fa
-		* */
+		 * 1. Prendo l' ultimo ordine inserito da db (tramite data -> purchase date) 2.
+		 * Prendo dall' API tutti gli ordini con purchase dopo quella data 3. Ci sarebbe
+		 * da capire il LastUpdateDate che minchia fa
+		 */
 
 		Optional<OrdiniDao> lastDao = this.ordiniRepository.getLastOrder();
 		ArrayList<OrdiniDao> defined = new ArrayList<>();
-		if(!lastDao.isEmpty()){
-			DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SS");
+		if (!lastDao.isEmpty()) {
+			var format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SS");
 			LocalDateTime lastInsertedDate = lastDao.get().getPurchaseDate();
 
-			Arrays.stream(orders)
-					.forEach(k -> {
-						LocalDateTime apiDate = LocalDateTime.parse(k.PurchaseDate, format);
-						if(apiDate.isAfter(lastInsertedDate)) defined.add(this.dtoInternalToDao(k));
-					});
+			Arrays.stream(orders).forEach(k -> {
+				var apiDate = LocalDateTime.parse(k.PurchaseDate, format);
+				if (apiDate.isAfter(lastInsertedDate))
+					defined.add(this.dtoInternalToDao(k));
+			});
 
-			for(OrdiniDao d : defined) this.ordiniRepository.save(d);
+			for (OrdiniDao d : defined)
+				this.ordiniRepository.save(d);
 
 			return true;
-		}
-		else {
-			OrdiniDao dao = new OrdiniDao();
+		} else {
+			var dao = new OrdiniDao();
 			try {
-				for (Orders.OrdiniInternal dtoInternal:orders) {
+				for (Orders.OrdiniInternal dtoInternal : orders) {
 					dao = dtoInternalToDao(dtoInternal);
 					ordiniRepository.save(dao);
 				}
 				return true;
 			} catch (Exception exc) {
-				System.err.println(exc);
+				LOGGER.warning(exc.getMessage());
 				return false;
 			}
 		}
 	}
-
 
 	// --------------------------------------------------------------------------------------------------------------------------------
 	// METHODS
@@ -137,35 +137,36 @@ public class OrdiniService implements IOrdiniService {
 		Converter<String, LocalDateTime> toStringDate = new AbstractConverter<String, LocalDateTime>() {
 			@Override
 			protected LocalDateTime convert(String source) {
-				DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SS");
-				LocalDateTime localDate = LocalDateTime.parse(source, format);
-				return localDate;
+				var format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SS");
+				return LocalDateTime.parse(source, format);
 			}
 		};
-
 
 		var mapper = new ModelMapper();
 
 		mapper.typeMap(Orders.OrdiniInternal.class, OrdiniDao.class)
-				.addMappings(mp -> mp.using(toStringDate).map(Orders.OrdiniInternal :: getPurchaseDate, OrdiniDao :: setPurchaseDate))
-				.addMappings(mp -> mp.using(toStringDate).map(Orders.OrdiniInternal :: getLastUpdateDate, OrdiniDao :: setLastUpdatedDate))
-				.addMappings(mp -> mp.using(toStringDate).map(Orders.OrdiniInternal :: getEarliestShipDate, OrdiniDao :: setEarliestsShipDate))
-				.addMappings(mp -> mp.using(toStringDate).map(Orders.OrdiniInternal :: getLatestShipDate, OrdiniDao :: setLatestShipDate));
+				.addMappings(mp -> mp.using(toStringDate).map(Orders.OrdiniInternal::getPurchaseDate,
+						OrdiniDao::setPurchaseDate))
+				.addMappings(mp -> mp.using(toStringDate).map(Orders.OrdiniInternal::getLastUpdateDate,
+						OrdiniDao::setLastUpdatedDate))
+				.addMappings(mp -> mp.using(toStringDate).map(Orders.OrdiniInternal::getEarliestShipDate,
+						OrdiniDao::setEarliestsShipDate))
+				.addMappings(mp -> mp.using(toStringDate).map(Orders.OrdiniInternal::getLatestShipDate,
+						OrdiniDao::setLatestShipDate));
 
 		return mapper.map(dto, OrdiniDao.class);
 	}
 
-
-	//--------------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------
 	// FILTERS
 
 	@Override
 	public List<OrdiniDto> findByFilters(OrdiniFilterDto filters, Pageable pageable) throws ParseException {
 
-			String amazonOrderId = filters.getAmazonOrderId();
-			String buyerEmail = filters.getBuyerEmail();
-			String purchaseDate1 = filters.getPurchaseDate();
-			String date = "1970-01-01";
+		String amazonOrderId = filters.getAmazonOrderId();
+		String buyerEmail = filters.getBuyerEmail();
+		String purchaseDate1 = filters.getPurchaseDate();
+		var date = "1970-01-01";
 
 		LocalDate purchaseDate = LocalDate.parse(date);
 		if (purchaseDate1 != null) {
@@ -177,23 +178,22 @@ public class OrdiniService implements IOrdiniService {
 		Specification<OrdiniDao> specBuyerEmail = ordiniRepository.buyerEmail(buyerEmail);
 		Specification<OrdiniDao> specPurchaseDate = ordiniRepository.purchaseDate(purchaseDateFormat);
 
-			List<OrdiniDao> ordiniDao = new ArrayList<>();
+		List<OrdiniDao> ordiniDao;
 
-			if (amazonOrderId != null) {
-				ordiniDao = ordiniRepository.findAll(specAmazonOrderId, pageable).getContent();
-			} else if (amazonOrderId == null && buyerEmail != null) {
-				specBuyerEmail.and(specPurchaseDate);
-				ordiniDao = ordiniRepository.findAll(specBuyerEmail, pageable).getContent();
-			} else {
-				ordiniDao = ordiniRepository.findAll(specPurchaseDate, pageable).getContent();
-			}
+		if (amazonOrderId != null) {
+			ordiniDao = ordiniRepository.findAll(specAmazonOrderId, pageable).getContent();
+		} else if (buyerEmail != null) {
+			specBuyerEmail.and(specPurchaseDate);
+			ordiniDao = ordiniRepository.findAll(specBuyerEmail, pageable).getContent();
+		} else {
+			ordiniDao = ordiniRepository.findAll(specPurchaseDate, pageable).getContent();
+		}
 
 		List<OrdiniDto> ordiniDto = new ArrayList<>();
 		for (OrdiniDao ordine : ordiniDao) {
 			ordiniDto.add(daoToDto(ordine));
 		}
-		return ordiniDto; //List<OrdiniDto>
+		return ordiniDto; // List<OrdiniDto>
 	}
-
 
 }
