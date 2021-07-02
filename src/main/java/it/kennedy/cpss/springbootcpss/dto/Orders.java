@@ -4,10 +4,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @Getter
@@ -20,8 +17,7 @@ public class Orders {
     @Setter
     public static class OrdiniInternal {
 
-        private static final SimpleDateFormat dateFormat
-                = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
         public String AmazonOrderId;
 

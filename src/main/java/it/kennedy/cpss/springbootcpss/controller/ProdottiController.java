@@ -4,10 +4,10 @@ import it.kennedy.cpss.springbootcpss.dto.BaseResponse;
 import it.kennedy.cpss.springbootcpss.dto.ProdottiDto;
 import it.kennedy.cpss.springbootcpss.serviceimpl.ProdottiService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,11 +28,11 @@ public class ProdottiController {
 
     // --------------------------- GET ALL PAGINATION PRODOTTI
     @GetMapping(produces = "application/json", path = "/page")
-    public BaseResponse<List<ProdottiDto>> getAllProdotti(Pageable pageable) {
+    public BaseResponse<Page<ProdottiDto>> getAllProdotti(Pageable pageable) {
 
-        BaseResponse<List<ProdottiDto>> response = new BaseResponse<>();
+        BaseResponse<Page<ProdottiDto>> response = new BaseResponse<>();
 
-        List<ProdottiDto> listDto = prodottiService.getAllPagination(pageable);
+        Page<ProdottiDto> listDto = prodottiService.getAllPagination(pageable);
 
         response.setData(listDto);
         response.setDate(new Date());
@@ -83,7 +83,7 @@ public class ProdottiController {
 
         BaseResponse<List<Boolean>> response = new BaseResponse<>();
 
-        List<Boolean> success = new ArrayList<Boolean>();
+        List<Boolean> success = new ArrayList<>();
         success.add(prodottiService.insertProdotto(dto));
 
         response.setData(success);
@@ -93,12 +93,10 @@ public class ProdottiController {
         return response;
     }
 
-
-
     // --------------------------------------------------------------- FILTERS
 
     @GetMapping(produces = "application/json", path = "/count")
-    public int count(){
+    public int count() {
         return prodottiService.count();
     }
 

@@ -6,7 +6,7 @@ import it.kennedy.cpss.springbootcpss.iservice.IProdottiService;
 import it.kennedy.cpss.springbootcpss.repository.IProdottiRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +21,10 @@ public class ProdottiService implements IProdottiService {
 
     // GET ALL PAGINATION PRODOTTI
     @Override
-    public List<ProdottiDto> getAllPagination(Pageable pageable) {
-        List<ProdottiDto> listDto = new ArrayList<>();
-        for (ProdottiDao dao : prodottiRepository.findAll(pageable)) {
-            var dto = daoToDto(dao);
-            listDto.add(dto);
-        }
-        return listDto;
+    public Page<ProdottiDto> getAllPagination(Pageable pageable) {
+        Page<ProdottiDao> pageListDto = prodottiRepository.findAll(pageable);
+
+        return pageListDto.map(this::daoToDto);
     }
 
     @Override
@@ -44,11 +41,8 @@ public class ProdottiService implements IProdottiService {
     @Override
     public ProdottiDto getByIdProdotto(String asin) {
         try {
-            ProdottiDto dto = new ProdottiDto();
-            String idString = asin + "";
             ProdottiDao dao = prodottiRepository.findByAsin(asin);
-            dto = daoToDto(dao);
-            return dto;
+            return daoToDto(dao);
         } catch (Exception e) {
             return null;
         }
@@ -56,7 +50,7 @@ public class ProdottiService implements IProdottiService {
 
     @Override
     public Boolean insertProdotto(ProdottiDto dto) {
-        ProdottiDao dao = new ProdottiDao();
+        var dao = new ProdottiDao();
         try {
             dao = dtoToDao(dto);
             prodottiRepository.save(dao);
@@ -68,20 +62,18 @@ public class ProdottiService implements IProdottiService {
 
     @Override
     public Boolean updateProdotto(ProdottiDto dto, int id) {
-        return null;
+        return false;
     }
 
     @Override
     public Boolean deleteProdotto(int id) {
-        return null;
+        return false;
     }
 
     @Override
     public int count() {
-        int count = prodottiRepository.countProdotti();
-        return count;
+        return prodottiRepository.countProdotti();
     }
-
 
     // --------------------------------------------------------------------------------------------------------------------------------
     // METHODS
