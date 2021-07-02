@@ -9,6 +9,7 @@ import it.kennedy.cpss.springbootcpss.serviceimpl.OrdiniService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -56,12 +57,11 @@ public class OrdiniController {
 
 	// --------------------------- GET ALL PAGINATION ORDINI
 	@GetMapping(produces = "application/json", path = "/page")
-	public BaseResponse<OrdiniDto> getAllOrdini(Pageable pageable) {
+	public BaseResponse<Page<OrdiniDto>> getAllOrdini(Pageable pageable) {
 
-		BaseResponse<OrdiniDto> response = new BaseResponse<>();
+		BaseResponse<Page<OrdiniDto>> response = new BaseResponse<>();
 
-
-		List<OrdiniDto> listDto = ordiniService.getAllPagination(pageable);
+		Page<OrdiniDto> listDto = ordiniService.getAllPagination(pageable);
 
 		response.setData(listDto);
 		response.setDate(new Date());
@@ -71,13 +71,13 @@ public class OrdiniController {
 		return response;
 	}
 
-	// --------------------------- GET ALL ORDINI
+	// --------------------------- GET ALL ORDINI //deprecated
 	@GetMapping(produces = "application/json", path = "/list")
-	public BaseResponse<OrdiniDto> list() {
+	public BaseResponse<List<OrdiniDto>> list() {
 
 		List<OrdiniDto> listDto = ordiniService.getAll();
 
-		BaseResponse<OrdiniDto> response = new BaseResponse<>();
+		BaseResponse<List<OrdiniDto>> response = new BaseResponse<>();
 
 		response.setData(listDto);
 		response.setDate(new Date());
@@ -89,9 +89,9 @@ public class OrdiniController {
 
 	// --------------------------- GET BY ID ORDINI
 	@GetMapping(produces = "application/json", path = "/{id}")
-	public BaseResponse<OrdiniDto> getById(@PathVariable String id) {
+	public BaseResponse<List<OrdiniDto>> getById(@PathVariable String id) {
 
-		BaseResponse<OrdiniDto> response = new BaseResponse<>();
+		BaseResponse<List<OrdiniDto>> response = new BaseResponse<>();
 
 		List<OrdiniDto> listDto = new ArrayList<>();
 		OrdiniDto ordineDto = ordiniService.findByAmazonOrderId(id);
@@ -107,7 +107,7 @@ public class OrdiniController {
 
 	// --------------------------- FILTERS API
 	@GetMapping(produces = "application/json")
-	public BaseResponse<OrdiniDto> getByFilters(
+	public BaseResponse<List<OrdiniDto>> getByFilters(
 			Pageable pageable,
 			// localhost:8090/api/ordini?page=0&size=5
 			//required = false --> non è obbligatorio l'inserimento
@@ -117,7 +117,7 @@ public class OrdiniController {
 			@RequestParam(required = false, name = "purchaseDate") String purchaseDate
 	) throws ParseException {
 
-		BaseResponse<OrdiniDto> response = new BaseResponse<>();
+		BaseResponse<List<OrdiniDto>> response = new BaseResponse<>();
 
 		//creo una val di tipo OrdiniFilteDto per passarla come oggetto al Service
 		OrdiniFilterDto filters = new OrdiniFilterDto();

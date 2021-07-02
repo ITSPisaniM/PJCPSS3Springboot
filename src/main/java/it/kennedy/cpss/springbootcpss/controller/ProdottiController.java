@@ -28,9 +28,9 @@ public class ProdottiController {
 
     // --------------------------- GET ALL PAGINATION PRODOTTI
     @GetMapping(produces = "application/json", path = "/page")
-    public BaseResponse<ProdottiDto> getAllProdotti(Pageable pageable) {
+    public BaseResponse<List<ProdottiDto>> getAllProdotti(Pageable pageable) {
 
-        BaseResponse<ProdottiDto> response = new BaseResponse<>();
+        BaseResponse<List<ProdottiDto>> response = new BaseResponse<>();
 
         List<ProdottiDto> listDto = prodottiService.getAllPagination(pageable);
 
@@ -44,11 +44,11 @@ public class ProdottiController {
 
     // --------------------------- GET ALL PRODOTTI
     @GetMapping(produces = "application/json", path = "/list")
-    public BaseResponse<ProdottiDto> list() {
+    public BaseResponse<List<ProdottiDto>> list() {
 
         List<ProdottiDto> listDto = prodottiService.getAll();
 
-        BaseResponse<ProdottiDto> response = new BaseResponse<>();
+        BaseResponse<List<ProdottiDto>> response = new BaseResponse<>();
 
         response.setData(listDto);
         response.setDate(new Date());
@@ -60,9 +60,9 @@ public class ProdottiController {
 
     // --------------------------- GET BY ID PRODOTTI
     @GetMapping(produces = "application/json", path = "/{id}")
-    public BaseResponse<ProdottiDto> getById(@PathVariable String id) {
+    public BaseResponse<List<ProdottiDto>> getById(@PathVariable String id) {
 
-        BaseResponse<ProdottiDto> response = new BaseResponse<>();
+        BaseResponse<List<ProdottiDto>> response = new BaseResponse<>();
 
         List<ProdottiDto> listDto = new ArrayList<>();
         ProdottiDto prodottoDto = prodottiService.getByIdProdotto(id);
@@ -79,9 +79,9 @@ public class ProdottiController {
 
     // --------------------------- INSERT PRODOTTI
     @PostMapping(consumes = "application/json", produces = "application/json", path = "/save")
-    public BaseResponse<Boolean> inserisci(@RequestBody ProdottiDto dto) {
+    public BaseResponse<List<Boolean>> inserisci(@RequestBody ProdottiDto dto) {
 
-        BaseResponse<Boolean> response = new BaseResponse<>();
+        BaseResponse<List<Boolean>> response = new BaseResponse<>();
 
         List<Boolean> success = new ArrayList<Boolean>();
         success.add(prodottiService.insertProdotto(dto));

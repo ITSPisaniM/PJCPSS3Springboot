@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/ordiniProdotti")
@@ -24,7 +25,7 @@ public class OrdersItemsController {
 
     // --------------------------- FILTERS API
     @GetMapping(produces = "application/json", path = "/analitics")
-    public BaseResponse< AnalisiFilterDto> getByFilters(
+    public BaseResponse<List<AnalisiFilterDto>> getByFilters(
             @RequestParam(required = false, name="StartDate") String startDate,
             @RequestParam(required = false, name="AnaliticsType") String analiticsType
             ){
@@ -38,7 +39,7 @@ public class OrdersItemsController {
             filter.setAnaliticsType(analiticsType);
         }
 
-        BaseResponse<AnalisiFilterDto> response = new BaseResponse<>();
+        BaseResponse<List<AnalisiFilterDto>> response = new BaseResponse<>();
 
         try {
             this.ordersItemsService.findByFilters(filter);
