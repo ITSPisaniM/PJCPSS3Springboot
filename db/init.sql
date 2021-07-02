@@ -62,7 +62,7 @@ CREATE TABLE public.tordersitems (
 	item_price_amount decimal(9,2) NULL,
 	shipping_price_currency_code varchar NULL,
 	shipping_price_amount decimal(9,2) NULL,
-	promotion_ids varchar NULL,
+	promotion_ids date NULL,
 	CONSTRAINT tordersitems_pk PRIMARY KEY (order_item_id),
 	CONSTRAINT torders_fk FOREIGN KEY (amazon_order_id) REFERENCES public.torders(amazon_order_id),
 	CONSTRAINT titems_fk FOREIGN KEY (asin) REFERENCES public.titems(asin)
