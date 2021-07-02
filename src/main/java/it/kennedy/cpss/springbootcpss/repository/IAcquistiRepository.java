@@ -9,4 +9,7 @@ public interface IAcquistiRepository extends JpaRepository<AcquistiDao, Integer>
 
     AcquistiDao findByPurchaseId(int id);
 
+//    @Query(value="DELETE FROM tpurchases WHERE purchase_id = ?1 ", nativeQuery = true)
+//    void deleteByPurchaseId(int id);
+
 }

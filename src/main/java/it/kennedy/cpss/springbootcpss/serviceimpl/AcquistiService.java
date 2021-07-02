@@ -1,14 +1,18 @@
 package it.kennedy.cpss.springbootcpss.serviceimpl;
 
 import it.kennedy.cpss.springbootcpss.dao.AcquistiDao;
+import it.kennedy.cpss.springbootcpss.dao.AcquistiProdottiDao;
 import it.kennedy.cpss.springbootcpss.dto.AcquistiDto;
 import it.kennedy.cpss.springbootcpss.iservice.IAcquistiService;
+import it.kennedy.cpss.springbootcpss.repository.IAcquistiProdottiRepository;
 import it.kennedy.cpss.springbootcpss.repository.IAcquistiRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,16 +23,17 @@ public class AcquistiService implements IAcquistiService {
     @Autowired
     IAcquistiRepository acquistiRepository;
 
+    @Autowired
+    IAcquistiProdottiRepository acquistiProdottiRepository;
+
+// GET ALL PAGINATION
     @Override
-    public List<AcquistiDto> getAllPagination(Pageable pageable) {
-        List<AcquistiDto> listDto = new ArrayList<>();
-        for (AcquistiDao dao : acquistiRepository.findAll(pageable)) {
-            var dto = daoToDto(dao);
-            listDto.add(dto);
-        }
-        return listDto;
+    public Page<AcquistiDto> getAllPagination(Pageable pageable) {
+        Page<AcquistiDao> pageListDao = acquistiRepository.findAll(pageable);
+        return pageListDao.map(this::daoToDto);
     }
 
+// GAT ALL LIST
     @Override
     public List<AcquistiDto> getAll() {
         List<AcquistiDao> listaDao = acquistiRepository.findAll();
@@ -40,7 +45,7 @@ public class AcquistiService implements IAcquistiService {
         return listaDto;
     }
 
-
+// GET BY ID
     @Override
     public AcquistiDto findByPurchaseId(int id) {
         try {
@@ -53,6 +58,7 @@ public class AcquistiService implements IAcquistiService {
         }
     }
 
+// INSERT
     @Override
     public Boolean insertAcquisto(AcquistiDto dto) {
         AcquistiDao dao = new AcquistiDao();
@@ -66,7 +72,7 @@ public class AcquistiService implements IAcquistiService {
         }
     }
 
-
+// UPDATE
     @Override
     public Boolean modifyAcquisto(AcquistiDto dto, int id) {
         AcquistiDao dao = acquistiRepository.getById(id);
@@ -79,13 +85,16 @@ public class AcquistiService implements IAcquistiService {
         }
     }
 
-
+// DELETE
     @Override
+    @Transactional
     public Boolean deleteAcquisto(int id) {
         try {
+            acquistiProdottiRepository.deleteByPurchaseId(id);
             acquistiRepository.deleteById(id);
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
@@ -99,6 +108,10 @@ public class AcquistiService implements IAcquistiService {
     private AcquistiDto daoToDto(AcquistiDao dao) {
         var mapper = new ModelMapper();
         AcquistiDto dto = mapper.map(dao, AcquistiDto.class);
+
+        List<AcquistiProdottiDao> acquistiprodottiDao = acquistiProdottiRepository.findByPurchaseId(dto.getPurchaseId());
+
+        dto.setAcquistiProdotti(acquistiprodottiDao);
         return dto;
     }
 
