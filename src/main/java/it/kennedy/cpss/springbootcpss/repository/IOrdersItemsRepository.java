@@ -12,6 +12,7 @@ import java.util.List;
 public interface IOrdersItemsRepository extends JpaRepository<OrdersItemsDao, Integer>{
 
     List<OrdersItemsDao> findByAmazonOrderId(String amazonOrderId);
+
     @Query(value="SELECT SUM(quantity_ordered) FROM tordersitems as oi inner join torders on oi.amazon_order_id = torders.amazon_order_id WHERE torders.purchase_date >= ?1 AND torders.purchase_date < ?2", nativeQuery = true)
     Integer totQuantita(LocalDate startDate, LocalDate endDate);
 

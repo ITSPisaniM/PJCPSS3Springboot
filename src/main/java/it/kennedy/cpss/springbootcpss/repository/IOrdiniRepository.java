@@ -13,7 +13,6 @@ import java.util.Optional;
 @Repository
 public interface IOrdiniRepository extends JpaRepository<OrdiniDao, Integer>, JpaSpecificationExecutor<OrdiniDao> {
 
-    //@Query(value = "select * from torders where amazon_order_id like \'%?1\'", nativeQuery = true)
     OrdiniDao findByAmazonOrderId(String id);
 
     @Query(value = "select * from torders order by purchase_date DESC limit 1", nativeQuery = true)
@@ -33,5 +32,6 @@ public interface IOrdiniRepository extends JpaRepository<OrdiniDao, Integer>, Jp
     }
 
 }
+
 
 
