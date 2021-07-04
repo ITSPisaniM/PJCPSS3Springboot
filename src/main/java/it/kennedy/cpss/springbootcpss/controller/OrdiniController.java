@@ -48,8 +48,8 @@ public class OrdiniController {
 
 			System.err.println(orders.Orders);
 
-			boolean success = ordiniService.insertOrders(orders.Orders); // da dichiarare il metodo
-			return "GETTING DATA: " + success;
+			//boolean success = ordiniService.insertOrders(orders.Orders); // da dichiarare il metodo
+			return "GETTING DATA: ";
 		} catch (Exception exc) {
 			return "Exception raised: " + exc;
 		}

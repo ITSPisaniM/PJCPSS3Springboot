@@ -5,9 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.kennedy.cpss.springbootcpss.dao.OrdersItemsDao;
 import it.kennedy.cpss.springbootcpss.dao.OrdiniDao;
 import it.kennedy.cpss.springbootcpss.dao.ProdottiDao;
-import it.kennedy.cpss.springbootcpss.dto.OrderItems;
-import it.kennedy.cpss.springbootcpss.dto.Orders;
-import it.kennedy.cpss.springbootcpss.dto.OrdiniDto;
+import it.kennedy.cpss.springbootcpss.dto.*;
 import it.kennedy.cpss.springbootcpss.dto.input.OrdiniFilterDto;
 import it.kennedy.cpss.springbootcpss.iservice.IOrdiniService;
 import it.kennedy.cpss.springbootcpss.repository.IOrdersItemsRepository;
@@ -83,7 +81,9 @@ public class OrdiniService implements IOrdiniService {
 
 	// INSERT ORDINI API
 	@Override
-	public Boolean insertOrders(Orders.OrdiniInternal[] orders) throws JsonProcessingException {
+	public BaseResponse<OrdiniDto> insertOrders(Orders.OrdiniInternal[] orders) throws JsonProcessingException {
+
+		BaseResponse<OrdiniDto> res = new BaseResponse<>();
 
 		/*
 		* 1. Prendo l' ultimo ordine inserito da db (tramite data -> purchase date)
@@ -102,10 +102,6 @@ public class OrdiniService implements IOrdiniService {
 						LocalDateTime apiDate = LocalDateTime.parse(k.PurchaseDate, format);
 						if(apiDate.isAfter(lastInsertedDate)) defined.add(this.dtoInternalToDao(k));
 					});
-
-			//for(OrdiniDao d : defined) this.ordiniRepository.save(d);
-
-			//return true;
 		} else {
 			for(Orders.OrdiniInternal d : orders)
 				defined.add(dtoInternalToDao(d));
@@ -120,9 +116,10 @@ public class OrdiniService implements IOrdiniService {
 		 **/
 
 		try{
-			ArrayList<ProdottiDao> prodottiList = new ArrayList<>();
-
 			for(OrdiniDao d : defined){
+				List<Errors.OrdiniError> orderErrors = new ArrayList<>();
+				ArrayList<ProdottiDao> prodottiList = new ArrayList<>();
+
 				RestTemplate restTemplate = new RestTemplate();
 				String result = restTemplate.getForObject(uri + d.getAmazonOrderId(), String.class);
 
@@ -134,18 +131,27 @@ public class OrdiniService implements IOrdiniService {
 					ProdottiDao prodotto = this.prodottiRepository.findByAsin(o.getASIN());
 
 					if(!(prodotto.getStock() > o.getQuantityOrdered()))
-						return false;
+						orderErrors.add(new Errors.OrdiniError(
+								prodotto.getTitle(),
+								o.getQuantityOrdered(),
+								d.getAmazonOrderId()
+						));
+					else{
+						prodotto.setStock(prodotto.getStock() - o.getQuantityOrdered());
+						prodottiList.add(prodotto);
+					}
+				}
 
-					prodotto.setStock(prodotto.getStock() - o.getQuantityOrdered());
+				if(orderErrors.isEmpty()){
 
-					prodottiList.add(prodotto);
 				}
 			}
 		}catch (Exception ex){
-			return false;
+ 			res = BaseResponse.generateResponse(false, new Errors(ex.getMessage(), "OrdiniService.insertOrders"));
+ 			return res;
 		}
 
-		return false;
+		return res;
 	}
 
 
