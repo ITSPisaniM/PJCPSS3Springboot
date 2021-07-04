@@ -111,7 +111,7 @@ public class OrdiniService implements IOrdiniService {
 		 * Prendo gli ordini:
 		 * 1. Per ogni ordine chiamo il servizio API per prendere gli items
 		 * 2. Controllo che ci siano abbastanza items in magazzino per completare l' ordine
-		 * 3. Creo l'oggetto orderItems e lo salvo a db
+		 * 3. Se
 		 * 4. salvo l'ordine a db
 		 **/
 
@@ -120,6 +120,7 @@ public class OrdiniService implements IOrdiniService {
 				List<Errors.OrdiniError> orderErrors = new ArrayList<>();
 				ArrayList<ProdottiDao> prodottiList = new ArrayList<>();
 
+				// 1. Per ogni ordine chiamo il servizio API per prendere gli items
 				RestTemplate restTemplate = new RestTemplate();
 				String result = restTemplate.getForObject(uri + d.getAmazonOrderId(), String.class);
 
@@ -127,6 +128,7 @@ public class OrdiniService implements IOrdiniService {
 
 				OrderItems ordersItems = mapper.readValue(result, OrderItems.class);
 
+				// 2. Controllo che ci siano abbastanza items in magazzino per completare l' ordine
 				for(OrderItems.OrdiniItemsInternal o : ordersItems.OrderItems){
 					ProdottiDao prodotto = this.prodottiRepository.findByAsin(o.getASIN());
 
@@ -143,7 +145,7 @@ public class OrdiniService implements IOrdiniService {
 				}
 
 				if(orderErrors.isEmpty()){
-
+					this.ordersItemsRepository.save(orderItemsInternalToDao());
 				}
 			}
 		}catch (Exception ex){
@@ -201,7 +203,11 @@ public class OrdiniService implements IOrdiniService {
 		return mapper.map(dto, OrdiniDao.class);
 	}
 
+	private OrdersItemsDao orderItemsInternalToDao(OrderItems.OrdiniItemsInternal dto){
+		var mapper = new ModelMapper();
 
+		return mapper.map(dto, OrdersItemsDao.class);
+	}
 	//--------------------------------------------------------------------------------------------------------------------------------
 	// FILTERS
 
