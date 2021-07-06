@@ -44,7 +44,7 @@ public class OrdersItemsService implements IOrdersItemsService {
         int quantita = 0;
         double ricavi = 00.00;
 
-        if (itemAsin.isBlank()) {
+        if (itemAsin == null) {
             try {
                 quantita = orderItemsRepository.totQuantita(startDateFormat.toLocalDate(), endDateFormat.toLocalDate());
                 ricavi = orderItemsRepository.totRicavi(startDateFormat.toLocalDate(), endDateFormat.toLocalDate());
@@ -69,7 +69,7 @@ public class OrdersItemsService implements IOrdersItemsService {
         filterDto.setQuantitaTot(quantita);
         filterDto.setRicaviTot(ricavi);
         filterDto.setStartDate(startDateFormat);
-        if (!itemAsin.isBlank()) {
+        if (itemAsin != null) {
             filterDto.setItemAsin(itemAsin);
         }
         analisiFilterDto.add(filterDto);

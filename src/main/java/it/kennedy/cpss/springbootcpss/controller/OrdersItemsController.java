@@ -24,7 +24,7 @@ public class OrdersItemsController {
     OrdersItemsService ordersItemsService;
 
     // --------------------------- FILTERS API
-    @GetMapping(produces = "application/json", path = "/analitics")
+    @GetMapping(produces = "application/json", path = "/analytics")
     public BaseResponse<List<AnalisiFilterDto>> getByFilters(
             @RequestParam(required = false, name="StartDate") String startDate,
             @RequestParam(required = false, name="ItemAsin") String itemAsin
@@ -34,9 +34,13 @@ public class OrdersItemsController {
 
         if (StringUtils.isNotBlank(startDate)) {
             filter.setStartDateS(startDate);
+        } else {
+            filter.setStartDateS(null);
         }
         if (StringUtils.isNotBlank(itemAsin)) {
             filter.setItemAsin(itemAsin);
+        } else{
+            filter.setItemAsin(null);
         }
 
         BaseResponse<List<AnalisiFilterDto>> response = new BaseResponse<>();

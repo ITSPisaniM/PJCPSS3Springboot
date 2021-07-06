@@ -65,6 +65,9 @@ public class AcquistiService implements IAcquistiService {
         try {
             dao = dtoToDao(dto);
             acquistiRepository.save(dao);
+
+
+
             return true;
         } catch (Exception e) {
 

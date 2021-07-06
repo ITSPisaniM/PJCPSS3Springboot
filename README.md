@@ -1,7 +1,17 @@
-# Gruppo3CPSS
+# Documentazione Project Work Gruppo 3 CPSS
 
-ProjectWork
-Creare una applicazione Web con le seguenti caratteristiche:
+## Indice
+1) Descrizione
+2) Come iniziare
+3) Distribuzione
+4) Utilizzo
+5) Costruito con
+6) TODO
+7) Autori
+
+***
+
+### 1) Descrizione
 
 - Una Azienda acquista degli item (TItems) da vari fornitori (TFornitori)  che poi vende esclusivamente tramite Amazon
 - Scopo dell’applicazione è aggiornare la giacenza degli item  in base ai dati delle vendite fornite da una simulazione della  Amazon Selling Partner API e in base agli acquisti fatti dai fornitori
@@ -23,3 +33,56 @@ Creare una applicazione Web con le seguenti caratteristiche:
   - Quantità totali vendute e totale ricavi per categoria e per settimana GRAFICO A COLONNE.
     * TOT_QUANTITA = (Q1 of Category1) + (Q2 of Category2) + (Q3 of Category3) + ...
     * TOT_RICAVI = (Q1 x PU1 of ItemS of Category1) + (Q2 x PU2 of ItemS of Category2) + (Q3 x PU3 of ItemS of Category3) + ...
+
+
+***
+### 2) Come iniziare
+
+
+***
+### 3) Distribuzione
+
+
+***
+### 4) Utilizzo
+
+
+***
+### 5) Costruito con
+L'applicazione "Gestione Entrate" è stata sviluppata seguendo il pattern architetturale MVC, (Modern View Controller)
+
+***
+### 6) TODO
+
+
+***
+### 7) Autori
+
+> * **Capparelli Pietro** 
+
+> * **Pisani Marco**
+
+> * **Savian Lorenzo**
+
+> * **Solivo Matteo**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
