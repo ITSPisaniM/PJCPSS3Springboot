@@ -17,7 +17,11 @@ public interface IOrdersItemsRepository extends JpaRepository<OrdersItemsDao, In
     Integer totQuantita(LocalDate startDate, LocalDate endDate);
 
     @Query(value="SELECT SUM(item_price_amount * quantity_ordered) FROM tordersitems as oi inner join torders on oi.amazon_order_id = torders.amazon_order_id WHERE torders.purchase_date >= ?1 AND torders.purchase_date < ?2", nativeQuery = true)
-    Integer totRicavi(LocalDate startDate, LocalDate endDate);
+    Double totRicavi(LocalDate startDate, LocalDate endDate);
 
+    @Query(value="SELECT SUM(quantity_ordered) FROM tordersitems as oi inner join torders on oi.amazon_order_id = torders.amazon_order_id WHERE torders.purchase_date >= ?1 AND torders.purchase_date < ?2 AND asin = ?3", nativeQuery = true)
+    Integer totQuantitaOggetto(LocalDate toLocalDate, LocalDate toLocalDate1, String itemAsin);
 
+    @Query(value="SELECT SUM(item_price_amount * quantity_ordered) FROM tordersitems as oi inner join torders on oi.amazon_order_id = torders.amazon_order_id WHERE torders.purchase_date >= ?1 AND torders.purchase_date < ?2 AND asin = ?3", nativeQuery = true)
+    Double totRicaviOggetto(LocalDate toLocalDate, LocalDate toLocalDate1, String itemAsin);
 }

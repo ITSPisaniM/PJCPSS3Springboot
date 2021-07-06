@@ -27,7 +27,7 @@ public class OrdersItemsController {
     @GetMapping(produces = "application/json", path = "/analitics")
     public BaseResponse<List<AnalisiFilterDto>> getByFilters(
             @RequestParam(required = false, name="StartDate") String startDate,
-            @RequestParam(required = false, name="AnaliticsType") String analiticsType
+            @RequestParam(required = false, name="ItemAsin") String itemAsin
             ){
 
         AnalisiFilterDto filter = new AnalisiFilterDto();
@@ -35,8 +35,8 @@ public class OrdersItemsController {
         if (StringUtils.isNotBlank(startDate)) {
             filter.setStartDateS(startDate);
         }
-        if (StringUtils.isNotBlank(analiticsType)) {
-            filter.setAnaliticsType(analiticsType);
+        if (StringUtils.isNotBlank(itemAsin)) {
+            filter.setItemAsin(itemAsin);
         }
 
         BaseResponse<List<AnalisiFilterDto>> response = new BaseResponse<>();

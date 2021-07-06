@@ -17,6 +17,6 @@ public class AnalisiFilterDto {
     public double ricaviTot; // ricavi per settimana
     public LocalDateTime startDate;
     public String startDateS;
-    public String analiticsType;
+    public String itemAsin;
 
 }
