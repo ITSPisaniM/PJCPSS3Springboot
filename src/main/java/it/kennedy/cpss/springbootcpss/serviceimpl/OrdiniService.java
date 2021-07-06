@@ -126,6 +126,7 @@ public class OrdiniService implements IOrdiniService {
 	}
 
 	// DTO TO DAO METHOD
+	@SuppressWarnings("unused")
 	private OrdiniDao dtoToDao(OrdiniDto dto) {
 		var mapper = new ModelMapper();
 		return mapper.map(dto, OrdiniDao.class);
@@ -161,14 +162,14 @@ public class OrdiniService implements IOrdiniService {
 	// FILTERS
 
 	@Override
-	public List<OrdiniDto> findByFilters(OrdiniFilterDto filters, Pageable pageable) throws ParseException {
+	public Page<OrdiniDto> findByFilters(OrdiniFilterDto filters, Pageable pageable) throws ParseException {
 
 		String amazonOrderId = filters.getAmazonOrderId();
 		String buyerEmail = filters.getBuyerEmail();
 		String purchaseDate1 = filters.getPurchaseDate();
 		var date = "1970-01-01";
 
-		LocalDate purchaseDate = LocalDate.parse(date);
+		var purchaseDate = LocalDate.parse(date);
 		if (purchaseDate1 != null) {
 			purchaseDate = LocalDate.parse(purchaseDate1);
 		}
@@ -178,22 +179,18 @@ public class OrdiniService implements IOrdiniService {
 		Specification<OrdiniDao> specBuyerEmail = ordiniRepository.buyerEmail(buyerEmail);
 		Specification<OrdiniDao> specPurchaseDate = ordiniRepository.purchaseDate(purchaseDateFormat);
 
-		List<OrdiniDao> ordiniDao;
+		Page<OrdiniDao> ordiniDao;
 
 		if (amazonOrderId != null) {
-			ordiniDao = ordiniRepository.findAll(specAmazonOrderId, pageable).getContent();
+			ordiniDao = ordiniRepository.findAll(specAmazonOrderId, pageable);
 		} else if (buyerEmail != null) {
 			specBuyerEmail.and(specPurchaseDate);
-			ordiniDao = ordiniRepository.findAll(specBuyerEmail, pageable).getContent();
+			ordiniDao = ordiniRepository.findAll(specBuyerEmail, pageable);
 		} else {
-			ordiniDao = ordiniRepository.findAll(specPurchaseDate, pageable).getContent();
+			ordiniDao = ordiniRepository.findAll(specPurchaseDate, pageable);
 		}
 
-		List<OrdiniDto> ordiniDto = new ArrayList<>();
-		for (OrdiniDao ordine : ordiniDao) {
-			ordiniDto.add(daoToDto(ordine));
-		}
-		return ordiniDto; // List<OrdiniDto>
+		return ordiniDao.map(this::daoToDto); // List<OrdiniDto>
 	}
 
 }

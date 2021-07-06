@@ -19,10 +19,8 @@ public interface IOrdiniService {
 
 	Boolean insertOrders(Orders.OrdiniInternal[] orders);
 
-	List<OrdiniDto> findByFilters(OrdiniFilterDto filter, Pageable pageable) throws ParseException;
+	Page<OrdiniDto> findByFilters(OrdiniFilterDto filter, Pageable pageable) throws ParseException;
 
-	//------------------------------------- FILTERS
-
-
+	// ------------------------------------- FILTERS
 
 }
