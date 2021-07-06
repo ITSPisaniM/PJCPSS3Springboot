@@ -124,12 +124,18 @@ public class OrdiniController {
 		//StringUtils --> dependency per controllare che una stringa non sia: null, "", " ";
 		if (StringUtils.isNotBlank(amazonOrderId)) {
 			filters.setAmazonOrderId(amazonOrderId);
+		} else {
+			filters.setAmazonOrderId(null);
 		}
 		if (StringUtils.isNotBlank(buyerEmail)) {
 			filters.setBuyerEmail(buyerEmail);
+		} else {
+			filters.setBuyerEmail(null);
 		}
 		if (StringUtils.isNotBlank(purchaseDate)) {
 			filters.setPurchaseDate(purchaseDate);
+		} else {
+			filters.setPurchaseDate(null);
 		}
 
 		response.setData(ordiniService.findByFilters(filters, pageable));

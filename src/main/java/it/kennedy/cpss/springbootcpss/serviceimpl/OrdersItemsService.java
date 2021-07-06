@@ -22,7 +22,7 @@ public class OrdersItemsService implements IOrdersItemsService {
     public List<AnalisiFilterDto> findByFilters(AnalisiFilterDto filter) throws ParseException {
 
         String startDate = filter.getStartDateS() + " 00:00:00";
-        String analiticsType = filter.getAnaliticsType();
+        String itemAsin = filter.getItemAsin();
         String defaultStartDate = "1970-01-01 00:00:00";
         String defaultEndDate = "2022-01-01 00:00:00";
 
@@ -42,9 +42,9 @@ public class OrdersItemsService implements IOrdersItemsService {
         endDateFormat = startDateFormat.plusDays(1);
 
         int quantita = 0;
-        double ricavi = 0;
+        double ricavi = 00.00;
 
-        if (analiticsType.equals("1")) {
+        if (itemAsin == null) {
             try {
                 quantita = orderItemsRepository.totQuantita(startDateFormat.toLocalDate(), endDateFormat.toLocalDate());
                 ricavi = orderItemsRepository.totRicavi(startDateFormat.toLocalDate(), endDateFormat.toLocalDate());
@@ -53,10 +53,15 @@ public class OrdersItemsService implements IOrdersItemsService {
                 quantita = 0;
                 ricavi = 0;
             }
-        } else if (analiticsType.equals("2")) {
-            // servizi per item
-        } else if (analiticsType.equals("3")) {
-            // servizi per categoria
+        } else if (!itemAsin.isBlank()) {
+            try {
+                quantita = orderItemsRepository.totQuantitaOggetto(startDateFormat.toLocalDate(), endDateFormat.toLocalDate(), itemAsin);
+                ricavi = orderItemsRepository.totRicaviOggetto(startDateFormat.toLocalDate(), endDateFormat.toLocalDate(), itemAsin);
+            }
+            catch (Exception exc) {
+                quantita = 0;
+                ricavi = 0;
+            }
         }
 
         AnalisiFilterDto filterDto = new AnalisiFilterDto();
@@ -64,7 +69,9 @@ public class OrdersItemsService implements IOrdersItemsService {
         filterDto.setQuantitaTot(quantita);
         filterDto.setRicaviTot(ricavi);
         filterDto.setStartDate(startDateFormat);
-        filterDto.setAnaliticsType(analiticsType);
+        if (itemAsin != null) {
+            filterDto.setItemAsin(itemAsin);
+        }
         analisiFilterDto.add(filterDto);
 
         startDateFormat = startDateFormat.plusDays(1);
