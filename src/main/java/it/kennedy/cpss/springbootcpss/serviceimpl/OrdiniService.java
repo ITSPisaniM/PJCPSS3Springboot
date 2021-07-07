@@ -116,9 +116,12 @@ public class OrdiniService implements IOrdiniService {
 		 **/
 
 		try{
+			List<OrdiniDao> error = new ArrayList<>();
+			Map<OrdiniDao, List<OrdersItemsDao>> ok = new HashMap<>();
+
 			for(OrdiniDao d : defined){
-				List<Errors.OrdiniError> orderErrors = new ArrayList<>();
-				ArrayList<ProdottiDao> prodottiList = new ArrayList<>();
+
+				this.ordiniRepository.save(d);
 
 				// 1. Per ogni ordine chiamo il servizio API per prendere gli items
 				RestTemplate restTemplate = new RestTemplate();
@@ -128,24 +131,15 @@ public class OrdiniService implements IOrdiniService {
 
 				OrderItems ordersItems = mapper.readValue(result, OrderItems.class);
 
+				List<OrdersItemsDao> temp = new ArrayList<>();
 				// 2. Controllo che ci siano abbastanza items in magazzino per completare l' ordine
-				for(OrderItems.OrdiniItemsInternal o : ordersItems.OrderItems){
+				for(OrderItems.OrdiniItemsInternal o : ordersItems.OrderItems) {
 					ProdottiDao prodotto = this.prodottiRepository.findByAsin(o.getASIN());
 
-					if(!(prodotto.getStock() > o.getQuantityOrdered()))
-						orderErrors.add(new Errors.OrdiniError(
-								prodotto.getTitle(),
-								o.getQuantityOrdered(),
-								d.getAmazonOrderId()
-						));
-					else{
-						prodotto.setStock(prodotto.getStock() - o.getQuantityOrdered());
-						prodottiList.add(prodotto);
-					}
-				}
+					prodotto.setStock(prodotto.getStock() - o.getQuantityOrdered());
 
-				if(orderErrors.isEmpty()){
-					this.ordersItemsRepository.save(orderItemsInternalToDao());
+					this.prodottiRepository.save(prodotto);
+					this.ordersItemsRepository.save(orderItemsInternalToDao(o));
 				}
 			}
 		}catch (Exception ex){

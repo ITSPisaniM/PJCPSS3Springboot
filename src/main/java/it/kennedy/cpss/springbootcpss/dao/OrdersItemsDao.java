@@ -58,5 +58,4 @@ public class OrdersItemsDao {
 
     @Column(name = "promotion_ids")
     private String promotionIds;
-
 }
