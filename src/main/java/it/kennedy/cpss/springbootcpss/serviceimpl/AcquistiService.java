@@ -2,10 +2,17 @@ package it.kennedy.cpss.springbootcpss.serviceimpl;
 
 import it.kennedy.cpss.springbootcpss.dao.AcquistiDao;
 import it.kennedy.cpss.springbootcpss.dao.AcquistiProdottiDao;
+import it.kennedy.cpss.springbootcpss.dao.ProdottiDao;
 import it.kennedy.cpss.springbootcpss.dto.AcquistiDto;
+import it.kennedy.cpss.springbootcpss.dto.input.AcquistiInsertDto;
 import it.kennedy.cpss.springbootcpss.iservice.IAcquistiService;
 import it.kennedy.cpss.springbootcpss.repository.IAcquistiProdottiRepository;
 import it.kennedy.cpss.springbootcpss.repository.IAcquistiRepository;
+import it.kennedy.cpss.springbootcpss.repository.IProdottiRepository;
+
+import java.time.LocalDate;
+import org.modelmapper.AbstractConverter;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,14 +21,17 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Service
 public class AcquistiService implements IAcquistiService {
 
     @Autowired
     IAcquistiRepository acquistiRepository;
+    @Autowired
+    IProdottiRepository prodottiRepository;
 
     @Autowired
     IAcquistiProdottiRepository acquistiProdottiRepository;
@@ -60,14 +70,20 @@ public class AcquistiService implements IAcquistiService {
 
 // INSERT
     @Override
-    public Boolean insertAcquisto(AcquistiDto dto) {
+    public Boolean insertAcquisto(AcquistiInsertDto dto) {
+
+        for(Map.Entry<String, Integer> k : dto.items.entrySet()){
+            ProdottiDao d = this.prodottiRepository.findByAsin(k.getKey());
+
+            d.setStock(d.getStock() + k.getValue());
+
+            this.prodottiRepository.save(d);
+        }
+
         AcquistiDao dao = new AcquistiDao();
         try {
-            dao = dtoToDao(dto);
+            dao = acquistiInsertDtoToDao(dto);
             acquistiRepository.save(dao);
-
-
-
             return true;
         } catch (Exception e) {
 
@@ -75,7 +91,7 @@ public class AcquistiService implements IAcquistiService {
         }
     }
 
-// UPDATE
+
     @Override
     public Boolean modifyAcquisto(AcquistiDto dto, int id) {
         AcquistiDao dao = acquistiRepository.getById(id);
@@ -88,7 +104,7 @@ public class AcquistiService implements IAcquistiService {
         }
     }
 
-// DELETE
+
     @Override
     @Transactional
     public Boolean deleteAcquisto(int id) {
@@ -122,8 +138,27 @@ public class AcquistiService implements IAcquistiService {
     private AcquistiDao dtoToDao(AcquistiDto dto) {
         var mapper = new ModelMapper();
         AcquistiDao dao = mapper.map(dto, AcquistiDao.class);
-        dao.setBillDate(new Date());
+        dao.setBillDate(LocalDate.now());
         return dao;
     }
 
+    private AcquistiDao acquistiInsertDtoToDao(AcquistiInsertDto dto){
+        ModelMapper modelMapper = new ModelMapper();
+
+        Converter<String, LocalDate> toStringDate = new AbstractConverter<String, LocalDate>() {
+            @Override
+            protected LocalDate convert(String source) {
+                DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate localDate = LocalDate.parse(source, format);
+                return localDate;
+            }
+        };
+
+
+        modelMapper
+                .typeMap(AcquistiInsertDto.class, AcquistiDao.class)
+                .addMappings(mp -> mp.using(toStringDate).map(AcquistiInsertDto :: getBillDate, AcquistiDao :: setBillDate));
+
+        return modelMapper.map(dto, AcquistiDao.class);
+    }
 }

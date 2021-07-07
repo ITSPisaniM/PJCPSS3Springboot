@@ -2,11 +2,15 @@ package it.kennedy.cpss.springbootcpss.dao;
 
 import lombok.Data;
 
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "tpurchases")
@@ -21,7 +25,7 @@ public class AcquistiDao {
     private int supplierId;
 
     @Column(name = "bill_date")
-    private Date billDate;
+    private LocalDate billDate;
 
     @Column(name = "bill_number")
     private int billNumber;

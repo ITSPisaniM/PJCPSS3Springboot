@@ -35,5 +35,6 @@ public class ProdottiDao {
     @Column(name = "brand")
     private String brand;
 
-
+    @Column(name = "giacenza_minima")
+    private int giacenzaMinima;
 }

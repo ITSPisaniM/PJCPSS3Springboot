@@ -5,7 +5,7 @@ import it.kennedy.cpss.springbootcpss.dto.BaseResponse;
 import it.kennedy.cpss.springbootcpss.dto.Orders;
 import it.kennedy.cpss.springbootcpss.dto.OrdiniDto;
 import it.kennedy.cpss.springbootcpss.dto.input.OrdiniFilterDto;
-import it.kennedy.cpss.springbootcpss.serviceimpl.OrdiniService;
+import it.kennedy.cpss.springbootcpss.iservice.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +27,7 @@ public class OrdiniController {
 	private String uri;
 
 	@Autowired
-	OrdiniService ordiniService;
+	IOrdiniService ordiniService;
 
 	// --------------------------- PING
 	@GetMapping(path = "/ping")
@@ -37,19 +37,17 @@ public class OrdiniController {
 
 	// --------------------------- INSERT FROM API ORDINI
 	@GetMapping(path = "/insertAPI")
-	private String insert() {
+	public String insert() {
 		try {
-			RestTemplate restTemplate = new RestTemplate();
+			var restTemplate = new RestTemplate();
 			String result = restTemplate.getForObject(uri, String.class);
 
-			ObjectMapper mapper = new ObjectMapper();
+			var mapper = new ObjectMapper();
 
-			Orders orders = mapper.readValue(result, Orders.class);
+			var orders = mapper.readValue(result, Orders.class);
 
-			System.err.println(orders.Orders);
-
-			boolean success = ordiniService.insertOrders(orders.Orders); // da dichiarare il metodo
-			return "GETTING DATA: " + success;
+			var success = ordiniService.insertOrders(orders.Orders); // da dichiarare il metodo
+			return "GETTING DATA: ";
 		} catch (Exception exc) {
 			return "Exception raised: " + exc;
 		}
@@ -107,21 +105,20 @@ public class OrdiniController {
 
 	// --------------------------- FILTERS API
 	@GetMapping(produces = "application/json")
-	public BaseResponse<List<OrdiniDto>> getByFilters(
-			Pageable pageable,
+	public BaseResponse<Page<OrdiniDto>> getByFilters(Pageable pageable,
 			// localhost:8090/api/ordini?page=0&size=5
-			//required = false --> non è obbligatorio l'inserimento
-			//name = "name" --> quello che viene fuori nell'URL nel browser
-			@RequestParam(required = false, name="amazonOrderId") String amazonOrderId,
-			@RequestParam(required = false, name ="buyerEmail") String buyerEmail,
-			@RequestParam(required = false, name = "purchaseDate") String purchaseDate
-	) throws ParseException {
+			// required = false --> non è obbligatorio l'inserimento
+			// name = "name" --> quello che viene fuori nell'URL nel browser
+			@RequestParam(required = false, name = "amazonOrderId") String amazonOrderId,
+			@RequestParam(required = false, name = "buyerEmail") String buyerEmail,
+			@RequestParam(required = false, name = "purchaseDate") String purchaseDate) throws ParseException {
 
-		BaseResponse<List<OrdiniDto>> response = new BaseResponse<>();
+		BaseResponse<Page<OrdiniDto>> response = new BaseResponse<>();
 
-		//creo una val di tipo OrdiniFilteDto per passarla come oggetto al Service
-		OrdiniFilterDto filters = new OrdiniFilterDto();
-		//StringUtils --> dependency per controllare che una stringa non sia: null, "", " ";
+		// creo una val di tipo OrdiniFilteDto per passarla come oggetto al Service
+		var filters = new OrdiniFilterDto();
+		// StringUtils ->
+		// dependency per controllare che una stringa non sia: null, "", ""
 		if (StringUtils.isNotBlank(amazonOrderId)) {
 			filters.setAmazonOrderId(amazonOrderId);
 		} else {
@@ -145,7 +142,5 @@ public class OrdiniController {
 
 		return response;
 	}
-
-
 
 }
