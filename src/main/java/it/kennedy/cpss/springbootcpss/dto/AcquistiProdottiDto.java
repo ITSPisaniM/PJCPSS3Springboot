@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AcquistiProdottiDto {
 
-    private Integer purchasesItemsId;
-
     private int purchaseId;
 
     private String asin;

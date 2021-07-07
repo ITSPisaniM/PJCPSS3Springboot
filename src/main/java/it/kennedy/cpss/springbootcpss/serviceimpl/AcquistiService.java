@@ -6,6 +6,7 @@ import it.kennedy.cpss.springbootcpss.dao.ProdottiDao;
 import it.kennedy.cpss.springbootcpss.dto.AcquistiDto;
 import it.kennedy.cpss.springbootcpss.dto.AcquistiProdottiDto;
 import it.kennedy.cpss.springbootcpss.dto.input.AcquistiInsertDto;
+import it.kennedy.cpss.springbootcpss.dto.input.ProdottoInput;
 import it.kennedy.cpss.springbootcpss.iservice.IAcquistiService;
 import it.kennedy.cpss.springbootcpss.repository.IAcquistiProdottiRepository;
 import it.kennedy.cpss.springbootcpss.repository.IAcquistiRepository;
@@ -98,22 +99,9 @@ public class AcquistiService implements IAcquistiService {
     }
 
     @Override
-    public Boolean insertPurchasesItems(List<Map<AcquistiProdottiDto, Integer>> piDto, int idAcquisto) {
+    public Boolean insertPurchasesItems(List<ProdottoInput> piDto, int idAcquisto) {
     try {
-        for(var k : piDto){
-            for (var entry : k.entrySet()) {
-                var entryDto = entry.getKey();
-                var quantita = entry.getValue();
-                AcquistiProdottiDto dto = new AcquistiProdottiDto();
-                dto.setPurchasesItemsId(idAcquisto);
-                dto.setAsin(entryDto.getAsin());
-                dto.setPurchasedAmount(entryDto.getPurchasedAmount());
-                dto.setUnitPrice(entryDto.getUnitPrice());
 
-                AcquistiProdottiDao dao = dtoToDaoPurchaseditems(dto);
-                acquistiProdottiRepository.save(dao);
-            }
-        }
         return true;
     } catch (Exception exc){
         return false;
