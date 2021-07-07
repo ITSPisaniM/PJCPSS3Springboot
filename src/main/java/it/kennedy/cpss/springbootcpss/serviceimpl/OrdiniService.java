@@ -7,7 +7,6 @@ import it.kennedy.cpss.springbootcpss.dao.OrdiniDao;
 import it.kennedy.cpss.springbootcpss.dao.ProdottiDao;
 import it.kennedy.cpss.springbootcpss.dto.*;
 import it.kennedy.cpss.springbootcpss.dto.input.OrdiniFilterDto;
-import it.kennedy.cpss.springbootcpss.iservice.IOrdiniService;
 import it.kennedy.cpss.springbootcpss.repository.IOrdersItemsRepository;
 import it.kennedy.cpss.springbootcpss.repository.IOrdiniRepository;
 import it.kennedy.cpss.springbootcpss.repository.IProdottiRepository;

@@ -4,6 +4,7 @@ import it.kennedy.cpss.springbootcpss.dao.AcquistiDao;
 import it.kennedy.cpss.springbootcpss.dao.AcquistiProdottiDao;
 import it.kennedy.cpss.springbootcpss.dao.ProdottiDao;
 import it.kennedy.cpss.springbootcpss.dto.AcquistiDto;
+import it.kennedy.cpss.springbootcpss.dto.input.AcquistiInsertDto;
 import it.kennedy.cpss.springbootcpss.iservice.IAcquistiService;
 import it.kennedy.cpss.springbootcpss.repository.IAcquistiProdottiRepository;
 import it.kennedy.cpss.springbootcpss.repository.IAcquistiRepository;
