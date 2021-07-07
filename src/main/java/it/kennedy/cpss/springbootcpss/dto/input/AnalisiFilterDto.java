@@ -1,11 +1,11 @@
 package it.kennedy.cpss.springbootcpss.dto.input;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 @Builder
 @Data
@@ -13,10 +13,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AnalisiFilterDto {
 
-    public int quantitaTot; // quantità per settimana
-    public double ricaviTot; // ricavi per settimana
-    public LocalDateTime startDate;
-    public String startDateS;
-    public String itemAsin;
+    private int quantitaTot; // quantità per settimana
+    private double ricaviTot; // ricavi per settimana
+    private LocalDateTime startDate;
+    private String startDateS;
+    private String itemAsin;
 
 }

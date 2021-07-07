@@ -1,8 +1,11 @@
 package it.kennedy.cpss.springbootcpss.dao;
 
-import lombok.Data;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import javax.persistence.*;
+import lombok.Data;
 
 @Entity
 @Table(name = "tpurchasesitems")
@@ -13,9 +16,6 @@ public class AcquistiProdottiDao {
     @Column(name = "purchases_items_id")
     private Integer purchasesItemsId;
 
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JsonIgnore
-    //@JoinColumn(name = "purchase_id", foreignKey = @ForeignKey(name = "tpurchases_fk"))
     @Column(name = "purchase_id") // non usare
     private int purchaseId;
 
@@ -27,6 +27,5 @@ public class AcquistiProdottiDao {
 
     @Column(name = "unit_price")
     private Double unitPrice;
-
 
 }

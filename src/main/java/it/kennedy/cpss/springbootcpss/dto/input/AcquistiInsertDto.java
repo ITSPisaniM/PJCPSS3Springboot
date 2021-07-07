@@ -1,15 +1,13 @@
 package it.kennedy.cpss.springbootcpss.dto.input;
 
-import lombok.Data;
-
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
+
+import lombok.Data;
 
 @Data
 public class AcquistiInsertDto {
-    public int supplierId;
-    public String billDate;
-    public int billNumber;
-    public Map<String, Integer> items;
+    private int supplierId;
+    private String billDate;
+    private int billNumber;
+    private Map<String, Integer> items;
 }

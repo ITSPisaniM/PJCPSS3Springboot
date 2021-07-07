@@ -88,8 +88,8 @@ public class AcquistiController {
         dto.setBillNumber(new Random().nextInt(100000));
 
         BaseResponse<Boolean> response = new BaseResponse<>();
-        //inserito acquisto
-        if(acquistiService.insertAcquisto(dto)){
+        // inserito acquisto
+        if (acquistiService.insertAcquisto(dto)) {
             int idAcquisto = acquistiService.getLastId();
             response.setResult(acquistiService.insertPurchasesItems(piDto));
         }
@@ -97,8 +97,6 @@ public class AcquistiController {
         response.setDate(new Date());
         response.setErrors(new ArrayList<>());
         response.setSuccess(HttpStatus.OK.value());
-
-
 
         return response;
     }
@@ -130,6 +128,5 @@ public class AcquistiController {
 
         return response;
     }
-
 
 }

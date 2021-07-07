@@ -36,14 +36,14 @@ public class AcquistiService implements IAcquistiService {
     @Autowired
     IAcquistiProdottiRepository acquistiProdottiRepository;
 
-// GET ALL PAGINATION
+    // GET ALL PAGINATION
     @Override
     public Page<AcquistiDto> getAllPagination(Pageable pageable) {
         Page<AcquistiDao> pageListDao = acquistiRepository.findAll(pageable);
         return pageListDao.map(this::daoToDto);
     }
 
-// GAT ALL LIST
+    // GAT ALL LIST
     @Override
     public List<AcquistiDto> getAll() {
         List<AcquistiDao> listaDao = acquistiRepository.findAll();
@@ -55,7 +55,7 @@ public class AcquistiService implements IAcquistiService {
         return listaDto;
     }
 
-// GET BY ID
+    // GET BY ID
     @Override
     public AcquistiDto findByPurchaseId(int id) {
         try {
@@ -68,11 +68,11 @@ public class AcquistiService implements IAcquistiService {
         }
     }
 
-// INSERT
+    // INSERT
     @Override
     public Boolean insertAcquisto(AcquistiInsertDto dto) {
 
-        for(Map.Entry<String, Integer> k : dto.items.entrySet()){
+        for (Map.Entry<String, Integer> k : dto.getItems().entrySet()) {
             ProdottiDao d = this.prodottiRepository.findByAsin(k.getKey());
 
             d.setStock(d.getStock() + k.getValue());
@@ -100,13 +100,12 @@ public class AcquistiService implements IAcquistiService {
     @Override
     public Boolean insertPurchasesItems(ProdottoInput[] piDto) {
 
-        for (int i = 0;i<piDto.length;i++){
+        for (int i = 0; i < piDto.length; i++) {
 
         }
 
         return true;
     }
-
 
     @Override
     public Boolean modifyAcquisto(AcquistiDto dto, int id) {
@@ -119,7 +118,6 @@ public class AcquistiService implements IAcquistiService {
             return false;
         }
     }
-
 
     @Override
     @Transactional
@@ -134,8 +132,6 @@ public class AcquistiService implements IAcquistiService {
         }
     }
 
-
-
     // --------------------------------------------------------------------------------------------------------------------------------
     // METHODS
 
@@ -144,7 +140,8 @@ public class AcquistiService implements IAcquistiService {
         var mapper = new ModelMapper();
         AcquistiDto dto = mapper.map(dao, AcquistiDto.class);
 
-        List<AcquistiProdottiDao> acquistiprodottiDao = acquistiProdottiRepository.findByPurchaseId(dto.getPurchaseId());
+        List<AcquistiProdottiDao> acquistiprodottiDao = acquistiProdottiRepository
+                .findByPurchaseId(dto.getPurchaseId());
 
         dto.setAcquistiProdotti(acquistiprodottiDao);
         return dto;
@@ -158,22 +155,19 @@ public class AcquistiService implements IAcquistiService {
         return dao;
     }
 
-    private AcquistiDao acquistiInsertDtoToDao(AcquistiInsertDto dto){
+    private AcquistiDao acquistiInsertDtoToDao(AcquistiInsertDto dto) {
         ModelMapper modelMapper = new ModelMapper();
 
         Converter<String, LocalDate> toStringDate = new AbstractConverter<String, LocalDate>() {
             @Override
             protected LocalDate convert(String source) {
-                DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                LocalDate localDate = LocalDate.parse(source, format);
-                return localDate;
+                var format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                return LocalDate.parse(source, format);
             }
         };
 
-
-        modelMapper
-                .typeMap(AcquistiInsertDto.class, AcquistiDao.class)
-                .addMappings(mp -> mp.using(toStringDate).map(AcquistiInsertDto :: getBillDate, AcquistiDao :: setBillDate));
+        modelMapper.typeMap(AcquistiInsertDto.class, AcquistiDao.class).addMappings(
+                mp -> mp.using(toStringDate).map(AcquistiInsertDto::getBillDate, AcquistiDao::setBillDate));
 
         return modelMapper.map(dto, AcquistiDao.class);
     }

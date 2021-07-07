@@ -1,28 +1,29 @@
 package it.kennedy.cpss.springbootcpss.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 public class OrdersItemsDto {
 
-    public String OrderItemId;
-    public String AmazonOrderId;
-    public String ASIN;
-    public String Title;
-    public String QuantityOrdered;
-    public String QuantityShipped;
-    public String PointsGrantedPointsNumber;
-    public String PointsGrantedPointsMonetaryValueCurrencyCode;
-    public String PointsGrantedPointsMonetaryValueAmount;
-    public String ItemPriceCurrencyCode;
-    public String ItemPriceAmount;
-    public String ShippingPriceCurrencyCode;
-    public String ShippingPriceAmount;
-    public String PromotionIds;
+    private String orderItemId;
+    private String amazonOrderId;
+    private String asin;
+    private String title;
+    private String quantityOrdered;
+    private String quantityShipped;
+    private String pointsGrantedPointsNumber;
+    private String pointsGrantedPointsMonetaryValueCurrencyCode;
+    private String pointsGrantedPointsMonetaryValueAmount;
+    private String itemPriceCurrencyCode;
+    private String itemPriceAmount;
+    private String shippingPriceCurrencyCode;
+    private String shippingPriceAmount;
+    private String promotionIds;
 
 }
