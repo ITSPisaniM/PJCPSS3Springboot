@@ -9,8 +9,6 @@ import it.kennedy.cpss.springbootcpss.iservice.IAcquistiService;
 import it.kennedy.cpss.springbootcpss.repository.IAcquistiProdottiRepository;
 import it.kennedy.cpss.springbootcpss.repository.IAcquistiRepository;
 import it.kennedy.cpss.springbootcpss.repository.IProdottiRepository;
-
-import java.time.LocalDate;
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
@@ -20,10 +18,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.Map;
 
 @Service
 public class AcquistiService implements IAcquistiService {
@@ -89,6 +88,12 @@ public class AcquistiService implements IAcquistiService {
 
             return false;
         }
+    }
+
+    @Override
+    public int getLastId() {
+        int idAcquisto = acquistiRepository.getLastId();
+        return idAcquisto;
     }
 
 
