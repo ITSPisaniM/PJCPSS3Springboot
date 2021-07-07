@@ -4,8 +4,8 @@ import it.kennedy.cpss.springbootcpss.dao.AcquistiDao;
 import it.kennedy.cpss.springbootcpss.dao.AcquistiProdottiDao;
 import it.kennedy.cpss.springbootcpss.dao.ProdottiDao;
 import it.kennedy.cpss.springbootcpss.dto.AcquistiDto;
+import it.kennedy.cpss.springbootcpss.dto.AcquistiProdottiDto;
 import it.kennedy.cpss.springbootcpss.dto.input.AcquistiInsertDto;
-import it.kennedy.cpss.springbootcpss.dto.input.ProdottoInput;
 import it.kennedy.cpss.springbootcpss.iservice.IAcquistiService;
 import it.kennedy.cpss.springbootcpss.repository.IAcquistiProdottiRepository;
 import it.kennedy.cpss.springbootcpss.repository.IAcquistiRepository;
@@ -98,13 +98,26 @@ public class AcquistiService implements IAcquistiService {
     }
 
     @Override
-    public Boolean insertPurchasesItems(ProdottoInput[] piDto) {
+    public Boolean insertPurchasesItems(List<Map<AcquistiProdottiDto, Integer>> piDto, int idAcquisto) {
+    try {
+        for(var k : piDto){
+            for (var entry : k.entrySet()) {
+                var entryDto = entry.getKey();
+                var quantita = entry.getValue();
+                AcquistiProdottiDto dto = new AcquistiProdottiDto();
+                dto.setPurchasesItemsId(idAcquisto);
+                dto.setAsin(entryDto.getAsin());
+                dto.setPurchasedAmount(entryDto.getPurchasedAmount());
+                dto.setUnitPrice(entryDto.getUnitPrice());
 
-        for (int i = 0;i<piDto.length;i++){
-
+                AcquistiProdottiDao dao = dtoToDaoPurchaseditems(dto);
+                acquistiProdottiRepository.save(dao);
+            }
         }
-
         return true;
+    } catch (Exception exc){
+        return false;
+    }
     }
 
 
@@ -157,6 +170,13 @@ public class AcquistiService implements IAcquistiService {
         dao.setBillDate(LocalDate.now());
         return dao;
     }
+
+    private AcquistiProdottiDao dtoToDaoPurchaseditems(AcquistiProdottiDto dto){
+        var mapper = new ModelMapper();
+        AcquistiProdottiDao dao = mapper.map(dto, AcquistiProdottiDao.class);
+        return dao;
+    }
+
 
     private AcquistiDao acquistiInsertDtoToDao(AcquistiInsertDto dto){
         ModelMapper modelMapper = new ModelMapper();

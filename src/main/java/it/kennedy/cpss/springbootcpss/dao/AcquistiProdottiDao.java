@@ -13,10 +13,7 @@ public class AcquistiProdottiDao {
     @Column(name = "purchases_items_id")
     private Integer purchasesItemsId;
 
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JsonIgnore
-    //@JoinColumn(name = "purchase_id", foreignKey = @ForeignKey(name = "tpurchases_fk"))
-    @Column(name = "purchase_id") // non usare
+    @Column(name = "purchase_id")
     private int purchaseId;
 
     @Column(name = "asin")
