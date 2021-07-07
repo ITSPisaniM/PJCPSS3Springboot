@@ -2,6 +2,7 @@ package it.kennedy.cpss.springbootcpss.iservice;
 
 import it.kennedy.cpss.springbootcpss.dto.AcquistiDto;
 import it.kennedy.cpss.springbootcpss.dto.input.AcquistiInsertDto;
+import it.kennedy.cpss.springbootcpss.dto.input.ProdottoInput;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -22,4 +23,6 @@ public interface IAcquistiService {
     Boolean insertAcquisto(AcquistiInsertDto dto);
 
     int getLastId();
+
+    Boolean insertPurchasesItems(ProdottoInput[] piDto);
 }

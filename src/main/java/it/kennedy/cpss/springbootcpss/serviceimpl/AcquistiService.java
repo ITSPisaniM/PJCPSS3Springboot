@@ -5,6 +5,7 @@ import it.kennedy.cpss.springbootcpss.dao.AcquistiProdottiDao;
 import it.kennedy.cpss.springbootcpss.dao.ProdottiDao;
 import it.kennedy.cpss.springbootcpss.dto.AcquistiDto;
 import it.kennedy.cpss.springbootcpss.dto.input.AcquistiInsertDto;
+import it.kennedy.cpss.springbootcpss.dto.input.ProdottoInput;
 import it.kennedy.cpss.springbootcpss.iservice.IAcquistiService;
 import it.kennedy.cpss.springbootcpss.repository.IAcquistiProdottiRepository;
 import it.kennedy.cpss.springbootcpss.repository.IAcquistiRepository;
@@ -94,6 +95,16 @@ public class AcquistiService implements IAcquistiService {
     public int getLastId() {
         int idAcquisto = acquistiRepository.getLastId();
         return idAcquisto;
+    }
+
+    @Override
+    public Boolean insertPurchasesItems(ProdottoInput[] piDto) {
+
+        for (int i = 0;i<piDto.length;i++){
+
+        }
+
+        return true;
     }
 
 
