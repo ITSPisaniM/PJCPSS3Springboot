@@ -22,4 +22,6 @@ public class ProdottiDto {
 
     public String brand;
 
+    public int giacenzaMinima;
+
 }

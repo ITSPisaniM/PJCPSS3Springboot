@@ -20,4 +20,6 @@ public interface IAcquistiService {
     Boolean modifyAcquisto(AcquistiDto dto, int id);
 
     Boolean insertAcquisto(AcquistiInsertDto dto);
+
+    int getLastId();
 }
