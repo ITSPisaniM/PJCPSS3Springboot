@@ -19,5 +19,5 @@ public interface IAcquistiService {
 
     Boolean modifyAcquisto(AcquistiDto dto, int id);
 
-    Boolean insertAcquisto(AcquistiDto dto);
+    Boolean insertAcquisto(AcquistiInsertDto dto);
 }

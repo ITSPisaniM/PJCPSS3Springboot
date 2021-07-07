@@ -5,7 +5,7 @@ import it.kennedy.cpss.springbootcpss.dto.BaseResponse;
 import it.kennedy.cpss.springbootcpss.dto.Orders;
 import it.kennedy.cpss.springbootcpss.dto.OrdiniDto;
 import it.kennedy.cpss.springbootcpss.dto.input.OrdiniFilterDto;
-import it.kennedy.cpss.springbootcpss.serviceimpl.OrdiniService;
+import it.kennedy.cpss.springbootcpss.iservice.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +27,7 @@ public class OrdiniController {
 	private String uri;
 
 	@Autowired
-	OrdiniService ordiniService;
+	IOrdiniService ordiniService;
 
 	// --------------------------- PING
 	@GetMapping(path = "/ping")

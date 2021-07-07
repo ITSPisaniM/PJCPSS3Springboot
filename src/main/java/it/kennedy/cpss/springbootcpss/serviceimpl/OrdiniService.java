@@ -15,14 +15,17 @@ import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
+import it.kennedy.cpss.springbootcpss.iservice.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -44,13 +47,9 @@ public class OrdiniService implements IOrdiniService {
 
 	// GET ALL PAGINATION ORDINI
 	@Override
-	public List<OrdiniDto> getAllPagination(Pageable pageable) {
-		List<OrdiniDto> listDto = new ArrayList<>();
-		for (OrdiniDao dao : ordiniRepository.findAll(pageable)) {
-			var dto = daoToDto(dao);
-			listDto.add(dto);
-		}
-		return listDto;
+	public Page<OrdiniDto> getAllPagination(Pageable pageable) {
+		Page<OrdiniDao> pageListDao = ordiniRepository.findAll(pageable);
+		return pageListDao.map(this::daoToDto);
 	}
 
 	// GET ALL ORDINI
@@ -99,7 +98,7 @@ public class OrdiniService implements IOrdiniService {
 			Arrays.stream(orders)
 					.forEach(k -> {
 						LocalDateTime apiDate = LocalDateTime.parse(k.PurchaseDate, format);
-						if(apiDate.isAfter(lastInsertedDate)) defined.add(this.dtoInternalToDao(k));
+						if(apiDate.isAfter(lastInsertedDate)) defined.add(dtoInternalToDao(k));
 					});
 		} else {
 			for(Orders.OrdiniInternal d : orders)
@@ -205,39 +204,35 @@ public class OrdiniService implements IOrdiniService {
 	// FILTERS
 
 	@Override
-	public List<OrdiniDto> findByFilters(OrdiniFilterDto filters, Pageable pageable) throws ParseException {
+	public Page<OrdiniDto> findByFilters(OrdiniFilterDto filters, Pageable pageable) throws ParseException {
 
-			String amazonOrderId = filters.getAmazonOrderId();
-			String buyerEmail = filters.getBuyerEmail();
-			String purchaseDate1 = filters.getPurchaseDate();
-			String date = "1970-01-01";
+		String amazonOrderId = filters.getAmazonOrderId();
+		String buyerEmail = filters.getBuyerEmail();
+		String purchaseDate1 = filters.getPurchaseDate();
+		var date = "1970-01-01";
 
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ITALIAN);
-		Date purchaseDate = format.parse(date);
+		var purchaseDate = LocalDate.parse(date);
 		if (purchaseDate1 != null) {
-			purchaseDate = format.parse(purchaseDate1);
+			purchaseDate = LocalDate.parse(purchaseDate1);
 		}
+		LocalDateTime purchaseDateFormat = purchaseDate.atStartOfDay();
 
 		Specification<OrdiniDao> specAmazonOrderId = ordiniRepository.amazonOrderId(amazonOrderId);
 		Specification<OrdiniDao> specBuyerEmail = ordiniRepository.buyerEmail(buyerEmail);
-		Specification<OrdiniDao> specPurchaseDate = ordiniRepository.purchaseDate(purchaseDate);
+		Specification<OrdiniDao> specPurchaseDate = ordiniRepository.purchaseDate(purchaseDateFormat);
 
-			List<OrdiniDao> ordiniDao = new ArrayList<>();
+		Page<OrdiniDao> ordiniDao;
 
-			if (amazonOrderId != null) {
-				ordiniDao = ordiniRepository.findAll(specAmazonOrderId, pageable).getContent();
-			} else if (amazonOrderId == null && buyerEmail != null) {
-				specBuyerEmail.and(specPurchaseDate);
-				ordiniDao = ordiniRepository.findAll(specBuyerEmail, pageable).getContent();
-			} else {
-				ordiniDao = ordiniRepository.findAll(specPurchaseDate, pageable).getContent();
-			}
-
-		List<OrdiniDto> ordiniDto = new ArrayList<>();
-		for (OrdiniDao ordine : ordiniDao) {
-			ordiniDto.add(daoToDto(ordine));
+		if (amazonOrderId != null) {
+			ordiniDao = ordiniRepository.findAll(specAmazonOrderId, pageable);
+		} else if (buyerEmail != null) {
+			specBuyerEmail.and(specPurchaseDate);
+			ordiniDao = ordiniRepository.findAll(specBuyerEmail, pageable);
+		} else {
+			ordiniDao = ordiniRepository.findAll(specPurchaseDate, pageable);
 		}
-		return ordiniDto; //List<OrdiniDto>
+
+		return ordiniDao.map(this::daoToDto); // List<OrdiniDto>
 	}
 
 
