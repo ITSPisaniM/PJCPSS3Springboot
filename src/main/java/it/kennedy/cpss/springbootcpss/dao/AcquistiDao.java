@@ -15,8 +15,9 @@ import lombok.Data;
 public class AcquistiDao {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "purchase_id")
-    private int purchaseId;
+    private Integer purchaseId;
 
     @Column(name = "supplier_id")
     private int supplierId;

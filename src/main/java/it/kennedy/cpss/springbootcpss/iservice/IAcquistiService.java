@@ -24,5 +24,5 @@ public interface IAcquistiService {
 
     int getLastId();
 
-    Boolean insertPurchasesItems(ProdottoInput[] piDto);
+    Boolean insertPurchasesItems(ProdottoInput piDto, int idAcquisto);
 }

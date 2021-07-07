@@ -80,20 +80,24 @@ public class AcquistiController {
 
     // --------------------------- INSERT ACQUISTI
     @PostMapping(consumes = "application/json", produces = "application/json", path = "/save")
-    public BaseResponse<Boolean> inserisci(@RequestBody ProdottoInput[] piDto) {
+    public BaseResponse<Boolean> inserisci(@RequestBody ProdottoInput acquisti) {
 
         // creo aggoetto acquisto come (dto)
         AcquistiInsertDto dto = new AcquistiInsertDto();
-        dto.setBillDate(new Date().toString());
+        dto.setBillDate(new Date());
         dto.setBillNumber(new Random().nextInt(100000));
+        dto.setSupplierId(new Random().nextInt(4));
 
         BaseResponse<Boolean> response = new BaseResponse<>();
-        // inserito acquisto
-        if (acquistiService.insertAcquisto(dto)) {
+
+        //inserito acquisto
+        Boolean success = acquistiService.insertAcquisto(dto);
+        if(success){
             int idAcquisto = acquistiService.getLastId();
-            response.setResult(acquistiService.insertPurchasesItems(piDto));
+            success = acquistiService.insertPurchasesItems(acquisti, idAcquisto);
         }
 
+        response.setData(success);
         response.setDate(new Date());
         response.setErrors(new ArrayList<>());
         response.setSuccess(HttpStatus.OK.value());

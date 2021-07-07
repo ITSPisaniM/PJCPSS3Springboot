@@ -13,10 +13,11 @@ import lombok.Data;
 public class AcquistiProdottiDao {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "purchases_items_id")
     private Integer purchasesItemsId;
 
-    @Column(name = "purchase_id") // non usare
+    @Column(name = "purchase_id")
     private int purchaseId;
 
     @Column(name = "asin")
