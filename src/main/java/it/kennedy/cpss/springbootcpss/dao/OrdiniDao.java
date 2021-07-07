@@ -27,10 +27,10 @@ public class OrdiniDao {
 	private String fullfillmentChannel;
 
 	@Column(name = "number_of_items_shipped")
-	private int numberOfItemsShipped;
+	private Integer numberOfItemsShipped;
 
 	@Column(name = "number_of_items_unshipped")
-	private int numebrOfItemsUnshipped;
+	private Integer numebrOfItemsUnshipped;
 
 	@Column(name = "payment_method")
 	private String patmentMethod;
@@ -54,19 +54,19 @@ public class OrdiniDao {
 	private LocalDateTime latestShipDate;
 
 	@Column(name = "is_business_order")
-	private boolean isBusinessOrder;
+	private Boolean isBusinessOrder;
 
 	@Column(name = "is_prime")
-	private boolean isPrime;
+	private Boolean isPrime;
 
 	@Column(name = "is_global_express_enabled")
-	private boolean isGlobalExpressEnabled;
+	private Boolean isGlobalExpressEnabled;
 
 	@Column(name = "is_premium_order")
-	private boolean isPremiumOrder;
+	private Boolean isPremiumOrder;
 
 	@Column(name = "is_sold_by_ab")
-	private boolean isSoldByAb;
+	private Boolean isSoldByAb;
 
 	@Column(name = "company_legal_name")
 	private String companyLegalName;

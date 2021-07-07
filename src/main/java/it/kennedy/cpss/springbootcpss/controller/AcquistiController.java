@@ -91,10 +91,9 @@ public class AcquistiController {
         //inserito acquisto
         if(acquistiService.insertAcquisto(dto)){
             int idAcquisto = acquistiService.getLastId();
-
+            response.setResult(acquistiService.insertPurchasesItems(piDto));
         }
 
-        response.setResult(true);
         response.setDate(new Date());
         response.setErrors(new ArrayList<>());
         response.setSuccess(HttpStatus.OK.value());
