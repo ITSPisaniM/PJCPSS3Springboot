@@ -1,12 +1,17 @@
 package it.kennedy.cpss.springbootcpss.config;
 
-import io.jsonwebtoken.*;
-import it.kennedy.cpss.springbootcpss.dao.UtentiDao;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import static java.lang.String.format;
 
 import java.util.Date;
-import static java.lang.String.format;
+
+import org.springframework.stereotype.Component;
+
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import it.kennedy.cpss.springbootcpss.dao.UtentiDao;
+import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor

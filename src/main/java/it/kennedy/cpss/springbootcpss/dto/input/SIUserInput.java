@@ -1,6 +1,9 @@
 package it.kennedy.cpss.springbootcpss.dto.input;
 
+import lombok.Data;
+
+@Data
 public class SIUserInput {
-    public String username;
-    public String password;
+    private String username;
+    private String password;
 }

@@ -1,24 +1,30 @@
 package it.kennedy.cpss.springbootcpss.controller;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.kennedy.cpss.springbootcpss.dto.BaseResponse;
-import it.kennedy.cpss.springbootcpss.dto.Orders;
-import it.kennedy.cpss.springbootcpss.dto.OrdiniDto;
-import it.kennedy.cpss.springbootcpss.dto.input.OrdiniFilterDto;
-import it.kennedy.cpss.springbootcpss.iservice.*;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import it.kennedy.cpss.springbootcpss.dto.BaseResponse;
+import it.kennedy.cpss.springbootcpss.dto.Orders;
+import it.kennedy.cpss.springbootcpss.dto.OrdiniDto;
+import it.kennedy.cpss.springbootcpss.dto.input.OrdiniFilterDto;
+import it.kennedy.cpss.springbootcpss.iservice.IOrdiniService;
 
 @RestController
 @RequestMapping(value = "api/ordini")
@@ -46,7 +52,7 @@ public class OrdiniController {
 
 			var orders = mapper.readValue(result, Orders.class);
 
-			var success = ordiniService.insertOrders(orders.Orders); // da dichiarare il metodo
+			var success = ordiniService.insertOrders(orders.getOrders());// da dichiarare il metodo
 			return "GETTING DATA: ";
 		} catch (Exception exc) {
 			return "Exception raised: " + exc;

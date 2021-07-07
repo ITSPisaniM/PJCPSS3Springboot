@@ -1,8 +1,11 @@
 package it.kennedy.cpss.springbootcpss.dao;
 
-import lombok.Data;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import javax.persistence.*;
+import lombok.Data;
 
 @Entity
 @Table(name = "tpurchasesitems")
@@ -25,6 +28,5 @@ public class AcquistiProdottiDao {
 
     @Column(name = "unit_price")
     private Double unitPrice;
-
 
 }

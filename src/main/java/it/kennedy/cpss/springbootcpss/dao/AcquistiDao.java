@@ -1,9 +1,13 @@
 package it.kennedy.cpss.springbootcpss.dao;
 
-import lombok.Data;
-
-import javax.persistence.*;
 import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import lombok.Data;
 
 @Entity
 @Table(name = "tpurchases")
@@ -23,8 +27,5 @@ public class AcquistiDao {
 
     @Column(name = "bill_number")
     private int billNumber;
-
-    //@OneToMany(mappedBy = "purchasesItemsId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    //private List<AcquistiProdottiDao> purchasesItemsId  = new ArrayList<>();
 
 }

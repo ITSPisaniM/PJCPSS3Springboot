@@ -1,27 +1,22 @@
 package it.kennedy.cpss.springbootcpss.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 public class ProdottiDto {
 
-    public String asin;
-
-    public String title;
-
-    public String category;
-
-    public Double price;
-
-    public int stock; //giacenza
-
-    public String brand;
-
-    public int giacenzaMinima;
+    private String asin;
+    private String title;
+    private String category;
+    private Double price;
+    private int stock; // giacenza
+    private String brand;
+    private int giacenzaMinima;
 
 }

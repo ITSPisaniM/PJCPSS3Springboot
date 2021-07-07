@@ -1,78 +1,44 @@
 package it.kennedy.cpss.springbootcpss.dto;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.text.SimpleDateFormat;
 
+import lombok.Data;
+
 @Data
-@Getter
-@Setter
 public class Orders {
-    public OrdiniInternal[] Orders;
+    private OrdiniInternal[] orders;
 
     @Data
-    @Getter
-    @Setter
     public static class OrdiniInternal {
 
-        private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-
-        public String AmazonOrderId;
-
-        public String PurchaseDate;
-
-        public String LastUpdateDate;
-
-        public String OrderStatus;
-
-        public String FulfillmentChannel;
-
-        public int NumberOfItemsShipped;
-
-        public int NumberOfItemsUnshipped;
-
-        public String PaymentMethod;
-
-        public String PaymentMethodDetails;
-
-        public String MarketplaceId;
-
-        public String ShipmentServiceLevelCategory;
-
-        public String OrderType;
-
-        public String EarliestShipDate;
-
-        public String LatestShipDate;
-
-        public boolean IsBusinessOrder;
-
-        public boolean IsPrime;
-
-        public boolean IsGlobalExpressEnabled;
-
-        public boolean IsPremiumOrder;
-
-        public boolean IsSoldByAB;
-
-        public String CompanyLegalName;
-
-        public String BuyerEmail;
-
-        public String BuyerName;
-
-        public String PurchaseOrderNumber;
-
-        public String ShippingAddressName;
-
-        public String ShippingAddressLine1;
-
-        public String ShippingAddressCity;
-
-        public String ShippingCityStateOrRegion;
-
-        public String ShippingStateOrRegionPostalCode;
+        private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        private String amazonOrderId;
+        private String purchaseDate;
+        private String lastUpdateDate;
+        private String orderStatus;
+        private String fulfillmentChannel;
+        private int numberOfItemsShipped;
+        private int numberOfItemsUnshipped;
+        private String paymentMethod;
+        private String paymentMethodDetails;
+        private String marketplaceId;
+        private String shipmentServiceLevelCategory;
+        private String orderType;
+        private String earliestShipDate;
+        private String latestShipDate;
+        private boolean isBusinessOrder;
+        private boolean isPrime;
+        private boolean isGlobalExpressEnabled;
+        private boolean isPremiumOrder;
+        private boolean isSoldByAB;
+        private String companyLegalName;
+        private String buyerEmail;
+        private String buyerName;
+        private String purchaseOrderNumber;
+        private String shippingAddressName;
+        private String shippingAddressLine1;
+        private String shippingAddressCity;
+        private String shippingCityStateOrRegion;
+        private String shippingStateOrRegionPostalCode;
     }
 }

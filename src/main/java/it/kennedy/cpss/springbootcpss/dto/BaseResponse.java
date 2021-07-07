@@ -1,23 +1,23 @@
 package it.kennedy.cpss.springbootcpss.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Getter
 @Setter
 public class BaseResponse<T> {
-    public T data;
-    public Date date;
-    public List<Errors> errors;
-    public int success;
-    public Boolean result;
+    private T data;
+    private Date date;
+    private List<Errors> errors;
+    private int success;
+    private Boolean result;
 
-    public static BaseResponse generateResponse(boolean result, List<Errors> errors){
-        BaseResponse res = new BaseResponse();
+    public static BaseResponse generateResponse(boolean result, List<Errors> errors) {
+        var res = new BaseResponse<>();
 
         res.result = result;
         res.date = new Date();
@@ -26,12 +26,12 @@ public class BaseResponse<T> {
         return res;
     }
 
-    public static BaseResponse generateResponse(boolean result, Errors errors){
-        BaseResponse res = new BaseResponse();
+    public static BaseResponse generateResponse(boolean result, Errors errors) {
+        var res = new BaseResponse<>();
 
         res.result = result;
         res.date = new Date();
-        res.errors = new ArrayList();
+        res.errors = new ArrayList<>();
         res.errors.add(errors);
 
         return res;

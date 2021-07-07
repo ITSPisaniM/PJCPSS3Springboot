@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OrdiniFilterDto {
 
-    public String amazonOrderId;
-    public String buyerEmail;
-    public String purchaseDate;
+    private String amazonOrderId;
+    private String buyerEmail;
+    private String purchaseDate;
 
 }

@@ -1,6 +1,5 @@
 package it.kennedy.cpss.springbootcpss.dto;
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

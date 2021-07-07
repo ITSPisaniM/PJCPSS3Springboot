@@ -89,6 +89,7 @@ public class AcquistiController {
         dto.setSupplierId(new Random().nextInt(4));
 
         BaseResponse<Boolean> response = new BaseResponse<>();
+
         //inserito acquisto
         Boolean success = acquistiService.insertAcquisto(dto);
         if(success){
@@ -131,6 +132,5 @@ public class AcquistiController {
 
         return response;
     }
-
 
 }
