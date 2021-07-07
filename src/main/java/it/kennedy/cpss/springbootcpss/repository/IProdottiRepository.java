@@ -12,4 +12,6 @@ public interface IProdottiRepository extends JpaRepository<ProdottiDao, Integer>
 
     @Query("SELECT COUNT(p) FROM ProdottiDao p")
     int countProdotti();
+
+    Integer getStockByAsin(String asin);
 }

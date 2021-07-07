@@ -46,8 +46,8 @@ public class OrdiniController {
 
 			var orders = mapper.readValue(result, Orders.class);
 
-			boolean success = ordiniService.insertOrders(orders.Orders); // da dichiarare il metodo
-			return "GETTING DATA: " + success;
+			var success = ordiniService.insertOrders(orders.Orders); // da dichiarare il metodo
+			return "GETTING DATA: ";
 		} catch (Exception exc) {
 			return "Exception raised: " + exc;
 		}
