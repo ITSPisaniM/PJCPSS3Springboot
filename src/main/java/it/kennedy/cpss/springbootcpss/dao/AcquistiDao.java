@@ -4,13 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "tpurchases")
@@ -18,8 +11,9 @@ import java.util.List;
 public class AcquistiDao {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "purchase_id")
-    private int purchaseId;
+    private Integer purchaseId;
 
     @Column(name = "supplier_id")
     private int supplierId;

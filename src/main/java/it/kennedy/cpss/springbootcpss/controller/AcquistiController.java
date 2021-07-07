@@ -1,7 +1,6 @@
 package it.kennedy.cpss.springbootcpss.controller;
 
 import it.kennedy.cpss.springbootcpss.dto.AcquistiDto;
-import it.kennedy.cpss.springbootcpss.dto.AcquistiProdottiDto;
 import it.kennedy.cpss.springbootcpss.dto.BaseResponse;
 import it.kennedy.cpss.springbootcpss.dto.input.AcquistiInsertDto;
 import it.kennedy.cpss.springbootcpss.dto.input.ProdottoInput;
@@ -12,7 +11,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 @RestController
 @RequestMapping(value = "api/acquisti")
@@ -82,21 +84,22 @@ public class AcquistiController {
 
         // creo aggoetto acquisto come (dto)
         AcquistiInsertDto dto = new AcquistiInsertDto();
-        dto.setBillDate(new Date().toString());
+        dto.setBillDate(new Date());
         dto.setBillNumber(new Random().nextInt(100000));
+        dto.setSupplierId(new Random().nextInt(4));
 
         BaseResponse<Boolean> response = new BaseResponse<>();
         //inserito acquisto
-        if(acquistiService.insertAcquisto(dto)){
+        Boolean success = acquistiService.insertAcquisto(dto);
+        if(success){
             int idAcquisto = acquistiService.getLastId();
-            //response.setResult(acquistiService.insertPurchasesItems(acquisti, idAcquisto));
+            success = acquistiService.insertPurchasesItems(acquisti, idAcquisto);
         }
 
+        response.setData(success);
         response.setDate(new Date());
         response.setErrors(new ArrayList<>());
         response.setSuccess(HttpStatus.OK.value());
-
-
 
         return response;
     }

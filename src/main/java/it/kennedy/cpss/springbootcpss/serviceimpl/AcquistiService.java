@@ -2,7 +2,6 @@ package it.kennedy.cpss.springbootcpss.serviceimpl;
 
 import it.kennedy.cpss.springbootcpss.dao.AcquistiDao;
 import it.kennedy.cpss.springbootcpss.dao.AcquistiProdottiDao;
-import it.kennedy.cpss.springbootcpss.dao.ProdottiDao;
 import it.kennedy.cpss.springbootcpss.dto.AcquistiDto;
 import it.kennedy.cpss.springbootcpss.dto.AcquistiProdottiDto;
 import it.kennedy.cpss.springbootcpss.dto.input.AcquistiInsertDto;
@@ -24,7 +23,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class AcquistiService implements IAcquistiService {
@@ -72,22 +70,15 @@ public class AcquistiService implements IAcquistiService {
 // INSERT
     @Override
     public Boolean insertAcquisto(AcquistiInsertDto dto) {
-
-        for(Map.Entry<String, Integer> k : dto.items.entrySet()){
-            ProdottiDao d = this.prodottiRepository.findByAsin(k.getKey());
-
-            d.setStock(d.getStock() + k.getValue());
-
-            this.prodottiRepository.save(d);
-        }
-
         AcquistiDao dao = new AcquistiDao();
         try {
-            dao = acquistiInsertDtoToDao(dto);
+            dao.setBillDate(LocalDate.now());
+            dao.setBillNumber(dto.getBillNumber());
+            dao.setSupplierId(dto.getSupplierId());
+
             acquistiRepository.save(dao);
             return true;
-        } catch (Exception e) {
-
+        } catch (Exception exc) {
             return false;
         }
     }
@@ -98,10 +89,29 @@ public class AcquistiService implements IAcquistiService {
         return idAcquisto;
     }
 
+    @Transactional
     @Override
-    public Boolean insertPurchasesItems(List<ProdottoInput> piDto, int idAcquisto) {
+    public Boolean insertPurchasesItems(ProdottoInput piDto, int idAcquisto) {
     try {
 
+        var listDtoProdottiInput = piDto.getProdotto();
+        for(var dto : listDtoProdottiInput){
+            AcquistiProdottiDao dao = new AcquistiProdottiDao();
+            dao.setPurchaseId(idAcquisto);
+            dao.setAsin(dto.prodotto.asin);
+            dao.setPurchasedAmount(dto.quantita);
+            dao.setUnitPrice(dto.prodotto.price);
+
+            //SALVATAGGIO PURCHASEITEM NEL DB
+            acquistiProdottiRepository.save(dao);
+
+            //OTTENIMENTO DELLA GIACENZA
+            int giacenzaProdotto = prodottiRepository.getStockByAsin(dao.getAsin());
+
+            //SETTAGGIO DELLA GIACENZA
+                giacenzaProdotto -= dao.getPurchasedAmount();
+            prodottiRepository.setStockByAsin(giacenzaProdotto, dao.getAsin());
+        }
         return true;
     } catch (Exception exc){
         return false;

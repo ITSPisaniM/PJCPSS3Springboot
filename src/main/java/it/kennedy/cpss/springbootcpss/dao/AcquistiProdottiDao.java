@@ -10,6 +10,7 @@ import javax.persistence.*;
 public class AcquistiProdottiDao {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "purchases_items_id")
     private Integer purchasesItemsId;
 
