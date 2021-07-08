@@ -43,7 +43,7 @@ La metodologia Agile favorisce anche solo un breve periodo di sviluppi, la possi
 ***
 ### 3) Distribuzione
 * L'applicazione è stata distribuita usufruendo dei servizi Azure.<br>
-E' possibile contattarla a questo [indirizzo](). ----------------------------------------------------------------------------------<br>
+E' possibile contattarla a questo [indirizzo](https://lively-sky-07b13eb03.azurestaticapps.net/).<br>
 Le credenziali di accesso sono:
     * Username: admin
     * Password: admin
