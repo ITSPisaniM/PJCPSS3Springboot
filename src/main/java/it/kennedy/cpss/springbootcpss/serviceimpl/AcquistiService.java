@@ -109,7 +109,7 @@ public class AcquistiService implements IAcquistiService {
             int giacenzaProdotto = prodottiRepository.getStockByAsin(dao.getAsin());
 
             //SETTAGGIO DELLA GIACENZA
-                giacenzaProdotto -= dao.getPurchasedAmount();
+                giacenzaProdotto += dao.getPurchasedAmount();
             prodottiRepository.setStockByAsin(giacenzaProdotto, dao.getAsin());
         }
         return true;
