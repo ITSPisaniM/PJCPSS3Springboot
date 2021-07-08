@@ -21,7 +21,7 @@ public interface IOrdiniService {
 
 	OrdiniDto findByAmazonOrderId(String id);
 
-	BaseResponse<OrdiniDto> insertOrders(Orders.OrdiniInternal[] orders) throws JsonProcessingException;
+	BaseResponse<OrdiniDto> insertOrders() throws JsonProcessingException;
 
 	Page<OrdiniDto> findByFilters(OrdiniFilterDto filter, Pageable pageable) throws ParseException;
 

@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -41,6 +42,9 @@ import it.kennedy.cpss.springbootcpss.repository.IProdottiRepository;
 
 @Service
 public class OrdiniService implements IOrdiniService {
+
+	@Value("${utils.ordiniUri}")
+	private String uriGet;
 
 	@Value("${utils.ordiniItems}")
 	private String uri;
@@ -86,9 +90,20 @@ public class OrdiniService implements IOrdiniService {
 
 	// INSERT ORDINI API
 	@Override
-	public BaseResponse<OrdiniDto> insertOrders(Orders.OrdiniInternal[] orders) throws JsonProcessingException {
+	@Async
+	public BaseResponse<OrdiniDto> insertOrders() throws JsonProcessingException {
 
 		BaseResponse<OrdiniDto> res = new BaseResponse<>();
+
+		var restTemplate = new RestTemplate();
+		String result = restTemplate.getForObject(uriGet, String.class);
+
+		var mapper = new ObjectMapper();
+
+		var generic = mapper.readValue(result, Orders.class);
+
+		var orders = generic.getOrders();
+
 
 		/*
 		 * 1. Prendo l' ultimo ordine inserito da db (tramite data -> purchase date) 2.
@@ -127,10 +142,7 @@ public class OrdiniService implements IOrdiniService {
 				this.ordiniRepository.save(d);
 
 				// 1. Per ogni ordine chiamo il servizio API per prendere gli items
-				var restTemplate = new RestTemplate();
-				String result = restTemplate.getForObject(uri + d.getAmazonOrderId(), String.class);
-
-				var mapper = new ObjectMapper();
+				result = restTemplate.getForObject(uri + d.getAmazonOrderId(), String.class);
 
 				OrderItems ordersItems = mapper.readValue(result, OrderItems.class);
 
@@ -138,7 +150,7 @@ public class OrdiniService implements IOrdiniService {
 				// 2. Controllo che ci siano abbastanza items in magazzino per completare l'
 				// ordine
 				for (OrderItems.OrdiniItemsInternal o : ordersItems.getOrderItems()) {
-					ProdottiDao prodotto = this.prodottiRepository.findByAsin(o.getAsin());
+					ProdottiDao prodotto = this.prodottiRepository.findByAsin(o.getASIN());
 
 					prodotto.setStock(prodotto.getStock() - o.getQuantityOrdered());
 

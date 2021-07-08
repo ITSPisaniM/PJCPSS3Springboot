@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.commons.lang3.StringUtils;
@@ -45,14 +46,14 @@ public class OrdiniController {
 	@GetMapping(path = "/insertAPI")
 	public String insert() {
 		try {
-			var restTemplate = new RestTemplate();
-			String result = restTemplate.getForObject(uri, String.class);
+			//var restTemplate = new RestTemplate();
+			//String result = restTemplate.getForObject(uri, String.class);
 
-			var mapper = new ObjectMapper();
+			//var mapper = new ObjectMapper();
 
-			var orders = mapper.readValue(result, Orders.class);
+			//var orders = mapper.readValue(result, Orders.class);
 
-			var success = ordiniService.insertOrders(orders.getOrders());// da dichiarare il metodo
+			var success = ordiniService.insertOrders();// da dichiarare il metodo
 			return "GETTING DATA: ";
 		} catch (Exception exc) {
 			return "Exception raised: " + exc;
@@ -61,11 +62,13 @@ public class OrdiniController {
 
 	// --------------------------- GET ALL PAGINATION ORDINI
 	@GetMapping(produces = "application/json", path = "/page")
-	public BaseResponse<Page<OrdiniDto>> getAllOrdini(Pageable pageable) {
+	public BaseResponse<Page<OrdiniDto>> getAllOrdini(Pageable pageable) throws JsonProcessingException {
 
 		BaseResponse<Page<OrdiniDto>> response = new BaseResponse<>();
 
+		var scarico = ordiniService.insertOrders();
 		Page<OrdiniDto> listDto = ordiniService.getAllPagination(pageable);
+
 
 		response.setData(listDto);
 		response.setDate(new Date());
