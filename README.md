@@ -45,8 +45,8 @@ La metodologia Agile favorisce anche solo un breve periodo di sviluppi, la possi
 * L'applicazione è stata distribuita usufruendo dei servizi Azure.<br>
 E' possibile contattarla a questo [indirizzo](). ----------------------------------------------------------------------------------<br>
 Le credenziali di accesso sono:
-* Username: admin
-* Password: admin
+    * Username: admin
+    * Password: admin
 
 ***
 ### 4) Utilizzo
@@ -72,8 +72,10 @@ Nel caso l’utente non effettuasse operazioni nell’arco dei 30 minuti di vali
 
 <br>
 L'applicazione dispone anche di altri servizi, suddivisi per Oggetto, quali:
+
 #### Utenti
 > https://projectworkpcss.azurewebsites.net/api/utente
+
 > /login
 > * Output --> Token di autenticazione univoco che garantisce l'accesso per una sessione di 30 min.
 
@@ -96,7 +98,7 @@ L'applicazione dispone anche di altri servizi, suddivisi per Oggetto, quali:
 > * Output --> Servizio che recupera un record in base all'**id** fornito.
 
 > ?page={0}&size={10}&sort={purchaseDate},{DESC}&amazonOrderId={B07D9SB7XW}&buyerEmail={aaa@gmail.com}&purchaseDate={2021-06-02}
-> * Output --> 
+> * Output -->  Servizio che restituisce dei record precisi in base ai dati che gli vengono forniti. Dotato di paginazione.
 
 #### OrdersItems
 > https://projectworkpcss.azurewebsites.net/api/ordiniProdotti
@@ -111,7 +113,7 @@ L'applicazione dispone anche di altri servizi, suddivisi per Oggetto, quali:
 > * Output --> Stringa di avvenuto successo. Backend Raggiungibile.
 
 > /page?page={0}&size={10}&sort={purchaseDate},{DESC}
-> * Output --> 
+> * Output --> Servizio che fornisce i dati al Client secondo metodo di paginazione.
 
 > /list
 > * Output --> Servizio che fornisce una lista di dati non paginata.
@@ -120,10 +122,10 @@ L'applicazione dispone anche di altri servizi, suddivisi per Oggetto, quali:
 > * Output --> Servizio che recupera un record in base all'**id** fornito.
 
 > /save
-> Output --> Servizio che si occupa di salvare un preciso record nel DB, passando dei dati.
+> * Output --> Servizio che si occupa di salvare un preciso record nel DB, passando dei dati.
 
 > /count
-> Output --> Servizio che restituisce un numero. Conta quanti prodotti sono presenti nel DB.
+> * Output --> Servizio che restituisce un numero. Conta quanti prodotti sono presenti nel DB.
 
 #### Acquisti
 > https://projectworkpcss.azurewebsites.net/api/acquisti
@@ -132,7 +134,7 @@ L'applicazione dispone anche di altri servizi, suddivisi per Oggetto, quali:
 > * Output --> Stringa di avvenuto successo. Backend Raggiungibile.
 
 > /page?page={0}&size={10}&sort={purchaseDate},{DESC}
-> * Output --> 
+> * Output --> Servizio che fornisce i dati al Client secondo metodo di paginazione.
 
 > /list
 > * Output --> Servizio che fornisce una lista di dati non paginata.
@@ -141,13 +143,13 @@ L'applicazione dispone anche di altri servizi, suddivisi per Oggetto, quali:
 > * Output --> Servizio che recupera un record in base all'**id** fornito.
 
 > /save
-> Output --> Servizio che si occupa di salvare un preciso record nel DB, passando dei dati.
+> * Output --> Servizio che si occupa di salvare un preciso record nel DB, passando dei dati.
 
 > /update/{id}
-> Output --> Servizio che si occupa di aggiornare un record preciso (con l'**id**) nel DB, passando un oggetto. 
+> * Output --> Servizio che si occupa di aggiornare un record preciso (con l'**id**) nel DB, passando un oggetto. 
 
 > /delete/{id}
-> Output --> Servizio che si occupa di eliminare un record preciso (con l'**id**) nel DB.
+> * Output --> Servizio che si occupa di eliminare un record preciso (con l'**id**) nel DB.
 
 ***
 ### 5) Costruito con
@@ -157,14 +159,28 @@ L'architettura è così formata da 3 parti:
 * Interfaccia Backend
 * Database
 <br>
-I linguaggi che sono stati impiegati per la realizzazione del **Front-end** sono: -------------------------------------------------------------------
 
-<br>
-Mentre i linguaggi con cui è stato implementato il **Back-end** sono Java e il framework Spring Boot.
-Una caratteristica molto importante del framework Spring Boot, è la presenza delle così dette, Annotation, che diminuiscono la verbosità del codice e fanno risparmiare tempo agli sviluppatori, integrando numerose funzioni, molto utili alla stesura del codice.
-Oltre a Java e Spring Boot, è stata impiegato in massiccio modo l'interfaccia JPA del framework Spring Boot
+I linguaggi che sono stati impiegati per la realizzazione del __Front-end__ sono:<br /><br />
 
-<br>
+LINGUAGGI:
+* HTML
+* TypeScript
+* SCSS
+
+FRAMEWORK:
+* Angular (framework di Google)
+
+LIBRERIE:
+* Tailwind
+* Angular Material
+* Chart.js
+
+Mentre i linguaggi con cui è stato implementato il **Back-end** sono Java e il framework Spring Boot.<br />
+Una caratteristica molto importante del framework Spring Boot, è la presenza delle così dette, Annotation, che diminuiscono la verbosità del codice e fanno risparmiare tempo agli sviluppatori, integrando numerose funzioni, molto utili alla stesura del codice.<br />
+Oltre a Java e Spring Boot, è stata impiegato in massiccio modo l'interfaccia JPA del framework Spring Boot.<br />
+Questa interfaccia, si occupa di svolgere numerosi metodi per estrarre dati dal DB, senza che l'utente programmatore si debba preoccupare di scrivere la query di interrogazione.
+<br />
+
 Il **Database** ospita PostgreSQL.<br>
 In una fase iniziale dello sviluppo, il team ha preso la decisione di creare uno script Docker per predisporre il database in locale.<br>
 Sviluppi successivi e stanziamento di risorse hanno permesso l'utilizzo di un database comune, sfruttando il software open source Jenkins in una macchina remota.
