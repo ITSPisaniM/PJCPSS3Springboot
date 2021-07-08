@@ -1,13 +1,13 @@
 package it.kennedy.cpss.springbootcpss.dto;
 
-import java.util.Date;
-import java.util.List;
-
 import it.kennedy.cpss.springbootcpss.dao.AcquistiProdottiDao;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Builder
 @Data
@@ -17,7 +17,7 @@ public class AcquistiDto {
 
     private int purchaseId;
     private int supplierId;
-    private Date billDate;
+    private LocalDate billDate;
     private int billNumber;
     private List<AcquistiProdottiDao> acquistiProdotti;
 }
