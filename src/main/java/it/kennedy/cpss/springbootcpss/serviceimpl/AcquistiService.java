@@ -98,9 +98,9 @@ public class AcquistiService implements IAcquistiService {
         for(var dto : listDtoProdottiInput){
             AcquistiProdottiDao dao = new AcquistiProdottiDao();
             dao.setPurchaseId(idAcquisto);
-            dao.setAsin(dto.prodotto.asin);
+            dao.setAsin(dto.prodotto.getAsin());
             dao.setPurchasedAmount(dto.quantita);
-            dao.setUnitPrice(dto.prodotto.price);
+            dao.setUnitPrice(dto.prodotto.getPrice());
 
             //SALVATAGGIO PURCHASEITEM NEL DB
             acquistiProdottiRepository.save(dao);
