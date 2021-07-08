@@ -72,82 +72,82 @@ Nel caso l’utente non effettuasse operazioni nell’arco dei 30 minuti di vali
 
 <br>
 L'applicazione dispone anche di altri servizi, suddivisi per Oggetto, quali:
-###### Utenti
+#### Utenti
 > https://projectworkpcss.azurewebsites.net/api/utente
 > /login
 > * Output --> Token di autenticazione univoco che garantisce l'accesso per una sessione di 30 min.
 
-###### Ordini
+#### Ordini
 > https://projectworkpcss.azurewebsites.net/api/ordini
 
 > /ping
-> * Output --> Stringa di avvenuto successo. Backend Raggiungibile
+> * Output --> Stringa di avvenuto successo. Backend Raggiungibile.
 
 > /insertAPI
-> * Output --> 
+> * Output --> Servizio che si occupa di ricevere gli ordini dei clienti e inserirli a DB.
 
 > /page?page={0}&size={10}&sort={purchaseDate},{DESC}
-> * Output --> 
+> * Output --> Servizio che fornisce i dati al Client secondo metodo di paginazione.
 
 > /list
-> * Output --> 
+> * Output --> Servizio che fornisce una lista di dati non paginata.
 
 > /{id}
-> * Output --> 
+> * Output --> Servizio che recupera un record in base all'**id** fornito.
 
 > ?page={0}&size={10}&sort={purchaseDate},{DESC}&amazonOrderId={B07D9SB7XW}&buyerEmail={aaa@gmail.com}&purchaseDate={2021-06-02}
 > * Output --> 
 
-###### OrdersItems
+#### OrdersItems
 > https://projectworkpcss.azurewebsites.net/api/ordiniProdotti
 
 > /analytics?StartDate={2021-06-02}&ItemAsin={B07D9SB7XW}
-> * Output --> 
+> * Output --> Servizio che si occupa di fornire dati statistici secondo dei parametri forniti dal Client.
 
-###### Prodotti
+#### Prodotti
 > https://projectworkpcss.azurewebsites.net/api/prodotti
 
 > /ping
-> * Output --> 
+> * Output --> Stringa di avvenuto successo. Backend Raggiungibile.
 
 > /page?page={0}&size={10}&sort={purchaseDate},{DESC}
 > * Output --> 
 
 > /list
-> * Output --> 
+> * Output --> Servizio che fornisce una lista di dati non paginata.
 
 > /{id}
-> * Output --> 
+> * Output --> Servizio che recupera un record in base all'**id** fornito.
 
 > /save
-> Output -->
+> Output --> Servizio che si occupa di salvare un preciso record nel DB, passando dei dati.
 
 > /count
-> Output -->
+> Output --> Servizio che restituisce un numero. Conta quanti prodotti sono presenti nel DB.
 
-###### Acquisti
+#### Acquisti
 > https://projectworkpcss.azurewebsites.net/api/acquisti
 
 > /ping
-> * Output --> 
+> * Output --> Stringa di avvenuto successo. Backend Raggiungibile.
 
 > /page?page={0}&size={10}&sort={purchaseDate},{DESC}
 > * Output --> 
 
 > /list
-> * Output --> 
+> * Output --> Servizio che fornisce una lista di dati non paginata.
 
 > /{id}
-> * Output --> 
+> * Output --> Servizio che recupera un record in base all'**id** fornito.
 
 > /save
-> Output -->
+> Output --> Servizio che si occupa di salvare un preciso record nel DB, passando dei dati.
 
 > /update/{id}
-> Output -->
+> Output --> Servizio che si occupa di aggiornare un record preciso (con l'**id**) nel DB, passando un oggetto. 
 
 > /delete/{id}
-> Output -->
+> Output --> Servizio che si occupa di eliminare un record preciso (con l'**id**) nel DB.
 
 ***
 ### 5) Costruito con
@@ -157,7 +157,7 @@ L'architettura è così formata da 3 parti:
 * Interfaccia Backend
 * Database
 <br>
-I linguaggi che sono stati impiegati per la realizzazione del **Front-end** sono: ----------------------------------------------------------------------------------------------
+I linguaggi che sono stati impiegati per la realizzazione del **Front-end** sono: -------------------------------------------------------------------
 
 <br>
 Mentre i linguaggi con cui è stato implementato il **Back-end** sono Java e il framework Spring Boot.
@@ -168,7 +168,6 @@ Oltre a Java e Spring Boot, è stata impiegato in massiccio modo l'interfaccia J
 Il **Database** ospita PostgreSQL.<br>
 In una fase iniziale dello sviluppo, il team ha preso la decisione di creare uno script Docker per predisporre il database in locale.<br>
 Sviluppi successivi e stanziamento di risorse hanno permesso l'utilizzo di un database comune, sfruttando il software open source Jenkins in una macchina remota.
-
 
 ***
 ### 6) Autori
