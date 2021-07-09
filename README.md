@@ -4,9 +4,10 @@
 1) Descrizione
 2) Organizzazione team work
 3) Distribuzione
-4) Utilizzo
-5) Costruito con
-6) Autori
+4) Visualizzazione
+5) Utilizzo
+6) Costruito con
+7) Autori
 
 ***
 
@@ -47,7 +48,7 @@ E' possibile contattarla a questo [indirizzo](https://lively-sky-07b13eb03.azure
 Le credenziali di accesso sono:
     * Username: admin
     * Password: admin
-
+    
 ***
 ### 4) Utilizzo
 L'applicazione è stata progettata per fornire sicurezza all'accesso e una confortevole permanenza.<br>
