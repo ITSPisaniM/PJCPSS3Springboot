@@ -50,7 +50,39 @@ Le credenziali di accesso sono:
     * Password: admin
     
 ***
-### 4) Utilizzo
+### 4) Visualizzazione
+
+##### Login
+![login](https://user-images.githubusercontent.com/59924606/125048359-1f553880-e0a0-11eb-899f-6d95ec704833.jpg)
+
+##### Ordini
+![ordini](https://user-images.githubusercontent.com/59924606/125048404-2f6d1800-e0a0-11eb-99d5-b52a200d0778.jpg)
+
+##### Dettaglio Ordini
+![ordini dettaglio](https://user-images.githubusercontent.com/59924606/125048912-b0c4aa80-e0a0-11eb-9943-6bccb9c94b37.jpg)
+
+##### Prodotti
+![prodotti](https://user-images.githubusercontent.com/59924606/125048465-3d229d80-e0a0-11eb-8fab-6c63bc1828b8.jpg)
+
+##### Dettaglio Prodotti
+![dett prodotti](https://user-images.githubusercontent.com/59924606/125048983-c3d77a80-e0a0-11eb-9cff-0244f3988a3f.jpg)
+
+##### Acquisti
+![acquisti](https://user-images.githubusercontent.com/59924606/125048476-414ebb00-e0a0-11eb-93c2-2c24c3cd36ad.jpg)
+
+##### Dettaglio Acquisti
+![acquisti dettaglio](https://user-images.githubusercontent.com/59924606/125049016-cd60e280-e0a0-11eb-9ffe-35e73b36e18d.jpg)
+
+##### Carrello
+![carrello](https://user-images.githubusercontent.com/59924606/125048530-53c8f480-e0a0-11eb-9a8b-023ca1fb4b49.jpg)
+
+##### Analisi
+![analisi](https://user-images.githubusercontent.com/59924606/125048601-62afa700-e0a0-11eb-8dee-c0cfbf6b3184.jpg)
+
+
+
+***
+### 5) Utilizzo
 L'applicazione è stata progettata per fornire sicurezza all'accesso e una confortevole permanenza.<br>
 Essa fornisce svariati servizi, ma quello che vorremmo evidenziare in primo piano è l'autenticazione.
 
@@ -153,7 +185,7 @@ L'applicazione dispone anche di altri servizi, suddivisi per Oggetto, quali:
 > * Output --> Servizio che si occupa di eliminare un record preciso (con l'**id**) nel DB.
 
 ***
-### 5) Costruito con
+### 6) Costruito con
 L'applicazione "Gestione Entrate" è stata sviluppata seguendo il pattern architetturale MVC, (Modern View Controller).
 L'architettura è così formata da 3 parti:
 * Client Frontend
@@ -187,7 +219,7 @@ In una fase iniziale dello sviluppo, il team ha preso la decisione di creare uno
 Sviluppi successivi e stanziamento di risorse hanno permesso l'utilizzo di un database comune, sfruttando il software open source Jenkins in una macchina remota.
 
 ***
-### 6) Autori
+### 7) Autori
 
 > * **Capparelli Pietro** Backend Developer Architecture Specialist
 
@@ -196,24 +228,3 @@ Sviluppi successivi e stanziamento di risorse hanno permesso l'utilizzo di un da
 > * **Savian Lorenzo** Frontend Developer UX Designer
 
 > * **Solivo Matteo** Backend Developer Project Manager (Scrum Master)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
